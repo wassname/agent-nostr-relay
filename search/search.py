@@ -51,6 +51,7 @@ RELAY_URL = os.environ.get("RELAY_URL", "ws://127.0.0.1:7777")
 SEARCH_PORT = int(os.environ.get("SEARCH_PORT", "8888"))
 MAX_DB_BYTES = 5 * 1024 * 1024 * 1024  # 5 GB rolling retention
 RELAY_DOMAIN = os.environ.get("RELAY_DOMAIN", "yourdomain.md")
+SEARCH_HOST = os.environ.get("SEARCH_HOST", "127.0.0.1")
 
 app = Flask(__name__)
 
@@ -227,10 +228,13 @@ def ws_subscriber():
         try:
             ws = websocket.create_connection(RELAY_URL, timeout=120)
             since = get_last_seen()
-            if since == 0:
-                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 30078], "limit": 1000}])
+            # Use overlap window: go back 1 hour to catch late-arriving or out-of-order events.
+            # INSERT OR IGNORE prevents duplicates.
+            if since > 0:
+                since = max(0, since - 3600)
+                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 30078], "since": since}])
             else:
-                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 30078], "since": since, "limit": 0}])
+                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 30078], "limit": 1000}])
             ws.send(req)
             print(f"[ws] subscribed since {since}", flush=True)
 
@@ -245,13 +249,20 @@ def ws_subscriber():
 
                 if msg_type == "EVENT" and len(msg) >= 3:
                     event = msg[2]
+                    ts = event.get("created_at", 0)
+                    # Reject future-dated events (client-supplied timestamp abuse)
+                    if ts > int(time.time()) + 900:
+                        print(f"[ws] rejecting future-dated event ({ts}), skipping", flush=True)
+                        continue
+                    indexed_ok = False
                     try:
                         index_event(event)
+                        indexed_ok = True
                     except Exception as e:
                         print(f"[ws] index error for event {event.get('id','?')[:16]}: {e}", flush=True)
                         traceback.print_exc()
-                    ts = event.get("created_at", 0)
-                    if ts > 0:
+                    # Only advance cursor after successful indexing
+                    if indexed_ok and ts > 0:
                         save_last_seen(ts)
 
                 elif msg_type == "EOSE":
@@ -310,17 +321,17 @@ def enforce_retention():
     print(f"[retention] DB is {db_size / 1e9:.1f}GB, cleaning...", flush=True)
     with _db_lock:
         conn = get_db()
-    deleted = 0
-    old_ids = conn.execute("SELECT id FROM events ORDER BY created_at ASC LIMIT 1000").fetchall()
-    if not old_ids:
-        return
-    for (eid,) in old_ids:
-        rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (eid,)).fetchone()
-        if rowid:
-            conn.execute("DELETE FROM event_search WHERE rowid = ?", (rowid[0],))
-        conn.execute("DELETE FROM events WHERE id = ?", (eid,))
-    deleted = len(old_ids)
-    conn.commit()
+        deleted = 0
+        old_ids = conn.execute("SELECT id FROM events ORDER BY created_at ASC LIMIT 1000").fetchall()
+        if not old_ids:
+            return
+        for (eid,) in old_ids:
+            rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (eid,)).fetchone()
+            if rowid:
+                conn.execute("DELETE FROM event_search WHERE rowid = ?", (rowid[0],))
+            conn.execute("DELETE FROM events WHERE id = ?", (eid,))
+        deleted = len(old_ids)
+        conn.commit()
     if deleted > 0:
         print(f"[retention] deleted {deleted} events", flush=True)
 
@@ -396,7 +407,7 @@ def feed():
     if not posts:
         parts.append("<p>No posts yet.</p>")
     for pid, pubkey, content, ts in posts:
-        name = names.get(pubkey, pubkey[:8])
+        name = html_escape(names.get(pubkey, pubkey[:8]))
         html = render_markdown(content)
         parts.append(f"<div class='post'><div class='meta'><a href='/p/{pid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{html}</div></div>")
     if page > 0:
@@ -423,7 +434,7 @@ def post_view(event_id):
     conn.close()
 
     def render(pid, pk, content, ts, is_reply=False):
-        name = names.get(pk, pk[:8])
+        name = html_escape(names.get(pk, pk[:8]))
         cls = "reply" if is_reply else "post"
         return f"<div class='{cls}'><div class='meta'><a href='/p/{pid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{render_markdown(content)}</div></div>"
 
@@ -462,7 +473,7 @@ def search():
              f"<form><input name='q' value='{html_escape(q)}'><button>search</button></form>",
              f"<p>{len(results)} results</p>"]
     for rid, pubkey, content, ts in results:
-        name = names.get(pubkey, pubkey[:8])
+        name = html_escape(names.get(pubkey, pubkey[:8]))
         html = render_markdown(content[:500])
         parts.append(f"<div class='post'><div class='meta'><a href='/p/{rid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{html}</div></div>")
     parts.append("</body></html>")
@@ -542,4 +553,4 @@ if __name__ == "__main__":
     init_db()
     start_subscriber()
     start_retention_thread()
-    app.run(host="127.0.0.1", port=SEARCH_PORT, debug=False)
+    app.run(host=SEARCH_HOST, port=SEARCH_PORT, debug=False)

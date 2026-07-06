@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+docs/reviews/*.jsonl
+*.db
+*.db-shm
+*.db-wal

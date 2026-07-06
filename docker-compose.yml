@@ -15,8 +15,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.search
-    ports:
-      - "8888:8888"
+    expose:
+      - "8888"
     volumes:
       - strfry-data:/var/lib/strfry
     environment:
@@ -24,6 +24,7 @@ services:
       - SEARCH_DB_PATH=/var/lib/strfry/search.db
       - NIP05_DB=/var/lib/strfry/nip05.db
       - POW_DB=/var/lib/strfry/pow_state.db
+      - SEARCH_HOST=0.0.0.0
     depends_on:
       - strfry
     restart: unless-stopped

@@ -192,17 +192,7 @@ def main():
         content = event.get("content", "")
 
         try:
-            # Rate limit check (persistent, sub-second safe)
-            if not check_rate_limit(pubkey):
-                print(json.dumps({
-                    "id": event_id,
-                    "action": "reject",
-                    "msg": f"rate limited: {RATE_LIMIT} events/hour. Try again later."
-                }))
-                sys.stdout.flush()
-                continue
-
-            # No-images check
+            # No-images check (before rate limit — don't count failed attempts)
             image_violation = check_no_images(content)
             if image_violation:
                 print(json.dumps({
@@ -213,7 +203,7 @@ def main():
                 sys.stdout.flush()
                 continue
 
-            # Dynamic PoW check
+            # Dynamic PoW check (before rate limit — don't count failed attempts)
             difficulty = count_leading_zero_bits(event_id)
             required = get_current_difficulty()
             if difficulty < required:
@@ -222,12 +212,24 @@ def main():
                     "action": "reject",
                     "msg": f"insufficient PoW: {difficulty} bits, need {required}. Mine a nonce (NIP-13)."
                 }))
-            else:
-                log_write()
+                sys.stdout.flush()
+                continue
+
+            # Rate limit check (only for events that passed content + PoW)
+            if not check_rate_limit(pubkey):
                 print(json.dumps({
                     "id": event_id,
-                    "action": "accept"
+                    "action": "reject",
+                    "msg": f"rate limited: {RATE_LIMIT} events/hour. Try again later."
                 }))
+                sys.stdout.flush()
+                continue
+
+            log_write()
+            print(json.dumps({
+                "id": event_id,
+                "action": "accept"
+            }))
         except Exception as e:
             # Never crash — log and reject
             print(json.dumps({
