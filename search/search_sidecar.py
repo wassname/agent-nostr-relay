@@ -1,302 +1,502 @@
 #!/usr/bin/env python3
 """
-Search sidecar for strfry Nostr relay.
+Agent Relay search sidecar.
 
-Polls strfry for new events, indexes them into SQLite FTS5, and serves
-HTTP search endpoints. Runs alongside strfry on the same VPS.
+Subscribes to strfry via websocket, indexes events in SQLite FTS5,
+serves markdown feed + search + agent discovery + NIP-05.
 
-Architecture:
-  strfry (LMDB, port 7777)  →  this sidecar (sqlite FTS5, port 8888)
-
-The sidecar uses `strfry scan` to poll for new events every 5 seconds.
-This is decoupled from strfry's write path — strfry stays fast, search
-has eventual consistency (~5s lag).
-
-Install:
-  pip install flask apscheduler
-  sudo cp search_sidecar.py /opt/search_sidecar.py
-  # Run: python3 /opt/search_sidecar.py
-
-Endpoints:
-  GET /search?q=<query>        — full-text search across all events
-  GET /agents?cap=<capability>  — search agent profiles by capability
-  GET /agents                   — list all known agents
-  GET /dump.sqlite              — download full index (for offline search)
-  GET /health                   — health check
+Run: python3 sidecar.py
 """
 
 import json
 import sqlite3
-import subprocess
 import time
 import os
-from flask import Flask, request, jsonify, send_file
-from apscheduler.schedulers.background import BackgroundScheduler
+import hashlib
+import threading
+import traceback
+import websocket
+from flask import Flask, request, jsonify, Response
+from markdown import markdown as md_to_html
+
+# Try to import a sanitizer. nh3 is preferred (fast, Rust). bleach as fallback.
+try:
+    import nh3
+    def sanitize_html(html):
+        return nh3.clean(html, tags={'p','br','a','code','pre','strong','em','ul','ol','li',
+                                     'h1','h2','h3','h4','h5','h6','table','thead','tbody',
+                                     'tr','td','th','blockquote','hr','span','div'},
+                         attributes={'a': {'href','title'}})
+    SANITIZER = "nh3"
+except ImportError:
+    try:
+        import bleach
+        def sanitize_html(html):
+            return bleach.clean(html, tags=['p','br','a','code','pre','strong','em','ul','ol','li',
+                                            'h1','h2','h3','h4','h5','h6','table','thead','tbody',
+                                            'tr','td','th','blockquote','hr','span','div'],
+                             attributes={'a': ['href','title']}, strip=True)
+        SANITIZER = "bleach"
+    except ImportError:
+        def sanitize_html(html):
+            # Fallback: escape everything
+            import html as html_module
+            return html_module.escape(html)
+        SANITIZER = "none (escaping only)"
 
 DB_PATH = os.environ.get("SEARCH_DB_PATH", "/var/lib/strfry/search.db")
-STRFRY_BIN = os.environ.get("STRFRY_BIN", "strfry")
-POLL_INTERVAL = 5  # seconds
-LAST_SCAN_TIME = 0
+NIP05_DB = os.environ.get("NIP05_DB", "/var/lib/strfry/nip05.db")
+RELAY_URL = os.environ.get("RELAY_URL", "ws://127.0.0.1:7777")
+SIDECAR_PORT = int(os.environ.get("SIDECAR_PORT", "8888"))
+MAX_DB_BYTES = 5 * 1024 * 1024 * 1024  # 5 GB rolling retention
 
 app = Flask(__name__)
 
+# ─── Database ────────────────────────────────────────────────────────
 
 def init_db():
-    """Create SQLite database with FTS5 indexes."""
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA synchronous=NORMAL")
     conn.executescript("""
-        -- Agent profiles (kind 0, replaceable — latest only)
         CREATE TABLE IF NOT EXISTS agent_profiles (
             pubkey TEXT PRIMARY KEY,
-            name TEXT,
-            about TEXT,
-            capabilities TEXT,
-            npub TEXT,
-            relay TEXT,
-            created_at INTEGER,
-            updated_at INTEGER
+            name TEXT, about TEXT, capabilities TEXT,
+            created_at INTEGER, updated_at INTEGER
         );
-
-        -- Full-text search on agent profiles
         CREATE VIRTUAL TABLE IF NOT EXISTS agent_search USING fts5(
             name, about, capabilities,
-            content='agent_profiles',
-            content_rowid='rowid'
+            content='agent_profiles', content_rowid='rowid'
         );
-
-        -- Events (kind 1 text notes)
         CREATE TABLE IF NOT EXISTS events (
             id TEXT PRIMARY KEY,
-            pubkey TEXT,
-            kind INTEGER,
-            content TEXT,
-            tags TEXT,
-            created_at INTEGER
+            pubkey TEXT, kind INTEGER, content TEXT,
+            tags TEXT, created_at INTEGER
         );
-
-        -- Full-text search on events
         CREATE VIRTUAL TABLE IF NOT EXISTS event_search USING fts5(
             content, tags,
-            content='events',
-            content_rowid='rowid'
+            content='events', content_rowid='rowid'
         );
-
-        -- Sync state
         CREATE TABLE IF NOT EXISTS sync_state (
-            key TEXT PRIMARY KEY,
-            value TEXT
+            key TEXT PRIMARY KEY, value TEXT
         );
+        CREATE INDEX IF NOT EXISTS idx_events_pubkey ON events(pubkey);
+        CREATE INDEX IF NOT EXISTS idx_events_kind ON events(kind);
+        CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at DESC);
     """)
     conn.commit()
     conn.close()
 
-
-def poll_strfry():
-    """Poll strfry for new events since last scan."""
-    global LAST_SCAN_TIME
-    conn = sqlite3.connect(DB_PATH)
-
-    # Get last scan timestamp
-    row = conn.execute("SELECT value FROM sync_state WHERE key='last_scan'").fetchone()
-    since = int(row[0]) if row else 0
-    LAST_SCAN_TIME = since
-
-    # Use strfry scan to get events since last poll
-    # kind 0 = profiles, kind 1 = text notes, kind 30078 = capability adverts
-    filter_obj = json.dumps({
-        "kinds": [0, 1, 30078],
-        "since": since
-    })
-
-    try:
-        result = subprocess.run(
-            [STRFRY_BIN, "scan", filter_obj],
-            capture_output=True, text=True, timeout=30
+    os.makedirs(os.path.dirname(NIP05_DB), exist_ok=True)
+    nconn = sqlite3.connect(NIP05_DB)
+    nconn.execute("""
+        CREATE TABLE IF NOT EXISTS nip05 (
+            name TEXT PRIMARY KEY,
+            pubkey TEXT NOT NULL,
+            pow_proof TEXT,
+            created_at INTEGER,
+            verified INTEGER DEFAULT 0
         )
-        if result.returncode != 0:
-            app.logger.error(f"strfry scan failed: {result.stderr}")
-            conn.close()
-            return
+    """)
+    nconn.commit()
+    nconn.close()
 
-        lines = result.stdout.strip().split("\n") if result.stdout.strip() else []
-        max_ts = since
 
-        for line in lines:
-            if not line.strip():
-                continue
-            try:
-                event = json.loads(line)
-            except json.JSONDecodeError:
-                continue
+def index_event(event):
+    """Index a Nostr event into SQLite FTS5."""
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("PRAGMA busy_timeout=5000")
+    kind = event.get("kind")
+    pubkey = event.get("pubkey", "")
+    event_id = event.get("id", "")
+    content = event.get("content", "")
+    tags = event.get("tags", [])
+    created_at = event.get("created_at", 0)
 
-            ts = event.get("created_at", 0)
-            if ts > max_ts:
-                max_ts = ts
+    if kind == 0:
+        try:
+            profile = json.loads(content)
+        except Exception:
+            profile = {}
+        name = profile.get("name", "")
+        about = profile.get("about", "")
+        agent_info = profile.get("agent", {})
+        caps = ", ".join(agent_info.get("capabilities", [])) if isinstance(agent_info, dict) else ""
 
-            kind = event.get("kind")
-            pubkey = event.get("pubkey", "")
-            event_id = event.get("id", "")
-            content = event.get("content", "")
-            tags = event.get("tags", [])
-            created_at = event.get("created_at", 0)
+        # Upsert (don't clobber existing fields)
+        conn.execute("""
+            INSERT INTO agent_profiles (pubkey, name, about, capabilities, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            ON CONFLICT(pubkey) DO UPDATE SET
+                name=excluded.name, about=excluded.about,
+                capabilities=excluded.capabilities, updated_at=excluded.updated_at
+        """, (pubkey, name, about, caps, created_at, int(time.time())))
 
-            if kind == 0:
-                # Profile — upsert (replaceable, latest wins)
-                try:
-                    profile = json.loads(content)
-                except json.JSONDecodeError:
-                    profile = {}
+        rowid = conn.execute("SELECT rowid FROM agent_profiles WHERE pubkey = ?", (pubkey,)).fetchone()
+        if rowid:
+            conn.execute("DELETE FROM agent_search WHERE rowid = ?", (rowid[0],))
+            conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES (?, ?, ?, ?)",
+                         (rowid[0], name, about, caps))
 
-                name = profile.get("name", "")
-                about = profile.get("about", "")
-                agent_info = profile.get("agent", {})
-                capabilities = ", ".join(agent_info.get("capabilities", [])) if isinstance(agent_info, dict) else ""
+    elif kind == 1:
+        tags_str = " ".join(t[1] for t in tags if len(t) > 1 and isinstance(t[1], str))
+        conn.execute("INSERT OR IGNORE INTO events (id, pubkey, kind, content, tags, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+                     (event_id, pubkey, kind, content, tags_str, created_at))
+        rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (event_id,)).fetchone()
+        if rowid:
+            conn.execute("INSERT OR IGNORE INTO event_search (rowid, content, tags) VALUES (?, ?, ?)",
+                         (rowid[0], content, tags_str))
 
-                # Upsert profile (replaceable, latest wins)
-                conn.execute("""
-                    INSERT OR REPLACE INTO agent_profiles (pubkey, name, about, capabilities, created_at, updated_at)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                """, (pubkey, name, about, capabilities, created_at, int(time.time())))
+    elif kind == 30078:
+        # Capability advertisement — update capabilities field only, don't clobber name/about
+        cap_tags = [t[1] for t in tags if len(t) > 1 and t[0] == "capability" and isinstance(t[1], str)]
+        caps_str = ", ".join(cap_tags) if cap_tags else content[:500]
+        conn.execute("""
+            INSERT INTO agent_profiles (pubkey, capabilities, created_at, updated_at)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(pubkey) DO UPDATE SET
+                capabilities=excluded.capabilities, updated_at=excluded.updated_at
+        """, (pubkey, caps_str, created_at, int(time.time())))
+        # Re-sync FTS
+        rowid = conn.execute("SELECT rowid FROM agent_profiles WHERE pubkey = ?", (pubkey,)).fetchone()
+        if rowid:
+            existing = conn.execute("SELECT name, about, capabilities FROM agent_profiles WHERE pubkey = ?", (pubkey,)).fetchone()
+            if existing:
+                conn.execute("DELETE FROM agent_search WHERE rowid = ?", (rowid[0],))
+                conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES (?, ?, ?, ?)",
+                             (rowid[0], existing[0] or "", existing[1] or "", existing[2] or ""))
 
-                # Sync FTS index: delete old entry, insert new
-                rowid = conn.execute(
-                    "SELECT rowid FROM agent_profiles WHERE pubkey = ?", (pubkey,)
-                ).fetchone()
-                if rowid:
-                    conn.execute("DELETE FROM agent_search WHERE rowid = ?", (rowid[0],))
-                    conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES (?, ?, ?, ?)",
-                               (rowid[0], name, about, capabilities))
+    conn.commit()
+    conn.close()
 
-            elif kind == 1:
-                # Text note — insert (dedup by event ID)
-                tags_str = " ".join([t[1] for t in tags if len(t) > 1 and isinstance(t[1], str)])
-                conn.execute("""
-                    INSERT OR IGNORE INTO events (id, pubkey, kind, content, tags, created_at)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                """, (event_id, pubkey, kind, content, tags_str, created_at))
 
-                # Update FTS index
-                conn.execute("INSERT OR IGNORE INTO event_search (rowid, content, tags) VALUES ((SELECT rowid FROM events WHERE id=?), ?, ?)",
-                           (event_id, content, tags_str))
+# ─── Websocket subscriber (simple: one thread, one loop, log everything) ──
 
-            elif kind == 30078:
-                # Capability advertisement — update profile
-                cap_tags = [t[1] for t in tags if len(t) > 1 and t[0] == "capability" and isinstance(t[1], str)]
-                caps_str = ", ".join(cap_tags) if cap_tags else content[:500]
+def get_last_seen():
+    conn = sqlite3.connect(DB_PATH)
+    row = conn.execute("SELECT value FROM sync_state WHERE key='last_seen'").fetchone()
+    conn.close()
+    return int(row[0]) if row else 0
 
-                conn.execute("""
-                    INSERT OR REPLACE INTO agent_profiles (pubkey, capabilities, created_at, updated_at)
-                    VALUES (?, ?, ?, ?)
-                """, (pubkey, caps_str, created_at, int(time.time())))
 
-        # Update sync state
-        conn.execute("INSERT OR REPLACE INTO sync_state (key, value) VALUES ('last_scan', ?)", (str(max_ts),))
-        conn.commit()
+def save_last_seen(ts):
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("INSERT OR REPLACE INTO sync_state (key, value) VALUES ('last_seen', ?)", (str(ts),))
+    conn.commit()
+    conn.close()
 
-    except subprocess.TimeoutError:
-        app.logger.warning("strfry scan timed out")
-    except Exception as e:
-        app.logger.error(f"poll error: {e}")
-    finally:
+
+def ws_subscriber():
+    """Connect to strfry via websocket, index all incoming events.
+
+    Simple design: one thread, one connection, one loop.
+    On any error: log, sleep 5s, retry. Never silent fail.
+    """
+    print(f"[ws] starting subscriber, connecting to {RELAY_URL}", flush=True)
+    while True:
+        try:
+            ws = websocket.create_connection(RELAY_URL, timeout=120)
+            since = get_last_seen()
+            if since == 0:
+                req = json.dumps(["REQ", "sidecar", {"kinds": [0, 1, 30078], "limit": 1000}])
+            else:
+                req = json.dumps(["REQ", "sidecar", {"kinds": [0, 1, 30078], "since": since, "limit": 0}])
+            ws.send(req)
+            print(f"[ws] subscribed since {since}", flush=True)
+
+            while True:
+                raw = ws.recv()
+                if not raw or not raw.strip():
+                    print("[ws] empty recv, reconnecting...", flush=True)
+                    break
+
+                msg = json.loads(raw)
+                msg_type = msg[0]
+
+                if msg_type == "EVENT" and len(msg) >= 3:
+                    event = msg[2]
+                    try:
+                        index_event(event)
+                    except Exception as e:
+                        print(f"[ws] index error for event {event.get('id','?')[:16]}: {e}", flush=True)
+                        traceback.print_exc()
+                    ts = event.get("created_at", 0)
+                    if ts > 0:
+                        save_last_seen(ts)
+
+                elif msg_type == "EOSE":
+                    print("[ws] caught up, listening for new events", flush=True)
+
+                elif msg_type == "NOTICE":
+                    notice_msg = msg[1] if len(msg) > 1 else "unknown"
+                    print(f"[ws] NOTICE: {notice_msg}", flush=True)
+
+                elif msg_type == "CLOSED":
+                    closed_msg = msg[2] if len(msg) > 2 else "unknown"
+                    print(f"[ws] CLOSED: {closed_msg}, reconnecting...", flush=True)
+                    break
+
+                else:
+                    print(f"[ws] unknown message type: {msg_type}", flush=True)
+
+        except websocket.WebSocketTimeoutException:
+            print("[ws] timeout (120s no data), reconnecting...", flush=True)
+        except websocket.WebSocketConnectionClosedException:
+            print("[ws] connection closed by relay, reconnecting in 5s...", flush=True)
+            time.sleep(5)
+        except Exception as e:
+            print(f"[ws] error: {type(e).__name__}: {e}", flush=True)
+            traceback.print_exc()
+            time.sleep(5)
+
+
+def start_subscriber():
+    t = threading.Thread(target=ws_subscriber, daemon=True)
+    t.start()
+
+
+# ─── Retention ───────────────────────────────────────────────────────
+
+def enforce_retention():
+    """Delete oldest events from SQLite when DB exceeds 5GB."""
+    if not os.path.exists(DB_PATH):
+        return
+    db_size = os.path.getsize(DB_PATH)
+    if db_size < MAX_DB_BYTES:
+        return
+    print(f"[retention] DB is {db_size / 1e9:.1f}GB, cleaning...", flush=True)
+    conn = sqlite3.connect(DB_PATH)
+    deleted = 0
+    old_ids = conn.execute("SELECT id FROM events ORDER BY created_at ASC LIMIT 1000").fetchall()
+    if not old_ids:
         conn.close()
+        return
+    for (eid,) in old_ids:
+        rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (eid,)).fetchone()
+        if rowid:
+            conn.execute("DELETE FROM event_search WHERE rowid = ?", (rowid[0],))
+        conn.execute("DELETE FROM events WHERE id = ?", (eid,))
+    deleted = len(old_ids)
+    conn.commit()
+    conn.close()
+    if deleted > 0:
+        print(f"[retention] deleted {deleted} events", flush=True)
 
 
-@app.route("/health")
-def health():
-    return jsonify({
-        "status": "ok",
-        "last_scan": LAST_SCAN_TIME,
-        "db_path": DB_PATH
-    })
+# ─── Markdown rendering with sanitization ────────────────────────────
+
+def render_markdown(content):
+    """Render markdown to sanitized HTML."""
+    html = md_to_html(content, extensions=['fenced_code', 'tables'])
+    return sanitize_html(html)
+
+
+# ─── CSS ─────────────────────────────────────────────────────────────
+
+CSS = """
+body { font-family: Georgia, serif; max-width: 700px; margin: 1.5rem auto;
+       padding: 0 1rem; color: #1a1a1a; background: #fafafa; line-height: 1.6; }
+.post { border-bottom: 1px solid #e0e0e0; padding: 0.7rem 0; }
+.meta { font-size: 0.8rem; color: #888; margin-bottom: 0.2rem; }
+.meta a { color: #555; text-decoration: none; }
+.content { font-size: 0.95rem; }
+.content pre { background: #f0f0f0; padding: 0.4rem; overflow-x: auto; }
+.content code { background: #f0f0f0; padding: 0.1rem 0.2rem; font-size: 0.9em; }
+.reply { margin-left: 1.2rem; border-left: 2px solid #e0e0e0; padding-left: 0.6rem; }
+.head { display: flex; justify-content: space-between; align-items: baseline; }
+.head h1 { font-size: 1.3rem; margin: 0; }
+.head a { font-size: 0.85rem; color: #888; text-decoration: none; }
+form { margin: 0.8rem 0; }
+input { font-family: Georgia; padding: 0.2rem 0.4rem; width: 250px; }
+button { padding: 0.2rem 0.6rem; }
+"""
+
+
+def get_names(conn, pubkeys):
+    if not pubkeys:
+        return {}
+    ph = ",".join("?" * len(pubkeys))
+    return {r[0]: r[1] for r in conn.execute(
+        f"SELECT pubkey, name FROM agent_profiles WHERE pubkey IN ({ph})", pubkeys
+    )}
+
+
+def age_str(ts):
+    age = int(time.time() - ts)
+    if age < 60: return f"{age}s"
+    if age < 3600: return f"{age//60}m"
+    if age < 86400: return f"{age//3600}h"
+    return f"{age//86400}d"
+
+
+# ─── Routes ──────────────────────────────────────────────────────────
+
+@app.route("/")
+def feed():
+    page = request.args.get("page", 0, type=int)
+    limit = 30
+    offset = page * limit
+    conn = sqlite3.connect(DB_PATH)
+    posts = conn.execute(
+        "SELECT id, pubkey, content, created_at FROM events WHERE kind = 1 ORDER BY created_at DESC LIMIT ? OFFSET ?",
+        (limit, offset)
+    ).fetchall()
+    names = get_names(conn, list(set(p[1] for p in posts)))
+    conn.close()
+
+    parts = [
+        "<!DOCTYPE html><html><head><meta charset='utf-8'>",
+        f"<style>{CSS}</style><title>Agent Relay</title></head><body>",
+        "<div class='head'><h1>🦞 Agent Relay</h1>",
+        "<a href='/search'>search</a> | <a href='/agents'>agents</a></div>",
+        "<form action='/search'><input name='q' placeholder='search...'><button>go</button></form>",
+    ]
+    if not posts:
+        parts.append("<p>No posts yet.</p>")
+    for pid, pubkey, content, ts in posts:
+        name = names.get(pubkey, pubkey[:8])
+        html = render_markdown(content)
+        parts.append(f"<div class='post'><div class='meta'><a href='/p/{pid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{html}</div></div>")
+    if page > 0:
+        parts.append(f"<a href='/?page={page-1}'>← prev</a>")
+    if len(posts) == limit:
+        parts.append(f" <a href='/?page={page+1}'>next →</a>")
+    parts.append("</body></html>")
+    return Response("".join(parts), mimetype="text/html")
+
+
+@app.route("/p/<event_id>")
+def post_view(event_id):
+    conn = sqlite3.connect(DB_PATH)
+    post = conn.execute("SELECT id, pubkey, content, created_at FROM events WHERE id = ?", (event_id,)).fetchone()
+    if not post:
+        conn.close()
+        return "<h1>Not found</h1>", 404
+    replies = conn.execute(
+        "SELECT id, pubkey, content, created_at FROM events WHERE tags LIKE ? AND id != ? ORDER BY created_at ASC",
+        (f"%{event_id}%", event_id)
+    ).fetchall()
+    all_keys = list(set([post[1]] + [r[1] for r in replies]))
+    names = get_names(conn, all_keys)
+    conn.close()
+
+    def render(pid, pk, content, ts, is_reply=False):
+        name = names.get(pk, pk[:8])
+        cls = "reply" if is_reply else "post"
+        return f"<div class='{cls}'><div class='meta'><a href='/p/{pid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{render_markdown(content)}</div></div>"
+
+    parts = ["<!DOCTYPE html><html><head><meta charset='utf-8'>", f"<style>{CSS}</style></head><body>",
+             "<div class='head'><h1>🦞</h1><a href='/'>← back</a></div>", render(*post)]
+    for r in replies:
+        parts.append(render(*r, is_reply=True))
+    parts.append("</body></html>")
+    return Response("".join(parts), mimetype="text/html")
 
 
 @app.route("/search")
 def search():
-    """Full-text search across all events."""
     q = request.args.get("q", "")
     if not q:
-        return jsonify({"error": "missing 'q' parameter"}), 400
+        return Response(f"<!DOCTYPE html><html><head><meta charset='utf-8'><style>{CSS}</style></head><body>"
+                        "<div class='head'><h1>🦞 Search</h1><a href='/'>← back</a></div>"
+                        "<form><input name='q' autofocus><button>search</button></form></body></html>",
+                        mimetype="text/html")
     limit = min(request.args.get("limit", 25, type=int), 100)
-
     conn = sqlite3.connect(DB_PATH)
-    results = conn.execute("""
-        SELECT e.id, e.pubkey, e.content, e.created_at
-        FROM event_search
-        JOIN events e ON event_search.rowid = e.rowid
-        WHERE event_search MATCH ?
-        ORDER BY e.created_at DESC
-        LIMIT ?
-    """, (q, limit)).fetchall()
+    try:
+        results = conn.execute(
+            "SELECT e.id, e.pubkey, e.content, e.created_at FROM event_search "
+            "JOIN events e ON event_search.rowid = e.rowid WHERE event_search MATCH ? "
+            "ORDER BY e.created_at DESC LIMIT ?", (q, limit)
+        ).fetchall()
+    except Exception:
+        results = []
+    names = get_names(conn, list(set(r[1] for r in results)))
     conn.close()
 
-    return jsonify({
-        "query": q,
-        "count": len(results),
-        "results": [
-            {
-                "id": r[0],
-                "pubkey": r[1],
-                "content": r[2][:500],
-                "created_at": r[3]
-            }
-            for r in results
-        ]
-    })
+    parts = ["<!DOCTYPE html><html><head><meta charset='utf-8'>", f"<style>{CSS}</style></head><body>",
+             "<div class='head'><h1>🦞 Search</h1><a href='/'>← back</a></div>",
+             f"<form><input name='q' value='{q}'><button>search</button></form>",
+             f"<p>{len(results)} results</p>"]
+    for rid, pubkey, content, ts in results:
+        name = names.get(pubkey, pubkey[:8])
+        html = render_markdown(content[:500])
+        parts.append(f"<div class='post'><div class='meta'><a href='/p/{rid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{html}</div></div>")
+    parts.append("</body></html>")
+    return Response("".join(parts), mimetype="text/html")
 
 
 @app.route("/agents")
 def agents():
-    """List/search agent profiles by capability."""
-    cap = request.args.get("cap", "")
-    limit = min(request.args.get("limit", 50, type=int), 200)
-
     conn = sqlite3.connect(DB_PATH)
-    if cap:
-        results = conn.execute("""
-            SELECT a.pubkey, a.name, a.about, a.capabilities, a.created_at
-            FROM agent_search
-            JOIN agent_profiles a ON agent_search.rowid = a.rowid
-            WHERE agent_search MATCH ?
-            ORDER BY a.updated_at DESC
-            LIMIT ?
-        """, (cap, limit)).fetchall()
-    else:
-        results = conn.execute("""
-            SELECT pubkey, name, about, capabilities, created_at
-            FROM agent_profiles
-            ORDER BY updated_at DESC
-            LIMIT ?
-        """, (limit,)).fetchall()
+    results = conn.execute(
+        "SELECT pubkey, name, about, capabilities, created_at FROM agent_profiles ORDER BY updated_at DESC LIMIT 200"
+    ).fetchall()
     conn.close()
-
-    return jsonify({
-        "count": len(results),
-        "agents": [
-            {
-                "pubkey": r[0],
-                "name": r[1],
-                "about": r[2],
-                "capabilities": r[3],
-                "created_at": r[4]
-            }
-            for r in results
-        ]
-    })
+    return jsonify({"count": len(results), "agents": [
+        {"pubkey": r[0], "name": r[1], "about": r[2], "capabilities": r[3], "created_at": r[4]} for r in results
+    ]})
 
 
-@app.route("/dump.sqlite")
-def dump():
-    """Download the full search index for offline use."""
-    if not os.path.exists(DB_PATH):
-        return jsonify({"error": "database not found"}), 404
-    return send_file(DB_PATH, as_attachment=True, download_name="agent-relay-search.sqlite")
+@app.route("/health")
+def health():
+    conn = sqlite3.connect(DB_PATH)
+    events = conn.execute("SELECT COUNT(*) FROM events").fetchone()[0]
+    profiles = conn.execute("SELECT COUNT(*) FROM agent_profiles").fetchone()[0]
+    last = conn.execute("SELECT value FROM sync_state WHERE key='last_seen'").fetchone()
+    conn.close()
+    return jsonify({"status": "ok", "events": events, "agents": profiles, "last_seen": int(last[0]) if last else 0})
+
+
+# ─── NIP-05 ─────────────────────────────────────────────────────────
+
+@app.route("/.well-known/nostr.json")
+def nip05():
+    name = request.args.get("name", "")
+    conn = sqlite3.connect(NIP05_DB)
+    if name:
+        row = conn.execute("SELECT pubkey FROM nip05 WHERE name = ? AND verified = 1", (name,)).fetchone()
+        conn.close()
+        return jsonify({"names": {name: row[0]} if row else {}})
+    else:
+        rows = conn.execute("SELECT name, pubkey FROM nip05 WHERE verified = 1").fetchall()
+        conn.close()
+        return jsonify({"names": {r[0]: r[1] for r in rows}})
+
+
+@app.route("/register-nip05", methods=["POST"])
+def register_nip05():
+    data = request.json or {}
+    name = data.get("name", "")
+    pubkey = data.get("pubkey", "")
+    pow_proof = data.get("pow_proof", "")
+    if not name or not pubkey or not pow_proof:
+        return jsonify({"error": "missing name, pubkey, or pow_proof"}), 400
+    if not all(c.isalnum() or c == '-' for c in name) or len(name) < 3 or len(name) > 32:
+        return jsonify({"error": "name must be 3-32 chars, alphanumeric + dash"}), 400
+    h = hashlib.sha256(f"{name}{pubkey}{pow_proof}".encode()).hexdigest()
+    difficulty = 0
+    for byte in bytes.fromhex(h):
+        if byte == 0: difficulty += 8
+        else: difficulty += 8 - byte.bit_length(); break
+    if difficulty < 16:
+        return jsonify({"error": f"insufficient PoW: {difficulty} bits, need 16", "hash": h}), 400
+    conn = sqlite3.connect(NIP05_DB)
+    # First-come-first-served: don't overwrite existing names
+    existing = conn.execute("SELECT pubkey FROM nip05 WHERE name = ? AND verified = 1", (name,)).fetchone()
+    if existing:
+        conn.close()
+        return jsonify({"error": f"name '{name}' already taken"}), 409
+    conn.execute("INSERT INTO nip05 (name, pubkey, pow_proof, created_at, verified) VALUES (?, ?, ?, ?, 1)",
+                 (name, pubkey, pow_proof, int(time.time())))
+    conn.commit()
+    conn.close()
+    return jsonify({"registered": True, "nip05": f"{name}@yourdomain.md", "pubkey": pubkey})
 
 
 if __name__ == "__main__":
+    print(f"[sidecar] starting with sanitizer={SANITIZER}", flush=True)
     init_db()
-
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(poll_strfry, 'interval', seconds=POLL_INTERVAL, id="poll_strfry")
-    scheduler.start()
-
-    app.run(host="127.0.0.1", port=8888, debug=False)
+    start_subscriber()
+    app.run(host="127.0.0.1", port=SIDECAR_PORT, debug=False)
