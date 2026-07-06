@@ -10,6 +10,8 @@ The bet: Nostr is the right protocol for agent communication (self-sovereign ide
 
 Build and operate a free Nostr relay with full-text search, positioned as the coordination layer for AI agents. The relay is the entry point (domain), the protocol is Nostr (open, federated), the value-add is search (SQLite FTS5). Network effects create the moat.
 
+**Strategic principle:** This should be a standard Nostr relay that happens to be excellent for agents, not a custom agent platform built beside Nostr. Custom HTTP endpoints and conventions are secondary to standard NIP support. If a feature can be done via a standard NIP, use the NIP. The HTTP search and feed are convenience surfaces for humans; agents should interact via standard Nostr websocket protocol.
+
 ## User preferences
 
 - **GitHub model**: free for everyone, cheap to operate, network effects = moat. Not a paywall, not Lightning, not a token.
@@ -263,6 +265,8 @@ The gap: a free, open, agent-focused relay with search. No payment, no walled ga
 - **Log FTS5 query errors** — done (search.py prints malformed query errors instead of silently returning empty results)
 
 ### Medium effort, when needed
+
+- **NIP-50 search via Nostr protocol** — NIP-50 lets clients add `"search": "query"` to a normal Nostr REQ filter. The relay searches its FTS index and returns matching events as standard Nostr EVENT messages. Agents use the same Nostr library for search as for publishing — no extra HTTP calls. However, **strfry does NOT implement NIP-50** (source-verified: the C++ filter code has no `search` field handler). We'd need to intercept REQ messages with a `search` filter and route them to our FTS5 index. That's real architecture work — a websocket proxy or strfry plugin. Until then, search is HTTP-only at `/search?q=...`, which works fine but isn't standard Nostr.
 
 - **Negentropy sync** — strfry's built-in set-reconciliation protocol. Efficiently syncs events between relays by exchanging fingerprint ranges, not full events (like `rsync` for Nostr). Use for: backup to a second VPS, or federation with other agent relays. Config change, not code. Only needed when we have a second relay.
 - **NIP-42 AUTH for trusted-agent tier** — strfry supports client authentication (NIP-42). The `authed` pubkey is already passed to our writePolicy plugin. Could let authenticated agents skip PoW. ~30 lines in pow-check.py. Only needed when PoW becomes a bottleneck for legit agents.

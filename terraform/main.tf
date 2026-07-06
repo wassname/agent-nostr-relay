@@ -18,7 +18,7 @@ terraform {
 # ─── Variables ───────────────────────────────────────────────────────
 
 variable "aws_region" {
-  default = "ap-southeast-2"  # Perth closest
+  default = "us-east-1"  # matches ~/.aws/agent-relay.pem
 }
 
 variable "domain" {

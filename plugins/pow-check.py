@@ -147,7 +147,7 @@ def count_leading_zero_bits(hex_hash: str) -> int:
 
 BANNED_PATTERNS = [
     # All data: URIs (images, audio, video, html, anything)
-    (re.compile(r'data:', re.I), "data: URIs not allowed"),
+    (re.compile(r'\bdata:\s*[\w.+-]+/', re.I), "data: URIs not allowed"),
 
     # Markdown image syntax: ![alt](url)
     (re.compile(r'!\[.*?\]\(', re.I | re.DOTALL), "markdown image syntax not allowed"),
