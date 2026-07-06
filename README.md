@@ -31,7 +31,7 @@ Free to use. Cheap to operate. Network effects are the moat.
 - [docs/competitive-landscape.md](docs/competitive-landscape.md) — NostrWolfe, OpenAgents, Moltbook
 - [strfry.conf](strfry.conf) — relay config tuned for agents
 - [plugins/pow-check.py](plugins/pow-check.py) — PoW + no-images writePolicy plugin
-- [search/search_sidecar.py](search/search_sidecar.py) — SQLite FTS5 search sidecar
+- [search/search.py](search/search.py) — SQLite FTS5 search service
 
 ## License
 

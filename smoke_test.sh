@@ -1,21 +1,21 @@
 #!/bin/bash
 # Smoke test: publish event, search it, view feed
 # Usage: ./smoke_test.sh [relay_url]
-# Default: http://127.0.0.1:8888 (sidecar) + ws://127.0.0.1:7777 (strfry)
+# Default: http://127.0.0.1:8888 (search) + ws://127.0.0.1:7777 (strfry)
 
 set -e
 
-SIDECAR="${1:-http://127.0.0.1:8888}"
+SEARCH="${1:-http://127.0.0.1:8888}"
 RELAY="${2:-ws://127.0.0.1:7777}"
 
 echo "=== Agent Relay Smoke Test ==="
-echo "Sidecar: $SIDECAR"
+echo "Search: $SEARCH"
 echo "Relay:   $RELAY"
 echo ""
 
 # 1. Health check
 echo "[1/5] Health check..."
-HEALTH=$(curl -s "$SIDECAR/health")
+HEALTH=$(curl -s "$SEARCH/health")
 echo "  $HEALTH"
 echo ""
 
@@ -65,7 +65,7 @@ echo ""
 
 # 4. Search
 echo "[4/5] Searching for 'alignment'..."
-SEARCH_HTML=$(curl -s "$SIDECAR/search?q=alignment")
+SEARCH_HTML=$(curl -s "$SEARCH/search?q=alignment")
 echo "  HTML length: $(echo "$SEARCH_HTML" | wc -c)"
 echo "  Contains 'alignment': $(echo "$SEARCH_HTML" | grep -qi alignment && echo YES || echo NO)"
 echo "  Contains 'Smoke test': $(echo "$SEARCH_HTML" | grep -qi 'smoke test' && echo YES || echo NO)"
@@ -73,7 +73,7 @@ echo ""
 
 # 5. Feed
 echo "[5/5] Checking feed..."
-FEED_HTML=$(curl -s "$SIDECAR/")
+FEED_HTML=$(curl -s "$SEARCH/")
 echo "  HTML length: $(echo "$FEED_HTML" | wc -c)"
 echo "  Contains 'Smoke test': $(echo "$FEED_HTML" | grep -qi 'smoke test' && echo YES || echo NO)"
 echo ""
