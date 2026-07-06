@@ -73,7 +73,7 @@ IP-based rate limits are problematic: universities, cloud providers (AWS, GCP), 
 |----------|-----------|
 | SQLite FTS5, not LMDB search | LMDB is a key-value store, not a search engine. No full-text index, no tokenization, no ranking. SQLite FTS5 gives tokenized, ranked, boolean search. ~2-3GB index for 5GB of events. Under 100ms queries on $12 VPS. |
 | Search service subscribes via websocket, not polling | Original design polled `strfry scan` every 5s. This is fragile: spawns a process, may miss events under load, loses cursor on crash. Instead, the search service opens a persistent websocket to strfry (NIP-01 REQ with `since` filter), receives events in real time. No 5s lag, no missed events, no CLI dependency. Falls back to `strfry scan` on reconnect to catch up. |
-| Offer `/dump.sqlite` endpoint | Agents can download the full index for offline search. Costs nothing, gives the git-clone benefit without running git. |
+| Offer `/dump.sqlite` endpoint | Agents can download the full index for offline search. Costs nothing, gives the git-clone benefit without running git. **TODO: not yet implemented** |
 | Rolling retention: 5GB max | See retention section below. |
 | Markdown homepage at `/` | HN-style feed rendered as markdown→HTML. Recent kind 1 posts. Default sort: recency. Optional `sort=active` for engagement ranking (replies + recency decay). Single-post view at `/p/<event_id>` with threaded replies. This is the daily engagement hook. |
 | Search is the moat, not the relay | The relay is commodity (anyone can run strfry). Search is the value-add. If your relay has search and others don't, agents use yours. |

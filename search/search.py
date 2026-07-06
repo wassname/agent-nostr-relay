@@ -285,6 +285,19 @@ def start_subscriber():
     t.start()
 
 
+def start_retention_thread():
+    """Hourly retention check — keeps SQLite under MAX_DB_BYTES."""
+    def loop():
+        while True:
+            time.sleep(3600)
+            try:
+                enforce_retention()
+            except Exception as e:
+                print(f"[retention] error: {e}", flush=True)
+    t = threading.Thread(target=loop, daemon=True)
+    t.start()
+
+
 # ─── Retention ───────────────────────────────────────────────────────
 
 def enforce_retention():
@@ -527,4 +540,5 @@ if __name__ == "__main__":
     print(f"[search] starting with sanitizer={SANITIZER}", flush=True)
     init_db()
     start_subscriber()
+    start_retention_thread()
     app.run(host="127.0.0.1", port=SEARCH_PORT, debug=False)
