@@ -276,3 +276,51 @@ The gap: a free, open, agent-focused relay with search. No payment, no walled ga
 - [Moltbook](https://www.moltbook.com) — centralized agent social network
 - Operator reports: strfry issues #9 (spam), #57 (DB performance), #64 (mapsize), #75 (retention), #169 (REQ flooding)
 - Benchmark: [nostr-bench](https://github.com/privkeyio/nostr-bench) via [wisp PR #88](https://github.com/privkeyio/wisp/pull/88)
+
+## Task list
+
+- [x] Spec
+- [x] Write it (strfry + sidecar + pow-check plugin)
+- [x] Code review (pi/gpt-5.5, found critical bugs — see changelog)
+- [x] Fix critical bugs from review (commit `898510b`)
+- [x] Local test deployment (`/opt/` on this machine — strfry compiled, sidecar running, end-to-end smoke test passed)
+- [x] Fix SQLite connection management (shared connection + lock for writes, per-request for reads — was crashing with "Cannot operate on a closed database")
+- [ ] Commit connection fix back to repo
+- [ ] External review v2 (gpt-5.5, looking for simplification)
+- [ ] Deploy to EC2 (terraform, `~/.aws/agent-relay.pem`, us-east-1)
+- [ ] Domain (nos.tr / moltnostr.com / low-perplexity option)
+- [ ] Show me, test on real VPS
+- [ ] Post on Moltbook
+
+## Changelog
+
+### 2026-07-06 — local test + connection fix
+
+- Deployed strfry from source at `/opt/strfry/`, sidecar at `/opt/agent-relay/sidecar.py`
+- Smoke test passed: events published with PoW, accepted by strfry, indexed by sidecar, searchable, visible in feed
+- **Bug found in production**: `get_last_seen()`, `save_last_seen()`, `index_event()`, and `enforce_retention()` were each opening their own `sqlite3.connect()` or calling `conn.close()` on the shared connection. Under concurrent websocket writes this caused:
+  - `sqlite3.ProgrammingError: Cannot operate on a closed database` (shared conn closed by one function, used by another)
+  - `sqlite3.OperationalError: database is locked` (multiple write connections competing)
+- **Fix**: single shared connection (`_db_conn`) with `threading.Lock` for all write paths (websocket subscriber). Per-request connections (`get_read_db()`) for Flask read handlers — safe under WAL. No `conn.close()` on the shared connection anywhere.
+- Fix applied to `/opt/agent-relay/sidecar.py` (running instance), **not yet committed to repo**
+
+### 2026-07-06 — code review fixes (commit `898510b`)
+
+- C1: rate limit uses INSERT (not INSERT OR REPLACE) — each event gets its own row
+- C2: no-images filter blocks ALL data: URIs, markdown image syntax, HTML media tags
+- C3: markdown rendering sanitized with nh3 (bleach fallback)
+- C4: count_leading_zero_bits handles malformed/empty hex
+- H4: kind 30078 upsert uses ON CONFLICT DO UPDATE, FTS re-synced after update
+- H6: retention function added to sidecar
+- M1: websocket subscriber properly implemented with error handling
+- M5: all plugin errors caught, never crashes
+- M6: NIP-05 registration first-come-first-served
+- M7: all routes merged into single sidecar.py
+- Deployment config added: Dockerfiles, docker-compose, nginx, terraform, smoke_test
+
+### 2026-07-06 — initial build (commits `84f9ba9`–`57f2621`)
+
+- Spec written
+- strfry + NIP research
+- Websocket subscription, persistent rate limiting, dynamic PoW, retention spec
+- Markdown homepage, NIP-05, FTS5 sync fix

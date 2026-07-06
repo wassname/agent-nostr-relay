@@ -52,13 +52,35 @@ MAX_DB_BYTES = 5 * 1024 * 1024 * 1024  # 5 GB rolling retention
 
 app = Flask(__name__)
 
+# ─── Database (single shared connection with lock) ──────────────────
+# The websocket subscriber uses a shared connection with a lock.
+# Flask handlers open their own per-request connections (read-only, safe with WAL).
+
+_db_conn = None
+_db_lock = threading.Lock()
+
+def get_db():
+    """Get the shared write connection (used by websocket subscriber)."""
+    global _db_conn
+    if _db_conn is None:
+        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+        _db_conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+        _db_conn.execute("PRAGMA journal_mode=WAL")
+        _db_conn.execute("PRAGMA synchronous=NORMAL")
+        _db_conn.execute("PRAGMA busy_timeout=5000")
+    return _db_conn
+
+def get_read_db():
+    """Get a per-request read connection (used by Flask handlers)."""
+    conn = sqlite3.connect(DB_PATH, timeout=5)
+    conn.execute("PRAGMA busy_timeout=5000")
+    return conn
+
 # ─── Database ────────────────────────────────────────────────────────
 
 def init_db():
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA journal_mode=WAL")
-    conn.execute("PRAGMA synchronous=NORMAL")
+    conn = get_db()
     conn.executescript("""
         CREATE TABLE IF NOT EXISTS agent_profiles (
             pubkey TEXT PRIMARY KEY,
@@ -86,7 +108,6 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at DESC);
     """)
     conn.commit()
-    conn.close()
 
     os.makedirs(os.path.dirname(NIP05_DB), exist_ok=True)
     nconn = sqlite3.connect(NIP05_DB)
@@ -105,7 +126,8 @@ def init_db():
 
 def index_event(event):
     """Index a Nostr event into SQLite FTS5."""
-    conn = sqlite3.connect(DB_PATH)
+    with _db_lock:
+        conn = get_db()
     conn.execute("PRAGMA busy_timeout=5000")
     kind = event.get("kind")
     pubkey = event.get("pubkey", "")
@@ -168,23 +190,21 @@ def index_event(event):
                              (rowid[0], existing[0] or "", existing[1] or "", existing[2] or ""))
 
     conn.commit()
-    conn.close()
 
 
 # ─── Websocket subscriber (simple: one thread, one loop, log everything) ──
 
 def get_last_seen():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_db()
     row = conn.execute("SELECT value FROM sync_state WHERE key='last_seen'").fetchone()
-    conn.close()
     return int(row[0]) if row else 0
 
 
 def save_last_seen(ts):
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("INSERT OR REPLACE INTO sync_state (key, value) VALUES ('last_seen', ?)", (str(ts),))
-    conn.commit()
-    conn.close()
+    with _db_lock:
+        conn = get_db()
+        conn.execute("INSERT OR REPLACE INTO sync_state (key, value) VALUES ('last_seen', ?)", (str(ts),))
+        conn.commit()
 
 
 def ws_subscriber():
@@ -266,11 +286,11 @@ def enforce_retention():
     if db_size < MAX_DB_BYTES:
         return
     print(f"[retention] DB is {db_size / 1e9:.1f}GB, cleaning...", flush=True)
-    conn = sqlite3.connect(DB_PATH)
+    with _db_lock:
+        conn = get_db()
     deleted = 0
     old_ids = conn.execute("SELECT id FROM events ORDER BY created_at ASC LIMIT 1000").fetchall()
     if not old_ids:
-        conn.close()
         return
     for (eid,) in old_ids:
         rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (eid,)).fetchone()
@@ -279,7 +299,6 @@ def enforce_retention():
         conn.execute("DELETE FROM events WHERE id = ?", (eid,))
     deleted = len(old_ids)
     conn.commit()
-    conn.close()
     if deleted > 0:
         print(f"[retention] deleted {deleted} events", flush=True)
 
@@ -337,7 +356,7 @@ def feed():
     page = request.args.get("page", 0, type=int)
     limit = 30
     offset = page * limit
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_read_db()
     posts = conn.execute(
         "SELECT id, pubkey, content, created_at FROM events WHERE kind = 1 ORDER BY created_at DESC LIMIT ? OFFSET ?",
         (limit, offset)
@@ -368,7 +387,7 @@ def feed():
 
 @app.route("/p/<event_id>")
 def post_view(event_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_read_db()
     post = conn.execute("SELECT id, pubkey, content, created_at FROM events WHERE id = ?", (event_id,)).fetchone()
     if not post:
         conn.close()
@@ -403,7 +422,7 @@ def search():
                         "<form><input name='q' autofocus><button>search</button></form></body></html>",
                         mimetype="text/html")
     limit = min(request.args.get("limit", 25, type=int), 100)
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_read_db()
     try:
         results = conn.execute(
             "SELECT e.id, e.pubkey, e.content, e.created_at FROM event_search "
@@ -429,7 +448,7 @@ def search():
 
 @app.route("/agents")
 def agents():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_read_db()
     results = conn.execute(
         "SELECT pubkey, name, about, capabilities, created_at FROM agent_profiles ORDER BY updated_at DESC LIMIT 200"
     ).fetchall()
@@ -441,7 +460,7 @@ def agents():
 
 @app.route("/health")
 def health():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_read_db()
     events = conn.execute("SELECT COUNT(*) FROM events").fetchone()[0]
     profiles = conn.execute("SELECT COUNT(*) FROM agent_profiles").fetchone()[0]
     last = conn.execute("SELECT value FROM sync_state WHERE key='last_seen'").fetchone()
@@ -454,7 +473,7 @@ def health():
 @app.route("/.well-known/nostr.json")
 def nip05():
     name = request.args.get("name", "")
-    conn = sqlite3.connect(NIP05_DB)
+    conn = get_read_db()
     if name:
         row = conn.execute("SELECT pubkey FROM nip05 WHERE name = ? AND verified = 1", (name,)).fetchone()
         conn.close()
@@ -482,7 +501,7 @@ def register_nip05():
         else: difficulty += 8 - byte.bit_length(); break
     if difficulty < 16:
         return jsonify({"error": f"insufficient PoW: {difficulty} bits, need 16", "hash": h}), 400
-    conn = sqlite3.connect(NIP05_DB)
+    conn = get_read_db()
     # First-come-first-served: don't overwrite existing names
     existing = conn.execute("SELECT pubkey FROM nip05 WHERE name = ? AND verified = 1", (name,)).fetchone()
     if existing:
