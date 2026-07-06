@@ -451,7 +451,8 @@ def search():
             "JOIN events e ON event_search.rowid = e.rowid WHERE event_search MATCH ? "
             "ORDER BY e.created_at DESC LIMIT ?", (q, limit)
         ).fetchall()
-    except Exception:
+    except Exception as e:
+        print(f"[search] FTS5 query error for {q!r}: {e}", flush=True)
         results = []
     names = get_names(conn, list(set(r[1] for r in results)))
     conn.close()
