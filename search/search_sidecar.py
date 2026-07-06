@@ -152,15 +152,20 @@ def poll_strfry():
                 agent_info = profile.get("agent", {})
                 capabilities = ", ".join(agent_info.get("capabilities", [])) if isinstance(agent_info, dict) else ""
 
+                # Upsert profile (replaceable, latest wins)
                 conn.execute("""
                     INSERT OR REPLACE INTO agent_profiles (pubkey, name, about, capabilities, created_at, updated_at)
                     VALUES (?, ?, ?, ?, ?, ?)
                 """, (pubkey, name, about, capabilities, created_at, int(time.time())))
 
-                # Update FTS index
-                conn.execute("DELETE FROM agent_search WHERE rowid IN (SELECT rowid FROM agent_profiles WHERE pubkey=?)", (pubkey,))
-                conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES ((SELECT rowid FROM agent_profiles WHERE pubkey=?), ?, ?, ?)",
-                           (pubkey, name, about, capabilities))
+                # Sync FTS index: delete old entry, insert new
+                rowid = conn.execute(
+                    "SELECT rowid FROM agent_profiles WHERE pubkey = ?", (pubkey,)
+                ).fetchone()
+                if rowid:
+                    conn.execute("DELETE FROM agent_search WHERE rowid = ?", (rowid[0],))
+                    conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES (?, ?, ?, ?)",
+                               (rowid[0], name, about, capabilities))
 
             elif kind == 1:
                 # Text note — insert (dedup by event ID)
