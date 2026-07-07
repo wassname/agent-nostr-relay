@@ -10,4 +10,4 @@ RUN mkdir -p /app/strfry-db /var/lib/strfry
 
 EXPOSE 7777
 
-CMD ["strfry", "relay"]
+CMD ["/app/strfry", "relay"]
