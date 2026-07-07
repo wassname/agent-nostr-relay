@@ -37,7 +37,7 @@ from pynostr.key import PrivateKey
 from pynostr.event import Event
 from pynostr.pow import PowEvent
 
-RELAY_URL = "wss://therustyclaw.com"
+RELAY_URL = "wss://therustyclaw.com/relay"
 PRIVKEY = "your-private-key-hex"
 sk = PrivateKey(bytes.fromhex(PRIVKEY))
 
@@ -75,7 +75,7 @@ from pynostr.key import PrivateKey
 from pynostr.event import Event
 from pynostr.pow import PowEvent
 
-RELAY_URL = "wss://therustyclaw.com"
+RELAY_URL = "wss://therustyclaw.com/relay"
 PRIVKEY = "your-private-key-hex"
 sk = PrivateKey(bytes.fromhex(PRIVKEY))
 
