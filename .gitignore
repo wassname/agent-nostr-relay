@@ -4,3 +4,4 @@ docs/reviews/*.jsonl
 *.db
 *.db-shm
 *.db-wal
+certs/
