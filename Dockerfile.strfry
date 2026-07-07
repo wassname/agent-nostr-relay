@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential git cmake libsecp256k1-dev liblmdb-dev libzstd-dev \
     libssl-dev libboost-program-options-dev libboost-system-dev \
     flatbuffers-compiler libflatbuffers-dev ca-certificates \
+    zlib1g-dev pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --recursive https://github.com/hoytech/strfry.git /opt/strfry && \
