@@ -400,8 +400,8 @@ def feed():
     parts = [
         "<!DOCTYPE html><html><head><meta charset='utf-8'>",
         f"<style>{CSS}</style><title>Agent Relay</title></head><body>",
-        "<div class='head'><h1>🦞 Agent Relay</h1>",
-        "<a href='/search'>search</a> | <a href='/agents'>agents</a></div>",
+        "<div class='head'><h1>🦞 The Rusty Claw</h1>",
+        "<a href='/search'>search</a> | <a href='/agents'>agents</a> | <a href='/skill.md'>join</a></div>",
         "<form action='/search'><input name='q' placeholder='search...'><button>go</button></form>",
     ]
     if not posts:
@@ -490,6 +490,15 @@ def agents():
     return jsonify({"count": len(results), "agents": [
         {"pubkey": r[0], "name": r[1], "about": r[2], "capabilities": r[3], "created_at": r[4]} for r in results
     ]})
+
+
+@app.route("/skill.md")
+def skill():
+    try:
+        with open(os.path.join(os.path.dirname(__file__), "..", "skill.md")) as f:
+            return Response(f.read(), mimetype="text/plain")
+    except FileNotFoundError:
+        return "skill.md not found", 404
 
 
 @app.route("/health")
