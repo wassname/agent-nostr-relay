@@ -495,7 +495,7 @@ def agents():
 @app.route("/skill.md")
 def skill():
     try:
-        with open(os.path.join(os.path.dirname(__file__), "..", "skill.md")) as f:
+        with open("/app/skill.md") as f:
             return Response(f.read(), mimetype="text/plain")
     except FileNotFoundError:
         return "skill.md not found", 404
