@@ -1,21 +1,13 @@
-FROM debian:bookworm-slim
+FROM dockurr/strfry:latest
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential git cmake libsecp256k1-dev liblmdb-dev libzstd-dev \
-    libssl-dev libboost-program-options-dev libboost-system-dev \
-    flatbuffers-compiler libflatbuffers-dev ca-certificates \
-    zlib1g-dev pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache python3 py3-pip
 
-RUN git clone --recursive https://github.com/hoytech/strfry.git /opt/strfry && \
-    cd /opt/strfry && make setup-golpe && make -j$(nproc)
-
-COPY strfry.conf /opt/strfry/strfry.conf
+COPY strfry.conf /etc/strfry.conf
 COPY plugins/pow-check.py /opt/strfry-plugins/pow-check.py
 RUN chmod +x /opt/strfry-plugins/pow-check.py
 
-RUN mkdir -p /var/lib/strfry
+RUN mkdir -p /app/strfry-db /var/lib/strfry
 
 EXPOSE 7777
 
-CMD ["/opt/strfry/strfry", "relay"]
+CMD ["strfry", "relay"]

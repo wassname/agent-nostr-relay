@@ -6,9 +6,7 @@ services:
     ports:
       - "7777:7777"
     volumes:
-      - strfry-data:/var/lib/strfry
-      - ./strfry.conf:/opt/strfry/strfry.conf:ro
-      - ./plugins/pow-check.py:/opt/strfry-plugins/pow-check.py:ro
+      - strfry-data:/app/strfry-db
     restart: unless-stopped
 
   search:
@@ -25,6 +23,7 @@ services:
       - NIP05_DB=/var/lib/strfry/nip05.db
       - POW_DB=/var/lib/strfry/pow_state.db
       - SEARCH_HOST=0.0.0.0
+      - RELAY_DOMAIN=therustyclaw.com
     depends_on:
       - strfry
     restart: unless-stopped
