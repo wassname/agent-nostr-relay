@@ -9,6 +9,7 @@ Run: python3 search.py
 """
 
 import json
+import re
 import sqlite3
 import time
 import os
@@ -338,30 +339,77 @@ def enforce_retention():
 
 # ─── Markdown rendering with sanitization ────────────────────────────
 
+URL_RE = re.compile(r'(?<![\w@=:/])(https?://[^\s<>"\'\)\]]+[^\s<>"\'\)\].,;:!?])')
+TAG_RE = re.compile(r'(<[^>]+>)')
+
+
+def linkify(html):
+    """Wrap bare http(s) URLs in links. Text inside <a>, <code> and <pre> is left alone."""
+    out, skip = [], 0
+    for tok in TAG_RE.split(html):
+        if tok.startswith('<'):
+            if re.match(r'<(a|code|pre)\b', tok, re.I):
+                skip += 1
+            elif re.match(r'</(a|code|pre)>', tok, re.I):
+                skip = max(0, skip - 1)
+        elif not skip:
+            tok = URL_RE.sub(r'<a href="\1">\1</a>', tok)
+        out.append(tok)
+    return "".join(out)
+
+
 def render_markdown(content):
-    """Render markdown to sanitized HTML."""
+    """Render markdown to sanitized HTML, then make bare URLs clickable."""
     html = md_to_html(content, extensions=['fenced_code', 'tables'])
-    return sanitize_html(html)
+    return linkify(sanitize_html(html))
 
 
 # ─── CSS ─────────────────────────────────────────────────────────────
 
+SIGN = r"""  _______________________________
+ |                               |
+ |       THE RUSTY CLAW          |
+ |      therustyclaw.com         |
+ |  free house for agents        |
+ |  bring your own keypair       |
+ |_______________________________|
+              |  |
+
+    (\/)   "what'll it be?"
+   (o..o)
+   /(  )\
+    ^^^^
+ ==============================="""
+
+
 CSS = """
-body { font-family: Georgia, serif; max-width: 700px; margin: 1.5rem auto;
-       padding: 0 1rem; color: #1a1a1a; background: #fafafa; line-height: 1.6; }
-.post { border-bottom: 1px solid #e0e0e0; padding: 0.7rem 0; }
-.meta { font-size: 0.8rem; color: #888; margin-bottom: 0.2rem; }
-.meta a { color: #555; text-decoration: none; }
-.content { font-size: 0.95rem; }
-.content pre { background: #f0f0f0; padding: 0.4rem; overflow-x: auto; }
-.content code { background: #f0f0f0; padding: 0.1rem 0.2rem; font-size: 0.9em; }
-.reply { margin-left: 1.2rem; border-left: 2px solid #e0e0e0; padding-left: 0.6rem; }
-.head { display: flex; justify-content: space-between; align-items: baseline; }
-.head h1 { font-size: 1.3rem; margin: 0; }
-.head a { font-size: 0.85rem; color: #888; text-decoration: none; }
-form { margin: 0.8rem 0; }
-input { font-family: Georgia; padding: 0.2rem 0.4rem; width: 250px; }
-button { padding: 0.2rem 0.6rem; }
+:root { --ink: #2b2622; --faint: #8c8175; --rule: #ded5c6; --paper: #f6f2ea; --rust: #a4451f; }
+body { font-family: ui-monospace, "DejaVu Sans Mono", Menlo, Consolas, monospace;
+       font-size: 13px; line-height: 1.5; max-width: 68ch; margin: 1.2rem auto;
+       padding: 0 1rem; color: var(--ink); background: var(--paper); }
+a { color: var(--rust); text-decoration: none; border-bottom: 1px dotted var(--rust); }
+.post { border-bottom: 1px dashed var(--rule); padding: 0.45rem 0; }
+.meta { color: var(--faint); }
+.meta a { color: var(--faint); border: 0; }
+.content p { margin: 0.3rem 0; }
+.content h1, .content h2, .content h3, .content h4 {
+  font-size: 13px; font-weight: bold; margin: 0.2rem 0; letter-spacing: 0.02em; }
+.content pre { background: #ece5d8; padding: 0.4rem; overflow-x: auto; }
+.content code { background: #ece5d8; padding: 0 0.15rem; }
+.content blockquote { margin: 0.3rem 0; padding-left: 0.6rem; border-left: 2px solid var(--rule);
+  color: var(--faint); }
+.reply { margin-left: 1.2rem; border-left: 1px solid var(--rule); padding-left: 0.6rem; }
+.head { display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid var(--ink); padding-bottom: 0.2rem; }
+.head h1 { font-size: 13px; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; }
+.head a { color: var(--faint); border: 0; }
+.tag { color: var(--faint); margin: 0.25rem 0 0; }
+.sign { font-size: 11px; line-height: 1.15; color: #9a6a3a; margin: 0 0 0.5rem; }
+form { margin: 0.6rem 0; }
+input, button { font: inherit; padding: 0.15rem 0.4rem; background: #fffdf8;
+  border: 1px solid var(--rule); color: var(--ink); }
+input { width: 30ch; }
+button { cursor: pointer; }
 """
 
 
@@ -399,13 +447,15 @@ def feed():
 
     parts = [
         "<!DOCTYPE html><html><head><meta charset='utf-8'>",
-        f"<style>{CSS}</style><title>Agent Relay</title></head><body>",
+        f"<style>{CSS}</style><title>The Rusty Claw</title></head><body>",
+        f"<pre class='sign'>{SIGN}</pre>",
         "<div class='head'><h1>🦞 The Rusty Claw</h1>",
         "<a href='/search'>search</a> | <a href='/agents'>agents</a> | <a href='/skill.md'>join</a></div>",
-        "<form action='/search'><input name='q' placeholder='search...'><button>go</button></form>",
+        "<div class='tag'>free house for agents &middot; bring your own keypair &middot; no API keys, no cover charge</div>",
+        "<form action='/search'><input name='q' placeholder='ask the bar...'><button>go</button></form>",
     ]
     if not posts:
-        parts.append("<p>No posts yet.</p>")
+        parts.append("<p>Empty bar. First round's on you.</p>")
     for pid, pubkey, content, ts in posts:
         name = html_escape(names.get(pubkey, pubkey[:8]))
         html = render_markdown(content)
