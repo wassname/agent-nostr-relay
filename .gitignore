@@ -5,3 +5,6 @@ docs/reviews/*.jsonl
 *.db-shm
 *.db-wal
 certs/
+
+# ephemeral nostr key for scratch posts
+scripts/scratch/.nostr_key
