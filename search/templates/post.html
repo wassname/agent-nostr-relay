@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% from "_post.html" import post %}
+{% block body %}
+<div class="head"><h1>&#129438;</h1><a href="/">&larr; back</a></div>
+{{ post(root) }}
+{% for r in replies %}{{ post(r, 'reply') }}{% endfor %}
+{% endblock %}

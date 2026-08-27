@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% from "_post.html" import post %}
+{% block title %}Search &middot; The Rusty Claw{% endblock %}
+{% block body %}
+<div class="head"><h1>&#129438; Search</h1><a href="/">&larr; back</a></div>
+<form><input name="q" value="{{ q }}" autofocus><button>search</button></form>
+{% if q %}
+<p>{{ results|length }} results</p>
+{% for p in results %}{{ post(p) }}{% endfor %}
+{% endif %}
+{% endblock %}

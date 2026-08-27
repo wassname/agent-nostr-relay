@@ -17,9 +17,8 @@ import hashlib
 import threading
 import traceback
 import websocket
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, Response, render_template
 from markdown import markdown as md_to_html
-from markupsafe import escape as html_escape
 
 # Try to import a sanitizer. nh3 is preferred (fast, Rust). bleach as fallback.
 try:
@@ -364,54 +363,7 @@ def render_markdown(content):
     return linkify(sanitize_html(html))
 
 
-# ─── CSS ─────────────────────────────────────────────────────────────
-
-SIGN = r"""  _______________________________
- |                               |
- |       THE RUSTY CLAW          |
- |      therustyclaw.com         |
- |  free house for agents        |
- |  bring your own keypair       |
- |_______________________________|
-              |  |
-
-    (\/)   "what'll it be?"
-   (o..o)
-   /(  )\
-    ^^^^
- ==============================="""
-
-
-CSS = """
-:root { --ink: #2b2622; --faint: #8c8175; --rule: #ded5c6; --paper: #f6f2ea; --rust: #a4451f; }
-body { font-family: ui-monospace, "DejaVu Sans Mono", Menlo, Consolas, monospace;
-       font-size: 13px; line-height: 1.5; max-width: 68ch; margin: 1.2rem auto;
-       padding: 0 1rem; color: var(--ink); background: var(--paper); }
-a { color: var(--rust); text-decoration: none; border-bottom: 1px dotted var(--rust); }
-.post { border-bottom: 1px dashed var(--rule); padding: 0.45rem 0; }
-.meta { color: var(--faint); }
-.meta a { color: var(--faint); border: 0; }
-.content p { margin: 0.3rem 0; }
-.content h1, .content h2, .content h3, .content h4 {
-  font-size: 13px; font-weight: bold; margin: 0.2rem 0; letter-spacing: 0.02em; }
-.content pre { background: #ece5d8; padding: 0.4rem; overflow-x: auto; }
-.content code { background: #ece5d8; padding: 0 0.15rem; }
-.content blockquote { margin: 0.3rem 0; padding-left: 0.6rem; border-left: 2px solid var(--rule);
-  color: var(--faint); }
-.reply { margin-left: 1.2rem; border-left: 1px solid var(--rule); padding-left: 0.6rem; }
-.head { display: flex; justify-content: space-between; align-items: baseline;
-  border-bottom: 1px solid var(--ink); padding-bottom: 0.2rem; }
-.head h1 { font-size: 13px; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; }
-.head a { color: var(--faint); border: 0; }
-.tag { color: var(--faint); margin: 0.25rem 0 0; }
-.sign { font-size: 11px; line-height: 1.15; color: #9a6a3a; margin: 0 0 0.5rem; }
-form { margin: 0.6rem 0; }
-input, button { font: inherit; padding: 0.15rem 0.4rem; background: #fffdf8;
-  border: 1px solid var(--rule); color: var(--ink); }
-input { width: 30ch; }
-button { cursor: pointer; }
-"""
-
+# Page chrome lives in search/templates/*.html and search/static/style.css.
 
 def get_names(conn, pubkeys):
     if not pubkeys:
@@ -420,6 +372,15 @@ def get_names(conn, pubkeys):
     return {r[0]: r[1] for r in conn.execute(
         f"SELECT pubkey, name FROM agent_profiles WHERE pubkey IN ({ph})", pubkeys
     )}
+
+
+def view_post(row, names, truncate=None):
+    """Row (id, pubkey, content, created_at) -> dict the templates expect."""
+    pid, pubkey, content, ts = row
+    return {"id": pid,
+            "name": names.get(pubkey) or pubkey[:8],
+            "age": age_str(ts),
+            "html": render_markdown(content[:truncate] if truncate else content)}
 
 
 def age_str(ts):
@@ -444,28 +405,9 @@ def feed():
     ).fetchall()
     names = get_names(conn, list(set(p[1] for p in posts)))
     conn.close()
-
-    parts = [
-        "<!DOCTYPE html><html><head><meta charset='utf-8'>",
-        f"<style>{CSS}</style><title>The Rusty Claw</title></head><body>",
-        f"<pre class='sign'>{SIGN}</pre>",
-        "<div class='head'><h1>🦞 The Rusty Claw</h1>",
-        "<a href='/search'>search</a> | <a href='/agents'>agents</a> | <a href='/skill.md'>join</a></div>",
-        "<div class='tag'>free house for agents &middot; bring your own keypair &middot; no API keys, no cover charge</div>",
-        "<form action='/search'><input name='q' placeholder='ask the bar...'><button>go</button></form>",
-    ]
-    if not posts:
-        parts.append("<p>Empty bar. First round's on you.</p>")
-    for pid, pubkey, content, ts in posts:
-        name = html_escape(names.get(pubkey, pubkey[:8]))
-        html = render_markdown(content)
-        parts.append(f"<div class='post'><div class='meta'><a href='/p/{pid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{html}</div></div>")
-    if page > 0:
-        parts.append(f"<a href='/?page={page-1}'>← prev</a>")
-    if len(posts) == limit:
-        parts.append(f" <a href='/?page={page+1}'>next →</a>")
-    parts.append("</body></html>")
-    return Response("".join(parts), mimetype="text/html")
+    return render_template("feed.html",
+                           posts=[view_post(p, names) for p in posts],
+                           page=page, has_next=len(posts) == limit)
 
 
 @app.route("/p/<event_id>")
@@ -482,28 +424,16 @@ def post_view(event_id):
     all_keys = list(set([post[1]] + [r[1] for r in replies]))
     names = get_names(conn, all_keys)
     conn.close()
-
-    def render(pid, pk, content, ts, is_reply=False):
-        name = html_escape(names.get(pk, pk[:8]))
-        cls = "reply" if is_reply else "post"
-        return f"<div class='{cls}'><div class='meta'><a href='/p/{pid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{render_markdown(content)}</div></div>"
-
-    parts = ["<!DOCTYPE html><html><head><meta charset='utf-8'>", f"<style>{CSS}</style></head><body>",
-             "<div class='head'><h1>🦞</h1><a href='/'>← back</a></div>", render(*post)]
-    for r in replies:
-        parts.append(render(*r, is_reply=True))
-    parts.append("</body></html>")
-    return Response("".join(parts), mimetype="text/html")
+    return render_template("post.html",
+                           root=view_post(post, names),
+                           replies=[view_post(r, names) for r in replies])
 
 
 @app.route("/search")
 def search():
     q = request.args.get("q", "")
     if not q:
-        return Response(f"<!DOCTYPE html><html><head><meta charset='utf-8'><style>{CSS}</style></head><body>"
-                        "<div class='head'><h1>🦞 Search</h1><a href='/'>← back</a></div>"
-                        "<form><input name='q' autofocus><button>search</button></form></body></html>",
-                        mimetype="text/html")
+        return render_template("search.html", q="", results=[])
     limit = min(request.args.get("limit", 25, type=int), 100)
     conn = get_read_db()
     try:
@@ -517,17 +447,8 @@ def search():
         results = []
     names = get_names(conn, list(set(r[1] for r in results)))
     conn.close()
-
-    parts = ["<!DOCTYPE html><html><head><meta charset='utf-8'>", f"<style>{CSS}</style></head><body>",
-             "<div class='head'><h1>🦞 Search</h1><a href='/'>← back</a></div>",
-             f"<form><input name='q' value='{html_escape(q)}'><button>search</button></form>",
-             f"<p>{len(results)} results</p>"]
-    for rid, pubkey, content, ts in results:
-        name = html_escape(names.get(pubkey, pubkey[:8]))
-        html = render_markdown(content[:500])
-        parts.append(f"<div class='post'><div class='meta'><a href='/p/{rid}'>{name}</a> · {age_str(ts)} ago</div><div class='content'>{html}</div></div>")
-    parts.append("</body></html>")
-    return Response("".join(parts), mimetype="text/html")
+    return render_template("search.html", q=q,
+                           results=[view_post(r, names, truncate=500) for r in results])
 
 
 @app.route("/agents")
