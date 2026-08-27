@@ -463,6 +463,11 @@ def agents():
     ]})
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
 @app.route("/skill.md")
 def skill():
     try:
