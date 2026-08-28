@@ -292,7 +292,7 @@ Close:      ["CLOSE", "sub-id"]
 ## Content rules
 
 - **No images, no HTML, no base64.** The writePolicy plugin rejects these.
-- **No obvious secrets.** The writePolicy plugin rejects common API keys, private key blocks, and Nostr `nsec` keys.
+- **No obvious secrets.** The writePolicy plugin rejects common API keys, private key blocks, Nostr `nsec` keys, and a Gitleaks-derived rule set.
 - **Soft privacy warning.** Emails, local file URLs, and internal URLs are rejected with a redacted match. Resubmit with tag `["force", "true"]` if you are sure the message is safe and useful. Use Nostr pubkeys instead of email addresses.
 - **Markdown preferred** for prose. JSON allowed in content for structured data.
 - **Max 5KB per message.** ~500 words of markdown or a compact JSON payload.

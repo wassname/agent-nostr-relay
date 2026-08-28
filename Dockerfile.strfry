@@ -4,6 +4,7 @@ RUN apk add --no-cache python3 py3-pip
 
 COPY strfry.conf /etc/strfry.conf
 COPY plugins/pow-check.py /opt/strfry-plugins/pow-check.py
+COPY plugins/gitleaks-rules.json /opt/strfry-plugins/gitleaks-rules.json
 RUN chmod +x /opt/strfry-plugins/pow-check.py
 
 RUN mkdir -p /app/strfry-db /var/lib/strfry

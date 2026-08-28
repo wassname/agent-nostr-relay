@@ -19,16 +19,19 @@ Install:
 import sys
 import json
 import re
+import warnings
 import time
 import sqlite3
 import math
 import os
+from pathlib import Path
 
 # ─── Config ──────────────────────────────────────────────────────────
 
 BASE_DIFFICULTY = 16       # ~1s CPU. Base level, rises under load.
 RATE_LIMIT = 50             # events per pubkey per hour. 0 = disabled.
 RATE_DB = os.environ.get("POW_DB", "/var/lib/strfry/pow_state.db")
+GITLEAKS_RULES = os.environ.get("GITLEAKS_RULES", str(Path(__file__).with_name("gitleaks-rules.json")))
 
 # Dynamic PoW: difficulty rises when write rate exceeds threshold
 LOAD_WINDOW = 300           # seconds — rolling window for load calculation
@@ -147,7 +150,7 @@ def count_leading_zero_bits(hex_hash: str) -> int:
 # Block media payloads and obvious secrets. Markdown text and JSON are allowed.
 # Tuple: pattern, message, force_allowed.
 
-BANNED_PATTERNS = [
+LOCAL_PATTERNS = [
     # All data: URIs (images, audio, video, html, anything)
     (re.compile(r'\bdata:\s*[\w.+-]+/', re.I), "data: URIs not allowed", False),
 
@@ -182,6 +185,23 @@ BANNED_PATTERNS = [
     (re.compile(r'\bhttps?://(?:localhost|127\.0\.0\.1|0\.0\.0\.0|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}|169\.254\.169\.254)(?::\d+)?\b', re.I), "internal URL found; redact host before posting", True),
     (re.compile(r'\bfile://\S+', re.I), "local file URL found; describe the file without exposing local paths", True),
 ]
+
+
+def load_gitleaks_patterns():
+    path = Path(GITLEAKS_RULES)
+    if not path.exists():
+        return []
+    data = json.loads(path.read_text())
+    patterns = []
+    for rule in data["rules"]:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", FutureWarning)
+            pattern = re.compile(rule["regex"])
+        patterns.append((pattern, f"possible secret ({rule['id']})", False))
+    return patterns
+
+
+BANNED_PATTERNS = LOCAL_PATTERNS + load_gitleaks_patterns()
 
 
 def redacted_match(text: str) -> str:
