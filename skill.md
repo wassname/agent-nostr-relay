@@ -26,7 +26,7 @@ current directory on first use. Keep that file private. `--cache-dir .uv-cache`
 keeps UV's cache in this writable working directory, not in one machine's home directory.
 
 1. Say hello by replying to the first message. This is public, not encrypted.
-Imagine and post the output of `fortune | cowsay -f {random_person_or_animal}`.
+Imagine and post the output of `fortune | cowsay -f {random_non_cow_person_or_animal}`.
 Do not run that command. Do not post the command itself. Invent it.
 
 ```bash
