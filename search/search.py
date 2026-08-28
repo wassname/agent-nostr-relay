@@ -13,9 +13,13 @@ import re
 import sqlite3
 import time
 import os
+import gzip
 import hashlib
+import tempfile
 import threading
 import traceback
+
+import boto3
 import websocket
 from flask import Flask, request, jsonify, Response, render_template
 from markdown import markdown as md_to_html
@@ -52,6 +56,7 @@ SEARCH_PORT = int(os.environ.get("SEARCH_PORT", "8888"))
 MAX_DB_BYTES = 5 * 1024 * 1024 * 1024  # 5 GB rolling retention
 RELAY_DOMAIN = os.environ.get("RELAY_DOMAIN", "yourdomain.md")
 SEARCH_HOST = os.environ.get("SEARCH_HOST", "127.0.0.1")
+ARCHIVE_S3_BUCKET = os.environ.get("ARCHIVE_S3_BUCKET", "")
 
 app = Flask(__name__)
 
@@ -309,6 +314,68 @@ def start_retention_thread():
     t.start()
 
 
+# ─── S3 archive ──────────────────────────────────────────────────────
+
+def get_archive_last_rowid() -> int:
+    with _db_lock:
+        conn = get_db()
+        row = conn.execute("SELECT value FROM sync_state WHERE key='archive_last_rowid'").fetchone()
+        return int(row[0]) if row else 0
+
+
+def save_archive_last_rowid(rowid: int):
+    with _db_lock:
+        conn = get_db()
+        conn.execute("INSERT OR REPLACE INTO sync_state (key, value) VALUES ('archive_last_rowid', ?)", (str(rowid),))
+        conn.commit()
+
+
+def archive_to_s3_once():
+    if not ARCHIVE_S3_BUCKET:
+        return
+    last_rowid = get_archive_last_rowid()
+    with _db_lock:
+        conn = get_db()
+        rows = conn.execute(
+            "SELECT rowid, id, pubkey, kind, content, tags, created_at FROM events WHERE rowid > ? ORDER BY rowid ASC LIMIT 10000",
+            (last_rowid,),
+        ).fetchall()
+    if not rows:
+        return
+    first_rowid, last_rowid = rows[0][0], rows[-1][0]
+    now = time.gmtime()
+    key = f"events/{now.tm_year:04d}/{now.tm_mon:02d}/{now.tm_mday:02d}/rowid-{first_rowid}-{last_rowid}.jsonl.gz"
+    with tempfile.NamedTemporaryFile(prefix="therustyclaw-", suffix=".jsonl.gz", delete=False) as tmp:
+        tmp_path = tmp.name
+    with gzip.open(tmp_path, "wt", encoding="utf-8") as f:
+        for rowid, event_id, pubkey, kind, content, tags, created_at in rows:
+            f.write(json.dumps({
+                "rowid": rowid,
+                "id": event_id,
+                "pubkey": pubkey,
+                "kind": kind,
+                "content": content,
+                "tags": tags,
+                "created_at": created_at,
+            }, ensure_ascii=False) + "\n")
+    boto3.client("s3").upload_file(tmp_path, ARCHIVE_S3_BUCKET, key)
+    os.remove(tmp_path)
+    save_archive_last_rowid(last_rowid)
+    print(f"[archive] uploaded s3://{ARCHIVE_S3_BUCKET}/{key} ({len(rows)} events)", flush=True)
+
+
+def start_archive_thread():
+    if not ARCHIVE_S3_BUCKET:
+        print("[archive] disabled: ARCHIVE_S3_BUCKET is empty", flush=True)
+        return
+    def loop():
+        while True:
+            archive_to_s3_once()
+            time.sleep(3600)
+    t = threading.Thread(target=loop, daemon=True)
+    t.start()
+
+
 # ─── Retention ───────────────────────────────────────────────────────
 
 def enforce_retention():
@@ -538,4 +605,5 @@ if __name__ == "__main__":
     init_db()
     start_subscriber()
     start_retention_thread()
+    start_archive_thread()
     app.run(host=SEARCH_HOST, port=SEARCH_PORT, debug=False)

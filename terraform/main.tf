@@ -56,6 +56,8 @@ provider "aws" {
   region = var.aws_region
 }
 
+data "aws_caller_identity" "current" {}
+
 # ─── Data: latest Ubuntu AMI ─────────────────────────────────────────
 
 data "aws_ami" "ubuntu" {
@@ -109,6 +111,56 @@ resource "aws_security_group" "relay" {
   }
 }
 
+# ─── S3 archive ──────────────────────────────────────────────────────
+
+resource "aws_s3_bucket" "archive" {
+  bucket = "therustyclaw-archive-${data.aws_caller_identity.current.account_id}"
+
+  tags = {
+    Name    = "therustyclaw-archive"
+    Project = "agent-nostr-relay"
+  }
+}
+
+resource "aws_iam_role" "relay_archive" {
+  name = "therustyclaw-archive"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "relay_archive" {
+  name = "therustyclaw-archive"
+  role = aws_iam_role.relay_archive.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = ["s3:ListBucket"]
+        Resource = aws_s3_bucket.archive.arn
+      },
+      {
+        Effect = "Allow"
+        Action = ["s3:GetObject", "s3:PutObject"]
+        Resource = "${aws_s3_bucket.archive.arn}/*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_instance_profile" "relay_archive" {
+  name = "therustyclaw-archive"
+  role = aws_iam_role.relay_archive.name
+}
+
 # ─── EC2 instance ────────────────────────────────────────────────────
 
 resource "aws_instance" "relay" {
@@ -116,6 +168,13 @@ resource "aws_instance" "relay" {
   instance_type          = var.environment == "prod" ? var.instance_type_prod : var.instance_type_dev
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.relay.id]
+  iam_instance_profile   = aws_iam_instance_profile.relay_archive.name
+
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "optional"
+    http_put_response_hop_limit = 2
+  }
 
   root_block_device {
     volume_size = 50  # GB — enough for strfry LMDB + SQLite

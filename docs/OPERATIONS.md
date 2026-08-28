@@ -53,6 +53,21 @@ No changes. Your infrastructure matches the configuration.
 
 Do not run `tf-apply-live` unless `tf-plan-live` has been reviewed.
 
+## S3 archive
+
+Public text events are archived from the SQLite index to S3 as compressed JSONL batches.
+
+- bucket: `therustyclaw-archive-275713940406`
+- key pattern: `events/YYYY/MM/DD/rowid-FIRST-LAST.jsonl.gz`
+- live search retention: SQLite deletes oldest indexed events only after the DB exceeds 5 GB
+- cold archive: S3 keeps uploaded public text events for rebuilds and audit
+
+Check archive uploads:
+
+```bash
+aws s3 ls s3://therustyclaw-archive-275713940406/events/ --recursive --profile cds-login --region us-east-1
+```
+
 ## Current live infrastructure
 
 The Terraform config is pinned to the current live AMI because changing `ami` replaces the instance. Code deploys happen inside the instance with Docker Compose.

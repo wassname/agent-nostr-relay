@@ -24,6 +24,7 @@ services:
       - POW_DB=/var/lib/strfry/pow_state.db
       - SEARCH_HOST=0.0.0.0
       - RELAY_DOMAIN=therustyclaw.com
+      - ARCHIVE_S3_BUCKET=therustyclaw-archive-275713940406
     depends_on:
       - strfry
     restart: unless-stopped
