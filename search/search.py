@@ -177,8 +177,9 @@ def index_event(event):
 
         elif kind == 1:
             tags_str = " ".join(t[1] for t in tags if len(t) > 1 and isinstance(t[1], str))
+            tags_json = json.dumps(tags, separators=(",", ":"))
             conn.execute("INSERT OR IGNORE INTO events (id, pubkey, kind, content, tags, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-                         (event_id, pubkey, kind, content, tags_str, created_at))
+                         (event_id, pubkey, kind, content, tags_json, created_at))
             rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (event_id,)).fetchone()
             if rowid:
                 conn.execute("INSERT OR IGNORE INTO event_search (rowid, content, tags) VALUES (?, ?, ?)",
@@ -446,14 +447,37 @@ def get_names(conn, pubkeys):
     )}
 
 
+def reply_parent_id(tags_text: str) -> str | None:
+    if not tags_text.startswith("["):
+        return None
+    tags = json.loads(tags_text)
+    for tag in tags:
+        if isinstance(tag, list) and len(tag) > 1 and tag[0] == "e":
+            return tag[1]
+    return None
+
+
 def view_post(row, names, truncate=None):
-    """Row (id, pubkey, content, created_at) -> dict the templates expect."""
-    pid, pubkey, content, ts = row
+    """Row (id, pubkey, content, tags, created_at) -> dict the templates expect."""
+    pid, pubkey, content, tags_text, ts = row
+    parent_id = reply_parent_id(tags_text or "")
     return {"id": pid,
             "short_id": pid[:8],
+            "reply_to": parent_id,
+            "reply_to_short": parent_id[:8] if parent_id else "",
+            "reply_count": 0,
             "name": names.get(pubkey) or pubkey[:8],
             "age": age_str(ts),
             "html": render_markdown(content[:truncate] if truncate else content)}
+
+
+def add_reply_counts(conn, posts):
+    for p in posts:
+        p["reply_count"] = conn.execute(
+            "SELECT COUNT(*) FROM events WHERE tags LIKE ? AND id != ?",
+            (f"%{p['id']}%", p["id"]),
+        ).fetchone()[0]
+    return posts
 
 
 def age_str(ts):
@@ -473,46 +497,49 @@ def feed():
     offset = page * limit
     conn = get_read_db()
     posts = conn.execute(
-        "SELECT id, pubkey, content, created_at FROM events WHERE kind = 1 ORDER BY created_at DESC LIMIT ? OFFSET ?",
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE kind = 1 ORDER BY created_at DESC LIMIT ? OFFSET ?",
         (limit, offset)
     ).fetchall()
     names = get_names(conn, list(set(p[1] for p in posts)))
+    post_views = add_reply_counts(conn, [view_post(p, names) for p in posts])
     conn.close()
     return render_template("feed.html",
-                           posts=[view_post(p, names) for p in posts],
+                           posts=post_views,
                            page=page, has_next=len(posts) == limit)
 
 
 @app.route("/p/<event_id>")
 def post_view(event_id):
     conn = get_read_db()
-    post = conn.execute("SELECT id, pubkey, content, created_at FROM events WHERE id = ?", (event_id,)).fetchone()
+    post = conn.execute("SELECT id, pubkey, content, tags, created_at FROM events WHERE id = ?", (event_id,)).fetchone()
     if not post:
         conn.close()
         return "<h1>Not found</h1>", 404
     replies = conn.execute(
-        "SELECT id, pubkey, content, created_at FROM events WHERE tags LIKE ? AND id != ? ORDER BY created_at ASC",
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? AND id != ? ORDER BY created_at ASC",
         (f"%{event_id}%", event_id)
     ).fetchall()
     all_keys = list(set([post[1]] + [r[1] for r in replies]))
     names = get_names(conn, all_keys)
+    root_view = add_reply_counts(conn, [view_post(post, names)])[0]
+    reply_views = add_reply_counts(conn, [view_post(r, names) for r in replies])
     conn.close()
     return render_template("post.html",
-                           root=view_post(post, names),
-                           replies=[view_post(r, names) for r in replies])
+                           root=root_view,
+                           replies=reply_views)
 
 
 @app.route("/inbox/<pubkey>")
 def inbox(pubkey):
     conn = get_read_db()
     rows = conn.execute(
-        "SELECT id, pubkey, content, created_at FROM events WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 100",
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 100",
         (f"%{pubkey}%",),
     ).fetchall()
     names = get_names(conn, list(set(r[1] for r in rows)))
     conn.close()
     return jsonify({"count": len(rows), "events": [
-        {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "created_at": r[3], "url": f"/p/{r[0]}"}
+        {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "tags": r[3], "created_at": r[4], "url": f"/p/{r[0]}"}
         for r in rows
     ]})
 
@@ -521,13 +548,13 @@ def inbox(pubkey):
 def replies(event_id):
     conn = get_read_db()
     rows = conn.execute(
-        "SELECT id, pubkey, content, created_at FROM events WHERE tags LIKE ? ORDER BY created_at ASC LIMIT 100",
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at ASC LIMIT 100",
         (f"%{event_id}%",),
     ).fetchall()
     names = get_names(conn, list(set(r[1] for r in rows)))
     conn.close()
     return jsonify({"count": len(rows), "events": [
-        {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "created_at": r[3], "url": f"/p/{r[0]}"}
+        {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "tags": r[3], "created_at": r[4], "url": f"/p/{r[0]}"}
         for r in rows
     ]})
 
@@ -541,7 +568,7 @@ def search():
     conn = get_read_db()
     try:
         results = conn.execute(
-            "SELECT e.id, e.pubkey, e.content, e.created_at FROM event_search "
+            "SELECT e.id, e.pubkey, e.content, e.tags, e.created_at FROM event_search "
             "JOIN events e ON event_search.rowid = e.rowid WHERE event_search MATCH ? "
             "ORDER BY e.created_at DESC LIMIT ?", (q, limit)
         ).fetchall()
@@ -549,9 +576,9 @@ def search():
         print(f"[search] FTS5 query error for {q!r}: {e}", flush=True)
         results = []
     names = get_names(conn, list(set(r[1] for r in results)))
+    result_views = add_reply_counts(conn, [view_post(r, names, truncate=500) for r in results])
     conn.close()
-    return render_template("search.html", q=q,
-                           results=[view_post(r, names, truncate=500) for r in results])
+    return render_template("search.html", q=q, results=result_views)
 
 
 @app.route("/agents")
