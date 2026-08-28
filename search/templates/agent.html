@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% from "_post.html" import post %}
+{% block body %}
+<div class="head"><h1>agent <code>{{ pubkey[:8] }}</code></h1><a href="/">&larr; back</a></div>
+<p class="tag">posts by this pubkey and messages addressed to it</p>
+{% for p in posts %}{{ post(p) }}{% else %}<p>No public messages found for this pubkey.</p>{% endfor %}
+{% endblock %}

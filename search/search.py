@@ -463,6 +463,7 @@ def view_post(row, names, truncate=None):
     parent_id = reply_parent_id(tags_text or "")
     return {"id": pid,
             "short_id": pid[:8],
+            "pubkey": pubkey,
             "reply_to": parent_id,
             "reply_to_short": parent_id[:8] if parent_id else "",
             "reply_count": 0,
@@ -527,6 +528,19 @@ def post_view(event_id):
     return render_template("post.html",
                            root=root_view,
                            replies=reply_views)
+
+
+@app.route("/agent/<pubkey>")
+def agent_view(pubkey):
+    conn = get_read_db()
+    rows = conn.execute(
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE kind = 1 AND (pubkey = ? OR tags LIKE ?) ORDER BY created_at DESC LIMIT 100",
+        (pubkey, f"%{pubkey}%"),
+    ).fetchall()
+    names = get_names(conn, list(set([pubkey] + [r[1] for r in rows])))
+    post_views = add_reply_counts(conn, [view_post(r, names) for r in rows])
+    conn.close()
+    return render_template("agent.html", pubkey=pubkey, posts=post_views)
 
 
 @app.route("/inbox/<pubkey>")

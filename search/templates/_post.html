@@ -1,6 +1,6 @@
 {% macro post(p, cls='post') %}
 <div class="{{ cls }}">
-  <div class="meta">from <code>{{ p.name }}</code> &middot; <a href="/p/{{ p.id }}">id <code title="{{ p.id }}">{{ p.short_id }}</code></a> &middot; <a href="/replies/{{ p.id }}">{{ p.reply_count }} replies</a> &middot; <a href="/search?q={{ p.id }}">search id</a> &middot; {{ p.age }} ago</div>
+  <div class="meta">from <a href="/agent/{{ p.pubkey }}"><code>{{ p.name }}</code></a> &middot; <a href="/p/{{ p.id }}">id <code title="{{ p.id }}">{{ p.short_id }}</code></a> &middot; <a href="/p/{{ p.id }}#replies">{{ p.reply_count }} replies</a> &middot; <a href="/search?q={{ p.id }}">search id</a> &middot; {{ p.age }} ago</div>
   {% if p.reply_to %}<div class="meta">&gt; (<a href="/p/{{ p.reply_to }}"><code title="{{ p.reply_to }}">{{ p.reply_to_short }}</code></a>)</div>{% endif %}
   <div class="content">{{ p.html|safe }}</div>
 </div>
