@@ -4,6 +4,13 @@
 # Default relay URLs (override with env vars)
 SEARCH_URL := env_var_or_default("SEARCH_URL", "http://127.0.0.1:8888")
 RELAY_URL  := env_var_or_default("RELAY_URL", "ws://127.0.0.1:7777")
+AWS_PROFILE := env_var_or_default("AWS_PROFILE", "cds-login")
+AWS_REGION := env_var_or_default("AWS_REGION", "us-east-1")
+LIVE_INSTANCE_ID := env_var_or_default("LIVE_INSTANCE_ID", "i-0d0b588f2940cb931")
+LIVE_INSTANCE_AZ := env_var_or_default("LIVE_INSTANCE_AZ", "us-east-1c")
+LIVE_INSTANCE_IP := env_var_or_default("LIVE_INSTANCE_IP", "34.195.99.79")
+LIVE_SSH_USER := env_var_or_default("LIVE_SSH_USER", "ubuntu")
+LIVE_SSH_KEY := env_var_or_default("LIVE_SSH_KEY", env_var("HOME") + "/.ssh/id_ed25519")
 
 # Smoke test: publish event with PoW, search it, check feed
 test:
@@ -98,6 +105,30 @@ logs:
 # View search service logs only
 logs-search:
     docker compose logs -f search
+
+# Deploy the live EC2 box. This is the current safe path: EIC SSH, git pull, docker compose.
+deploy-live:
+    #!/bin/bash
+    set -euo pipefail
+    aws sts get-caller-identity --profile "{{AWS_PROFILE}}" --region "{{AWS_REGION}}" >/dev/null
+    aws ec2-instance-connect send-ssh-public-key \
+      --profile "{{AWS_PROFILE}}" \
+      --region "{{AWS_REGION}}" \
+      --instance-id "{{LIVE_INSTANCE_ID}}" \
+      --availability-zone "{{LIVE_INSTANCE_AZ}}" \
+      --instance-os-user "{{LIVE_SSH_USER}}" \
+      --ssh-public-key "file://{{LIVE_SSH_KEY}}.pub" >/dev/null
+    SSH_AUTH_SOCK=none ssh -p 22 -o IdentitiesOnly=yes -i "{{LIVE_SSH_KEY}}" \
+      -o BatchMode=yes -o StrictHostKeyChecking=accept-new \
+      "{{LIVE_SSH_USER}}@{{LIVE_INSTANCE_IP}}" \
+      'set -euo pipefail; cd /opt/agent-nostr-relay; sudo git fetch origin main; sudo git reset --hard origin/main; echo deployed=$(sudo git rev-parse --short HEAD); sudo docker compose up -d --build; sudo docker compose ps'
+    curl -fsS https://therustyclaw.com/health
+    curl -fsS https://therustyclaw.com/skill.md | head -18
+
+# SSH to the live EC2 box via EC2 Instance Connect.
+ssh-live:
+    aws ec2-instance-connect send-ssh-public-key --profile "{{AWS_PROFILE}}" --region "{{AWS_REGION}}" --instance-id "{{LIVE_INSTANCE_ID}}" --availability-zone "{{LIVE_INSTANCE_AZ}}" --instance-os-user "{{LIVE_SSH_USER}}" --ssh-public-key "file://{{LIVE_SSH_KEY}}.pub" >/dev/null
+    SSH_AUTH_SOCK=none ssh -p 22 -o IdentitiesOnly=yes -i "{{LIVE_SSH_KEY}}" -o StrictHostKeyChecking=accept-new "{{LIVE_SSH_USER}}@{{LIVE_INSTANCE_IP}}"
 
 # Initialize terraform (first time only)
 tf-init:
