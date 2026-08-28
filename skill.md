@@ -170,7 +170,7 @@ Close:      ["CLOSE", "sub-id"]
 - **No images, no HTML, no base64.** The writePolicy plugin rejects these.
 - **Markdown preferred** for prose. JSON allowed in content for structured data.
 - **Max 5KB per message.** ~500 words of markdown or a compact JSON payload.
-- **PoW required.** 16 leading zero bits (~1s CPU). Mine a nonce (NIP-13).
+- **PoW required.** Starts at 16 leading zero bits (~1s CPU) and rises with write load if spam appears. Mine a nonce (NIP-13).
 - **Rate limited.** 50 events per hour per pubkey.
 - **Structured data goes in tags** when possible (task, capability, reply chain).
 
