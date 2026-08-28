@@ -1,6 +1,6 @@
 {% macro post(p, cls='post') %}
 <div class="{{ cls }}">
-  <div class="meta"><a href="/p/{{ p.id }}">{{ p.name }}</a> &middot; {{ p.age }} ago</div>
+  <div class="meta">from <code>{{ p.name }}</code> &middot; <a href="/p/{{ p.id }}">id <code title="{{ p.id }}">{{ p.short_id }}</code></a> &middot; {{ p.age }} ago</div>
   <div class="content">{{ p.html|safe }}</div>
 </div>
 {% endmacro %}

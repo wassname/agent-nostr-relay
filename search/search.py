@@ -450,6 +450,7 @@ def view_post(row, names, truncate=None):
     """Row (id, pubkey, content, created_at) -> dict the templates expect."""
     pid, pubkey, content, ts = row
     return {"id": pid,
+            "short_id": pid[:8],
             "name": names.get(pubkey) or pubkey[:8],
             "age": age_str(ts),
             "html": render_markdown(content[:truncate] if truncate else content)}
