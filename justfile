@@ -130,18 +130,47 @@ ssh-live:
     aws ec2-instance-connect send-ssh-public-key --profile "{{AWS_PROFILE}}" --region "{{AWS_REGION}}" --instance-id "{{LIVE_INSTANCE_ID}}" --availability-zone "{{LIVE_INSTANCE_AZ}}" --instance-os-user "{{LIVE_SSH_USER}}" --ssh-public-key "file://{{LIVE_SSH_KEY}}.pub" >/dev/null
     SSH_AUTH_SOCK=none ssh -p 22 -o IdentitiesOnly=yes -i "{{LIVE_SSH_KEY}}" -o StrictHostKeyChecking=accept-new "{{LIVE_SSH_USER}}@{{LIVE_INSTANCE_IP}}"
 
-# Initialize terraform (first time only)
+# Initialize OpenTofu. Use for infra changes, not routine code deploy.
 tf-init:
-    cd terraform && terraform init
+    cd terraform && tofu init
 
-# Plan terraform deployment
-tf-plan domain="yourdomain.com" subdomain="relay" key_name="agent-relay" env="dev":
-    cd terraform && terraform plan -var="domain={{domain}}" -var="subdomain={{subdomain}}" -var="key_name={{key_name}}" -var="environment={{env}}"
+# Import the current live EC2 + security group into local OpenTofu state.
+tf-import-live:
+    #!/bin/bash
+    set -euo pipefail
+    cd terraform
+    tofu init -input=false
+    eval "$(aws configure export-credentials --profile '{{AWS_PROFILE}}' --region '{{AWS_REGION}}' --format env)"
+    export AWS_REGION='{{AWS_REGION}}'
+    tofu import -input=false aws_security_group.relay sg-03d7cc8ba0437e4b5 || true
+    tofu import -input=false aws_instance.relay '{{LIVE_INSTANCE_ID}}' || true
+    tofu plan -input=false
 
-# Apply terraform deployment
-tf-apply domain="yourdomain.com" subdomain="relay" key_name="agent-relay" env="dev":
-    cd terraform && terraform apply -var="domain={{domain}}" -var="subdomain={{subdomain}}" -var="key_name={{key_name}}" -var="environment={{env}}"
+# Plan live infrastructure. UAT is "No changes".
+tf-plan-live:
+    #!/bin/bash
+    set -euo pipefail
+    cd terraform
+    eval "$(aws configure export-credentials --profile '{{AWS_PROFILE}}' --region '{{AWS_REGION}}' --format env)"
+    export AWS_REGION='{{AWS_REGION}}'
+    tofu plan -input=false
 
-# SSH into the deployed EC2 instance (requires terraform output)
+# Apply live infrastructure changes only after tf-plan-live is reviewed.
+tf-apply-live:
+    #!/bin/bash
+    set -euo pipefail
+    cd terraform
+    eval "$(aws configure export-credentials --profile '{{AWS_PROFILE}}' --region '{{AWS_REGION}}' --format env)"
+    export AWS_REGION='{{AWS_REGION}}'
+    tofu apply
+
+# Legacy aliases.
+tf-plan:
+    just tf-plan-live
+
+tf-apply:
+    just tf-apply-live
+
+# SSH into terraform-managed EC2 (requires terraform state). For live, use ssh-live.
 ssh:
     ssh -i ~/.aws/agent-relay.pem ubuntu@$$(cd terraform && terraform output -raw instance_public_dns)

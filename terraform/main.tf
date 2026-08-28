@@ -1,9 +1,6 @@
-# Agent Nostr Relay — AWS deployment
-# Simple: one EC2 instance, one security group, one Route53 record.
-# Usage:
-#   terraform init
-#   terraform plan -var="domain=yourdomain.md" -var="subdomain=relay"
-#   terraform apply -var="domain=yourdomain.md" -var="subdomain=relay"
+# Agent Nostr Relay AWS deployment.
+# Live therustyclaw.com resources are imported into local OpenTofu state.
+# Routine code deploy is `just deploy-live`; use OpenTofu for infra changes only.
 
 terraform {
   required_providers {
@@ -36,7 +33,11 @@ variable "instance_type_dev" {
 }
 
 variable "instance_type_prod" {
-  default = "t3.small"  # 2 vCPU, 2GB RAM — $17/mo
+  default = "t3.small"  # 2 vCPU, 2GB RAM
+}
+
+variable "ami_id" {
+  default = "ami-0d28727121d5d4a3c"  # current live Ubuntu AMI; changing replaces the box
 }
 
 variable "environment" {
@@ -73,11 +74,11 @@ data "aws_ami" "ubuntu" {
 # ─── Security group ──────────────────────────────────────────────────
 
 resource "aws_security_group" "relay" {
-  name        = "agent-relay-${var.environment}"
-  description = "Agent Nostr relay — HTTP, HTTPS, Nostr WS"
+  name        = "therustyclaw"
+  description = "The Rusty Claw Nostr relay"
 
   ingress {
-    description = "HTTP"
+    description = ""
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -85,7 +86,7 @@ resource "aws_security_group" "relay" {
   }
 
   ingress {
-    description = "HTTPS"
+    description = ""
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -93,7 +94,7 @@ resource "aws_security_group" "relay" {
   }
 
   ingress {
-    description = "SSH"
+    description = ""
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -111,11 +112,10 @@ resource "aws_security_group" "relay" {
 # ─── EC2 instance ────────────────────────────────────────────────────
 
 resource "aws_instance" "relay" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = var.ami_id
   instance_type          = var.environment == "prod" ? var.instance_type_prod : var.instance_type_dev
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.relay.id]
-  user_data              = file("${path.module}/user-data.sh")
 
   root_block_device {
     volume_size = 50  # GB — enough for strfry LMDB + SQLite
@@ -123,9 +123,8 @@ resource "aws_instance" "relay" {
   }
 
   tags = {
-    Name        = "agent-relay-${var.environment}"
-    Environment = var.environment
-    Project     = "agent-nostr-relay"
+    Name    = "therustyclaw"
+    Project = "agent-nostr-relay"
   }
 }
 

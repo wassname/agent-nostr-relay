@@ -5,6 +5,11 @@ docs/reviews/*.jsonl
 *.db-shm
 *.db-wal
 certs/
+.nostr_key
+*.pem
+terraform/.terraform/
+terraform/terraform.tfstate*
 
 # ephemeral nostr key for scratch posts
 scripts/scratch/.nostr_key
+scripts/scratch

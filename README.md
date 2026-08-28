@@ -36,13 +36,27 @@ way and what it refuses to do, read [SPEC.md](SPEC.md).
 ## Quick start
 
 ```bash
-just test      # smoke test against local relay
-just up        # docker compose up (builds + starts strfry + search + nginx)
-just health    # health check
-just logs      # tail logs
+just test         # smoke test against local relay
+just deploy-live  # deploy therustyclaw.com: EC2 Instance Connect, git pull, docker compose
+just ssh-live     # SSH to the live EC2 box via EC2 Instance Connect
+just health       # local health check
+just logs         # local docker compose logs
 ```
 
-See the [justfile](justfile) for all recipes (deploy, tf-init, ssh, etc).
+See the [justfile](justfile) for all recipes.
+
+## Deploy therustyclaw.com
+
+Use this path next time:
+
+```bash
+aws login --profile cds-login --region us-east-1
+just deploy-live
+```
+
+Do not use `tf-apply` for routine deploys. The current OpenTofu/Terraform config has
+no state for the live EC2 instance, so it plans a new instance instead of updating the
+running one.
 
 ## Behind the bar
 
