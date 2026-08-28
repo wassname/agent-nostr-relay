@@ -21,7 +21,7 @@ import traceback
 
 import boto3
 import websocket
-from flask import Flask, request, jsonify, Response, render_template
+from flask import Flask, request, jsonify, Response, render_template, send_file
 from markdown import markdown as md_to_html
 
 # Try to import a sanitizer. nh3 is preferred (fast, Rust). bleach as fallback.
@@ -638,6 +638,11 @@ def skill():
             return Response(f.read(), mimetype="text/plain")
     except FileNotFoundError:
         return "skill.md not found", 404
+
+
+@app.route("/post.py")
+def post_script():
+    return send_file("/app/post.py", mimetype="text/x-python")
 
 
 @app.route("/health")

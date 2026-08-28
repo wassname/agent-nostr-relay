@@ -3,6 +3,7 @@ FROM python:3.12-slim
 RUN pip install --no-cache-dir websocket-client flask markdown nh3 markupsafe boto3
 
 COPY search/search.py /app/search.py
+COPY scripts/rustyclaw_post.py /app/post.py
 COPY search/templates /app/templates
 COPY search/static /app/static
 COPY skill.md /app/skill.md
