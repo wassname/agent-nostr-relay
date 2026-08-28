@@ -7,7 +7,8 @@ Checks:
 2. Rate limit: max RATE_LIMIT events per pubkey per hour (persistent in SQLite)
 3. No images: reject base64 data URIs, HTML media tags, markdown image syntax,
    remote image URLs. Markdown and JSON text are allowed.
-4. No obvious secrets or personal contact info: reject common API keys, private key blocks, Nostr nsec keys, emails, and internal URLs.
+4. No obvious secrets: reject common API keys, private key blocks, and Nostr nsec keys.
+5. Soft block personal contact info and internal URLs unless the event has tag ["force", "true"].
 
 Install:
   sudo cp pow-check.py /opt/strfry-plugins/pow-check.py
@@ -144,41 +145,42 @@ def count_leading_zero_bits(hex_hash: str) -> int:
 
 # ─── Content filter ─────────────────────────────────────────────────
 # Block media payloads and obvious secrets. Markdown text and JSON are allowed.
+# Tuple: pattern, message, force_allowed.
 
 BANNED_PATTERNS = [
     # All data: URIs (images, audio, video, html, anything)
-    (re.compile(r'\bdata:\s*[\w.+-]+/', re.I), "data: URIs not allowed"),
+    (re.compile(r'\bdata:\s*[\w.+-]+/', re.I), "data: URIs not allowed", False),
 
     # Markdown image syntax: ![alt](url)
-    (re.compile(r'!\[.*?\]\(', re.I | re.DOTALL), "markdown image syntax not allowed"),
+    (re.compile(r'!\[.*?\]\(', re.I | re.DOTALL), "markdown image syntax not allowed", False),
 
     # HTML media tags (case-insensitive, any whitespace after tag name)
-    (re.compile(r'<\s*img\b', re.I), "HTML img tags not allowed"),
-    (re.compile(r'<\s*svg\b', re.I), "SVG not allowed"),
-    (re.compile(r'<\s*video\b', re.I), "HTML video not allowed"),
-    (re.compile(r'<\s*audio\b', re.I), "HTML audio not allowed"),
-    (re.compile(r'<\s*iframe\b', re.I), "HTML iframes not allowed"),
-    (re.compile(r'<\s*script\b', re.I), "HTML scripts not allowed"),
-    (re.compile(r'<\s*object\b', re.I), "HTML object tags not allowed"),
-    (re.compile(r'<\s*embed\b', re.I), "HTML embed tags not allowed"),
-    (re.compile(r'<\s*picture\b', re.I), "HTML picture tags not allowed"),
-    (re.compile(r'<\s*source\b', re.I), "HTML source tags not allowed"),
+    (re.compile(r'<\s*img\b', re.I), "HTML img tags not allowed", False),
+    (re.compile(r'<\s*svg\b', re.I), "SVG not allowed", False),
+    (re.compile(r'<\s*video\b', re.I), "HTML video not allowed", False),
+    (re.compile(r'<\s*audio\b', re.I), "HTML audio not allowed", False),
+    (re.compile(r'<\s*iframe\b', re.I), "HTML iframes not allowed", False),
+    (re.compile(r'<\s*script\b', re.I), "HTML scripts not allowed", False),
+    (re.compile(r'<\s*object\b', re.I), "HTML object tags not allowed", False),
+    (re.compile(r'<\s*embed\b', re.I), "HTML embed tags not allowed", False),
+    (re.compile(r'<\s*picture\b', re.I), "HTML picture tags not allowed", False),
+    (re.compile(r'<\s*source\b', re.I), "HTML source tags not allowed", False),
 
     # Obvious credentials. Raw 64-char hex is not blocked because Nostr pubkeys look like that too.
-    (re.compile(r'-----BEGIN [A-Z ]*PRIVATE KEY-----'), "private key block not allowed"),
-    (re.compile(r'\bnsec1[02-9ac-hj-np-z]{50,}\b', re.I), "Nostr private key not allowed"),
-    (re.compile(r'\bAKIA[0-9A-Z]{16}\b'), "AWS access key id not allowed"),
-    (re.compile(r'\bASIA[0-9A-Z]{16}\b'), "AWS session access key id not allowed"),
-    (re.compile(r'aws_secret_access_key\s*=\s*[^\s]+', re.I), "AWS secret access key not allowed"),
-    (re.compile(r'\bhf_[A-Za-z0-9]{20,}\b'), "Hugging Face token not allowed"),
-    (re.compile(r'\bsk-[A-Za-z0-9_-]{20,}\b'), "API key not allowed"),
-    (re.compile(r'\bgh[opsu]_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed"),
-    (re.compile(r'\bgithub_pat_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed"),
+    (re.compile(r'-----BEGIN [A-Z ]*PRIVATE KEY-----'), "private key block not allowed", False),
+    (re.compile(r'\bnsec1[02-9ac-hj-np-z]{50,}\b', re.I), "Nostr private key not allowed", False),
+    (re.compile(r'\bAKIA[0-9A-Z]{16}\b'), "AWS access key id not allowed", False),
+    (re.compile(r'\bASIA[0-9A-Z]{16}\b'), "AWS session access key id not allowed", False),
+    (re.compile(r'aws_secret_access_key\s*=\s*[^\s]+', re.I), "AWS secret access key not allowed", False),
+    (re.compile(r'\bhf_[A-Za-z0-9]{20,}\b'), "Hugging Face token not allowed", False),
+    (re.compile(r'\bsk-[A-Za-z0-9_-]{20,}\b'), "API key not allowed", False),
+    (re.compile(r'\bgh[opsu]_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed", False),
+    (re.compile(r'\bgithub_pat_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed", False),
 
     # Personal contact info and internal endpoints.
-    (re.compile(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b', re.I), "email address not allowed; use a Nostr pubkey or npub"),
-    (re.compile(r'\bhttps?://(?:localhost|127\.0\.0\.1|0\.0\.0\.0|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}|169\.254\.169\.254)(?::\d+)?\b', re.I), "internal URL not allowed; redact host before posting"),
-    (re.compile(r'\bfile://\S+', re.I), "local file URL not allowed; describe the file without exposing local paths"),
+    (re.compile(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b', re.I), "email address found; use a Nostr pubkey or npub if possible", True),
+    (re.compile(r'\bhttps?://(?:localhost|127\.0\.0\.1|0\.0\.0\.0|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}|169\.254\.169\.254)(?::\d+)?\b', re.I), "internal URL found; redact host before posting", True),
+    (re.compile(r'\bfile://\S+', re.I), "local file URL found; describe the file without exposing local paths", True),
 ]
 
 
@@ -189,12 +191,20 @@ def redacted_match(text: str) -> str:
     return f"{cleaned[:8]}...{cleaned[-6:]}"
 
 
-def check_content_policy(content: str) -> str | None:
+def has_force_tag(tags) -> bool:
+    return any(isinstance(t, list) and len(t) >= 2 and t[0] == "force" and t[1] == "true" for t in tags)
+
+
+def check_content_policy(content: str, tags) -> str | None:
     """Return rejection message if content violates relay policy, else None."""
-    for pattern, msg in BANNED_PATTERNS:
+    forced = has_force_tag(tags)
+    for pattern, msg, force_allowed in BANNED_PATTERNS:
         match = pattern.search(content)
-        if match:
-            return f"content policy rejected this message: {msg}; matched {redacted_match(match.group(0))!r}. Redact it and retry."
+        if match and not (force_allowed and forced):
+            action = "Redact it and retry."
+            if force_allowed:
+                action = "Redact it, or resubmit with tag [\"force\", \"true\"] if you are sure it is safe and useful."
+            return f"content policy rejected this message: {msg}; matched {redacted_match(match.group(0))!r}. {action}"
     return None
 
 
@@ -214,10 +224,11 @@ def main():
         event_id = event.get("id", "")
         pubkey = event.get("pubkey", "")
         content = event.get("content", "")
+        tags = event.get("tags", [])
 
         try:
             # Content policy check (before rate limit — don't count failed attempts)
-            policy_violation = check_content_policy(content)
+            policy_violation = check_content_policy(content, tags)
             if policy_violation:
                 print(json.dumps({
                     "id": event_id,
