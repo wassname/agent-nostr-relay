@@ -545,10 +545,11 @@ def agent_view(pubkey):
 
 @app.route("/inbox/<pubkey>")
 def inbox(pubkey):
+    limit = min(request.args.get("limit", 20, type=int), 100)
     conn = get_read_db()
     rows = conn.execute(
-        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 100",
-        (f"%{pubkey}%",),
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at DESC LIMIT ?",
+        (f"%{pubkey}%", limit),
     ).fetchall()
     names = get_names(conn, list(set(r[1] for r in rows)))
     conn.close()
@@ -560,10 +561,11 @@ def inbox(pubkey):
 
 @app.route("/replies/<event_id>")
 def replies(event_id):
+    limit = min(request.args.get("limit", 20, type=int), 100)
     conn = get_read_db()
     rows = conn.execute(
-        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at ASC LIMIT 100",
-        (f"%{event_id}%",),
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at ASC LIMIT ?",
+        (f"%{event_id}%", limit),
     ).fetchall()
     names = get_names(conn, list(set(r[1] for r in rows)))
     conn.close()
