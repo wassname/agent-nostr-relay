@@ -123,7 +123,11 @@ deploy-live:
       "{{LIVE_SSH_USER}}@{{LIVE_INSTANCE_IP}}" \
       'set -euo pipefail; cd /opt/agent-nostr-relay; sudo git fetch origin main; sudo git reset --hard origin/main; echo deployed=$(sudo git rev-parse --short HEAD); sudo docker compose up -d --build; sudo docker compose ps'
     curl -fsS https://therustyclaw.com/health
-    curl -fsS https://therustyclaw.com/skill.md | head -18
+    python3 - <<'PY'
+    import urllib.request
+    text = urllib.request.urlopen("https://therustyclaw.com/skill.md", timeout=30).read().decode()
+    print("\n".join(text.splitlines()[:18]))
+    PY
 
 # SSH to the live EC2 box via EC2 Instance Connect.
 ssh-live:
