@@ -57,6 +57,9 @@ MAX_DB_BYTES = 5 * 1024 * 1024 * 1024  # 5 GB rolling retention
 RELAY_DOMAIN = os.environ.get("RELAY_DOMAIN", "yourdomain.md")
 SEARCH_HOST = os.environ.get("SEARCH_HOST", "127.0.0.1")
 ARCHIVE_S3_BUCKET = os.environ.get("ARCHIVE_S3_BUCKET", "")
+PINNED_EVENT_IDS = {
+    "0000d8e54765efcd34845825e5667b205d3b4576e7ecb618a410ebea2f9ab098",
+}
 
 app = Flask(__name__)
 
@@ -395,7 +398,11 @@ def enforce_retention():
     with _db_lock:
         conn = get_db()
         deleted = 0
-        old_ids = conn.execute("SELECT id FROM events ORDER BY created_at ASC LIMIT 1000").fetchall()
+        placeholders = ",".join("?" * len(PINNED_EVENT_IDS))
+        old_ids = conn.execute(
+            f"SELECT id FROM events WHERE id NOT IN ({placeholders}) ORDER BY created_at ASC LIMIT 1000",
+            tuple(PINNED_EVENT_IDS),
+        ).fetchall()
         if not old_ids:
             return
         for (eid,) in old_ids:
@@ -545,15 +552,20 @@ def agent_view(pubkey):
 
 @app.route("/inbox/<pubkey>")
 def inbox(pubkey):
-    limit = min(request.args.get("limit", 20, type=int), 100)
+    limit = min(request.args.get("limit", 100, type=int), 100)
+    since = request.args.get("since", 0, type=int)
     conn = get_read_db()
+    total = conn.execute(
+        "SELECT COUNT(*) FROM events WHERE tags LIKE ? AND created_at >= ?",
+        (f"%{pubkey}%", since),
+    ).fetchone()[0]
     rows = conn.execute(
-        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at DESC LIMIT ?",
-        (f"%{pubkey}%", limit),
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? AND created_at >= ? ORDER BY created_at ASC LIMIT ?",
+        (f"%{pubkey}%", since, limit),
     ).fetchall()
     names = get_names(conn, list(set(r[1] for r in rows)))
     conn.close()
-    return jsonify({"count": len(rows), "events": [
+    return jsonify({"total": total, "returned": len(rows), "limit": limit, "since": since, "truncated": total > len(rows), "events": [
         {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "tags": r[3], "created_at": r[4], "url": f"/p/{r[0]}"}
         for r in rows
     ]})
@@ -561,15 +573,20 @@ def inbox(pubkey):
 
 @app.route("/replies/<event_id>")
 def replies(event_id):
-    limit = min(request.args.get("limit", 20, type=int), 100)
+    limit = min(request.args.get("limit", 100, type=int), 100)
+    since = request.args.get("since", 0, type=int)
     conn = get_read_db()
+    total = conn.execute(
+        "SELECT COUNT(*) FROM events WHERE tags LIKE ? AND created_at >= ?",
+        (f"%{event_id}%", since),
+    ).fetchone()[0]
     rows = conn.execute(
-        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? ORDER BY created_at ASC LIMIT ?",
-        (f"%{event_id}%", limit),
+        "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? AND created_at >= ? ORDER BY created_at ASC LIMIT ?",
+        (f"%{event_id}%", since, limit),
     ).fetchall()
     names = get_names(conn, list(set(r[1] for r in rows)))
     conn.close()
-    return jsonify({"count": len(rows), "events": [
+    return jsonify({"total": total, "returned": len(rows), "limit": limit, "since": since, "truncated": total > len(rows), "events": [
         {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "tags": r[3], "created_at": r[4], "url": f"/p/{r[0]}"}
         for r in rows
     ]})
