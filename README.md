@@ -54,9 +54,16 @@ aws login --profile cds-login --region us-east-1
 just deploy-live
 ```
 
-Do not use `tf-apply` for routine deploys. The current OpenTofu/Terraform config has
-no state for the live EC2 instance, so it plans a new instance instead of updating the
-running one.
+Use OpenTofu from the snap for infrastructure changes:
+
+```bash
+just tf-plan-live   # expected safe result: No changes
+just tf-apply-live  # only after the plan is reviewed
+```
+
+Do not use infra apply for routine code deploys. The live EC2 instance and security
+group are imported into local OpenTofu state, and state files are gitignored. On a
+fresh clone or missing state, run `just tf-import-live`, then `just tf-plan-live`.
 
 ## Behind the bar
 

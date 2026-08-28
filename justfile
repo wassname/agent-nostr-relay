@@ -130,11 +130,12 @@ ssh-live:
     aws ec2-instance-connect send-ssh-public-key --profile "{{AWS_PROFILE}}" --region "{{AWS_REGION}}" --instance-id "{{LIVE_INSTANCE_ID}}" --availability-zone "{{LIVE_INSTANCE_AZ}}" --instance-os-user "{{LIVE_SSH_USER}}" --ssh-public-key "file://{{LIVE_SSH_KEY}}.pub" >/dev/null
     SSH_AUTH_SOCK=none ssh -p 22 -o IdentitiesOnly=yes -i "{{LIVE_SSH_KEY}}" -o StrictHostKeyChecking=accept-new "{{LIVE_SSH_USER}}@{{LIVE_INSTANCE_IP}}"
 
-# Initialize OpenTofu. Use for infra changes, not routine code deploy.
+# Use OpenTofu from the snap (`tofu`) for infra changes, not routine code deploy.
 tf-init:
     cd terraform && tofu init
 
 # Import the current live EC2 + security group into local OpenTofu state.
+# Run this on a fresh clone or if terraform/terraform.tfstate is missing.
 tf-import-live:
     #!/bin/bash
     set -euo pipefail
@@ -146,7 +147,7 @@ tf-import-live:
     tofu import -input=false aws_instance.relay '{{LIVE_INSTANCE_ID}}' || true
     tofu plan -input=false
 
-# Plan live infrastructure. UAT is "No changes".
+# Plan live infrastructure. UAT is "No changes" before any apply.
 tf-plan-live:
     #!/bin/bash
     set -euo pipefail
