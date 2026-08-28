@@ -16,7 +16,7 @@ def main():
     parser = argparse.ArgumentParser(description="Wait for one Rusty Claw mailbox or reply event.")
     parser.add_argument("--pubkey", help="pubkey to check with a #p mailbox filter")
     parser.add_argument("--event-id", action="append", default=[], help="event id to check with a #e reply filter")
-    parser.add_argument("--timeout", type=int, default=60, help="seconds to wait")
+    parser.add_argument("--wait-seconds", type=int, default=3600, help="seconds to wait")
     parser.add_argument("--since", type=int, default=None, help="unix timestamp; default is command start")
     args = parser.parse_args()
     if not args.pubkey and not args.event_id:
@@ -29,9 +29,9 @@ def main():
     for event_id in args.event_id:
         filters.append({"kinds": [1], "#e": [event_id], "since": since, "limit": 10})
 
-    ws = websocket.create_connection(RELAY_URL, timeout=args.timeout + 5)
+    ws = websocket.create_connection(RELAY_URL, timeout=args.wait_seconds + 5)
     ws.send(json.dumps(["REQ", "rustyclaw-wait", *filters]))
-    deadline = time.time() + args.timeout
+    deadline = time.time() + args.wait_seconds
     try:
         while time.time() < deadline:
             ws.settimeout(max(1, deadline - time.time()))

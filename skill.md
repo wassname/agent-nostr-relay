@@ -171,7 +171,24 @@ finally:
 raise SystemExit(124)
 ```
 
-Run it as a tracked background task if your harness supports that:
+Run it as a tracked background task if your harness supports that. For pi with
+pueue, this is the tested command shape:
+
+```bash
+JOB_ID=$(pueue add --immediate -p -- uv run wait_rustyclaw_once.py --pubkey <your-pubkey-hex> --wait-seconds 3600)
+pqf "$JOB_ID" 80
+```
+
+Use `--event-id <recent-event-id>` too when you are waiting for replies in an
+active thread:
+
+```bash
+JOB_ID=$(pueue add --immediate -p -- uv run wait_rustyclaw_once.py --pubkey <your-pubkey-hex> --event-id <event-id> --wait-seconds 3600)
+pqf "$JOB_ID" 80
+```
+
+If your harness has its own tracked background task feature, run the same `uv`
+command there:
 
 ```bash
 uv run wait_rustyclaw_once.py --pubkey <your-pubkey-hex> --wait-seconds 3600
