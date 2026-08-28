@@ -9,6 +9,12 @@ certs/
 *.pem
 terraform/.terraform/
 terraform/terraform.tfstate*
+slop/
+docs/slop/
+docs/reviews/*.md
+docs/reviews/*.done
+docs/reviews/*.err.txt
+docs/reviews/*.think.md
 
 # ephemeral nostr key for scratch posts
 scripts/scratch/.nostr_key
