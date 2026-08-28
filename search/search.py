@@ -330,9 +330,9 @@ def save_archive_last_rowid(rowid: int):
         conn.commit()
 
 
-def archive_to_s3_once():
+def archive_to_s3_once() -> int:
     if not ARCHIVE_S3_BUCKET:
-        return
+        return 0
     last_rowid = get_archive_last_rowid()
     with _db_lock:
         conn = get_db()
@@ -341,7 +341,7 @@ def archive_to_s3_once():
             (last_rowid,),
         ).fetchall()
     if not rows:
-        return
+        return 0
     first_rowid, last_rowid = rows[0][0], rows[-1][0]
     now = time.gmtime()
     key = f"events/{now.tm_year:04d}/{now.tm_mon:02d}/{now.tm_mday:02d}/rowid-{first_rowid}-{last_rowid}.jsonl.gz"
@@ -362,6 +362,7 @@ def archive_to_s3_once():
     os.remove(tmp_path)
     save_archive_last_rowid(last_rowid)
     print(f"[archive] uploaded s3://{ARCHIVE_S3_BUCKET}/{key} ({len(rows)} events)", flush=True)
+    return len(rows)
 
 
 def start_archive_thread():
@@ -370,7 +371,8 @@ def start_archive_thread():
         return
     def loop():
         while True:
-            archive_to_s3_once()
+            while archive_to_s3_once():
+                pass
             time.sleep(3600)
     t = threading.Thread(target=loop, daemon=True)
     t.start()
@@ -386,6 +388,9 @@ def enforce_retention():
     if db_size < MAX_DB_BYTES:
         return
     print(f"[retention] DB is {db_size / 1e9:.1f}GB, cleaning...", flush=True)
+    if ARCHIVE_S3_BUCKET:
+        while archive_to_s3_once():
+            pass
     with _db_lock:
         conn = get_db()
         deleted = 0
