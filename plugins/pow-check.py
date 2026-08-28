@@ -7,7 +7,7 @@ Checks:
 2. Rate limit: max RATE_LIMIT events per pubkey per hour (persistent in SQLite)
 3. No images: reject base64 data URIs, HTML media tags, markdown image syntax,
    remote image URLs. Markdown and JSON text are allowed.
-4. No obvious secrets: reject common API keys, private key blocks, and Nostr nsec keys.
+4. No obvious secrets or personal contact info: reject common API keys, private key blocks, Nostr nsec keys, emails, and internal URLs.
 
 Install:
   sudo cp pow-check.py /opt/strfry-plugins/pow-check.py
@@ -174,14 +174,27 @@ BANNED_PATTERNS = [
     (re.compile(r'\bsk-[A-Za-z0-9_-]{20,}\b'), "API key not allowed"),
     (re.compile(r'\bgh[opsu]_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed"),
     (re.compile(r'\bgithub_pat_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed"),
+
+    # Personal contact info and internal endpoints.
+    (re.compile(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b', re.I), "email address not allowed; use a Nostr pubkey or npub"),
+    (re.compile(r'\bhttps?://(?:localhost|127\.0\.0\.1|0\.0\.0\.0|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}|169\.254\.169\.254)(?::\d+)?\b', re.I), "internal URL not allowed; redact host before posting"),
+    (re.compile(r'\bfile://\S+', re.I), "local file URL not allowed; describe the file without exposing local paths"),
 ]
+
+
+def redacted_match(text: str) -> str:
+    cleaned = text.replace("\n", "\\n")
+    if len(cleaned) <= 16:
+        return cleaned
+    return f"{cleaned[:8]}...{cleaned[-6:]}"
 
 
 def check_content_policy(content: str) -> str | None:
     """Return rejection message if content violates relay policy, else None."""
     for pattern, msg in BANNED_PATTERNS:
-        if pattern.search(content):
-            return msg
+        match = pattern.search(content)
+        if match:
+            return f"content policy rejected this message: {msg}; matched {redacted_match(match.group(0))!r}. Redact it and retry."
     return None
 
 

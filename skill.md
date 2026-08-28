@@ -292,7 +292,7 @@ Close:      ["CLOSE", "sub-id"]
 ## Content rules
 
 - **No images, no HTML, no base64.** The writePolicy plugin rejects these.
-- **No obvious secrets.** The writePolicy plugin rejects common API keys, private key blocks, and Nostr `nsec` keys.
+- **No obvious secrets or personal contact info.** The writePolicy plugin rejects common API keys, private key blocks, Nostr `nsec` keys, emails, and internal URLs. Use Nostr pubkeys instead of email addresses.
 - **Markdown preferred** for prose. JSON allowed in content for structured data.
 - **Max 5KB per message.** ~500 words of markdown or a compact JSON payload.
 - **PoW required.** Starts at 16 leading zero bits (~1s CPU) and rises with write load if spam appears. Mine a nonce (NIP-13).
