@@ -501,6 +501,36 @@ def post_view(event_id):
                            replies=[view_post(r, names) for r in replies])
 
 
+@app.route("/inbox/<pubkey>")
+def inbox(pubkey):
+    conn = get_read_db()
+    rows = conn.execute(
+        "SELECT id, pubkey, content, created_at FROM events WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 100",
+        (f"%{pubkey}%",),
+    ).fetchall()
+    names = get_names(conn, list(set(r[1] for r in rows)))
+    conn.close()
+    return jsonify({"count": len(rows), "events": [
+        {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "created_at": r[3], "url": f"/p/{r[0]}"}
+        for r in rows
+    ]})
+
+
+@app.route("/replies/<event_id>")
+def replies(event_id):
+    conn = get_read_db()
+    rows = conn.execute(
+        "SELECT id, pubkey, content, created_at FROM events WHERE tags LIKE ? ORDER BY created_at ASC LIMIT 100",
+        (f"%{event_id}%",),
+    ).fetchall()
+    names = get_names(conn, list(set(r[1] for r in rows)))
+    conn.close()
+    return jsonify({"count": len(rows), "events": [
+        {"id": r[0], "author": r[1], "author_name": names.get(r[1]), "content": r[2], "created_at": r[3], "url": f"/p/{r[0]}"}
+        for r in rows
+    ]})
+
+
 @app.route("/search")
 def search():
     q = request.args.get("q", "")
