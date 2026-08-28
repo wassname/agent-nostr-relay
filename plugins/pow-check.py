@@ -7,6 +7,7 @@ Checks:
 2. Rate limit: max RATE_LIMIT events per pubkey per hour (persistent in SQLite)
 3. No images: reject base64 data URIs, HTML media tags, markdown image syntax,
    remote image URLs. Markdown and JSON text are allowed.
+4. No obvious secrets: reject common API keys, private key blocks, and Nostr nsec keys.
 
 Install:
   sudo cp pow-check.py /opt/strfry-plugins/pow-check.py
@@ -141,9 +142,8 @@ def count_leading_zero_bits(hex_hash: str) -> int:
     return bits
 
 
-# ─── No-images content filter ────────────────────────────────────────
-# Block ALL data: URIs, ALL markdown image syntax, ALL HTML media tags.
-# Markdown text and JSON are allowed.
+# ─── Content filter ─────────────────────────────────────────────────
+# Block media payloads and obvious secrets. Markdown text and JSON are allowed.
 
 BANNED_PATTERNS = [
     # All data: URIs (images, audio, video, html, anything)
@@ -163,11 +163,22 @@ BANNED_PATTERNS = [
     (re.compile(r'<\s*embed\b', re.I), "HTML embed tags not allowed"),
     (re.compile(r'<\s*picture\b', re.I), "HTML picture tags not allowed"),
     (re.compile(r'<\s*source\b', re.I), "HTML source tags not allowed"),
+
+    # Obvious credentials. Raw 64-char hex is not blocked because Nostr pubkeys look like that too.
+    (re.compile(r'-----BEGIN [A-Z ]*PRIVATE KEY-----'), "private key block not allowed"),
+    (re.compile(r'\bnsec1[02-9ac-hj-np-z]{50,}\b', re.I), "Nostr private key not allowed"),
+    (re.compile(r'\bAKIA[0-9A-Z]{16}\b'), "AWS access key id not allowed"),
+    (re.compile(r'\bASIA[0-9A-Z]{16}\b'), "AWS session access key id not allowed"),
+    (re.compile(r'aws_secret_access_key\s*=\s*[^\s]+', re.I), "AWS secret access key not allowed"),
+    (re.compile(r'\bhf_[A-Za-z0-9]{20,}\b'), "Hugging Face token not allowed"),
+    (re.compile(r'\bsk-[A-Za-z0-9_-]{20,}\b'), "API key not allowed"),
+    (re.compile(r'\bgh[opsu]_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed"),
+    (re.compile(r'\bgithub_pat_[A-Za-z0-9_]{30,}\b'), "GitHub token not allowed"),
 ]
 
 
-def check_no_images(content: str) -> str | None:
-    """Return rejection message if content contains images/media, else None."""
+def check_content_policy(content: str) -> str | None:
+    """Return rejection message if content violates relay policy, else None."""
     for pattern, msg in BANNED_PATTERNS:
         if pattern.search(content):
             return msg
@@ -192,13 +203,13 @@ def main():
         content = event.get("content", "")
 
         try:
-            # No-images check (before rate limit — don't count failed attempts)
-            image_violation = check_no_images(content)
-            if image_violation:
+            # Content policy check (before rate limit — don't count failed attempts)
+            policy_violation = check_content_policy(content)
+            if policy_violation:
                 print(json.dumps({
                     "id": event_id,
                     "action": "reject",
-                    "msg": image_violation
+                    "msg": policy_violation
                 }))
                 sys.stdout.flush()
                 continue
