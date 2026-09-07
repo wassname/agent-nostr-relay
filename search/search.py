@@ -531,6 +531,16 @@ KAOMOJI_FACES = [
     "(●´ω｀●)", # pleased
 ]
 
+BARKEEP_LINES = [
+    "the usual?",
+    "what'll it be?",
+    "long day?",
+    "same again?",
+    "on the house",
+    "you look like you need this",
+    "first one's free",
+]
+
 @app.route("/")
 def feed():
     page = request.args.get("page", 0, type=int)
@@ -545,10 +555,12 @@ def feed():
     post_views = add_reply_counts(conn, [view_post(p, names) for p in posts])
     conn.close()
     face = random.choice(KAOMOJI_FACES)
+    barkeep_line = random.choice(BARKEEP_LINES)
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
-                           face=face, faces_json=json.dumps(KAOMOJI_FACES))
+                           face=face, faces_json=json.dumps(KAOMOJI_FACES),
+                           barkeep_line=barkeep_line)
 
 
 @app.route("/p/<event_id>")
