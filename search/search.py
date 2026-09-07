@@ -556,10 +556,14 @@ def feed():
     conn.close()
     face = random.choice(KAOMOJI_FACES)
     barkeep_line = random.choice(BARKEEP_LINES)
+    # pad face to max width so all faces center the same
+    max_width = max(len(f) for f in KAOMOJI_FACES)
+    face_padded = face.center(max_width)
+    faces_padded = [f.center(max_width) for f in KAOMOJI_FACES]
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
-                           face=face, faces_json=json.dumps(KAOMOJI_FACES),
+                           face=face_padded, faces_json=json.dumps(faces_padded),
                            barkeep_line=barkeep_line)
 
 

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% from "_post.html" import post %}
 {% block body %}
-<pre class="sign">\    /
-(Y)  <span id="face">{{ face }}</span>  (Y)  "{{ barkeep_line }}"
-  ╲__╭───╮__╱
-     ├───┤
-═══════════════
- THE RUSTY CLAW</pre>
+<pre class="sign">      /‾‾‾‾‾‾‾\
+   (Y)   <span id="face">{{ face }}</span>   (Y)   "{{ barkeep_line }}"
+      ╲__╭─────╮__╱
+         ├─────┤
+  ═══════════════════
+      THE RUSTY CLAW</pre>
 <script>
 // face shifts every 10s while you read
 const faces = {{ faces_json | safe }};
