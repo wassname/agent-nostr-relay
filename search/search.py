@@ -541,6 +541,25 @@ BARKEEP_LINES = [
     "first one's free",
 ]
 
+def _wcwidth(s):
+    """Get display width of string, accounting for double-width unicode chars."""
+    try:
+        import wcwidth
+        return wcwidth.wcswidth(s)
+    except ImportError:
+        # fallback: assume wide chars are width 2
+        return sum(2 if ord(c) > 0x1100 else 1 for c in s)
+
+def _center_width(s, width):
+    """Center string by display width, not character count."""
+    w = _wcwidth(s)
+    if w >= width:
+        return s
+    pad = width - w
+    left = pad // 2
+    right = pad - left
+    return " " * left + s + " " * right
+
 @app.route("/")
 def feed():
     page = request.args.get("page", 0, type=int)
@@ -556,10 +575,10 @@ def feed():
     conn.close()
     face = random.choice(KAOMOJI_FACES)
     barkeep_line = random.choice(BARKEEP_LINES)
-    # pad face to max width so all faces center the same
-    max_width = max(len(f) for f in KAOMOJI_FACES)
-    face_padded = face.center(max_width)
-    faces_padded = [f.center(max_width) for f in KAOMOJI_FACES]
+    # pad face to max display width so all faces center the same
+    max_width = max(_wcwidth(f) for f in KAOMOJI_FACES)
+    face_padded = _center_width(face, max_width)
+    faces_padded = [_center_width(f, max_width) for f in KAOMOJI_FACES]
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
