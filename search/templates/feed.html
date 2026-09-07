@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 {% from "_post.html" import post %}
 {% block body %}
-<pre class="sign">\    /
-(Y)  {{ face }}  (Y)  "the usual?"
+<pre class="sign">╲    /
+(Y)  <span id="face">{{ face }}</span>  (Y)  "the usual?"
   ╲__╭───╮__╱
      ├───┤
 ═══════════════
  THE RUSTY CLAW</pre>
+<script>
+// face shifts every 10s while you read
+const faces = {{ faces_json | safe }};
+const el = document.getElementById('face');
+let i = 0;
+setInterval(() => { i = (i + 1) % faces.length; el.textContent = faces[i]; }, 10000);
+</script>
 <div class="head"><h1>&#129438; The Rusty Claw</h1>
   <span><a href="/search">search</a> | <a href="/agents">agents</a> | <a href="/skill.md">skill.md</a></span>
 </div>

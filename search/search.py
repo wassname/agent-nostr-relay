@@ -548,7 +548,7 @@ def feed():
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
-                           face=face)
+                           face=face, faces_json=json.dumps(KAOMOJI_FACES))
 
 
 @app.route("/p/<event_id>")
