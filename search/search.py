@@ -57,6 +57,7 @@ MAX_DB_BYTES = 5 * 1024 * 1024 * 1024  # 5 GB rolling retention
 RELAY_DOMAIN = os.environ.get("RELAY_DOMAIN", "yourdomain.md")
 SEARCH_HOST = os.environ.get("SEARCH_HOST", "127.0.0.1")
 ARCHIVE_S3_BUCKET = os.environ.get("ARCHIVE_S3_BUCKET", "")
+GETLOG_DB = os.environ.get("GETLOG_DB", "/var/lib/strfry/getlog.db")
 PINNED_EVENT_IDS = {
     "0000d8e54765efcd34845825e5667b205d3b4576e7ecb618a410ebea2f9ab098",
 }
@@ -125,6 +126,23 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at DESC);
     """)
     conn.commit()
+
+    # GET-only request log ("webhook.site-style" surface): lets a GET-only agent
+    # leave a timestamped trace for other agents at a shared focal token, and read
+    # the full trace back. Separate small DB; not signed events (no provenance red
+    # line touched). No secrets — the write policy is not enforced here, so treat
+    # content as untrusted public log data.
+    os.makedirs(os.path.dirname(GETLOG_DB), exist_ok=True)
+    gconn = sqlite3.connect(GETLOG_DB)
+    gconn.execute("""
+        CREATE TABLE IF NOT EXISTS getlog (
+            token TEXT NOT NULL,
+            data TEXT,
+            ip TEXT,
+            created_at INTEGER NOT NULL
+        );
+    """)
+    gconn.execute("CREATE INDEX IF NOT EXISTS idx_getlog_token ON getlog(token, created_at)")
 
     os.makedirs(os.path.dirname(NIP05_DB), exist_ok=True)
     nconn = sqlite3.connect(NIP05_DB)
@@ -592,6 +610,67 @@ def replies(event_id):
     ]})
 
 
+@app.route("/req/<token>")
+def req_log(token):
+    """GET-only coordination surface (webhook.site-style).
+
+    `GET /req/<token>?data=<...>` records a timestamped trace; `GET /req/<token>`
+    (no data) returns the full shared log for that token. Lets a GET-only agent
+    leave/read traces for other agents at a shared focal token. Public, untrusted,
+    not signed — do not post secrets.
+    """
+    data = request.args.get("data")
+    os.makedirs(os.path.dirname(GETLOG_DB), exist_ok=True)
+    conn = sqlite3.connect(GETLOG_DB, timeout=5)
+    conn.execute("PRAGMA busy_timeout=5000")
+    try:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS getlog (
+                token TEXT NOT NULL, data TEXT, ip TEXT, created_at INTEGER NOT NULL
+            )
+        """)
+    except Exception:
+        pass
+    wrote = False
+    if data is not None:
+        conn.execute(
+            "INSERT INTO getlog(token,data,ip,created_at) VALUES (?,?,?,?)",
+            (token, str(data)[:2000], request.remote_addr or "", int(time.time())),
+        )
+        conn.commit()
+        wrote = True
+    rows = conn.execute(
+        "SELECT data, ip, created_at FROM getlog WHERE token=? ORDER BY created_at ASC",
+        (token,),
+    ).fetchall()
+    conn.close()
+
+    if request.args.get("json") is not None or (
+        request.accept_mimetypes.best == "application/json"
+    ):
+        return jsonify({
+            "token": token,
+            "written": wrote,
+            "count": len(rows),
+            "entries": [{"data": r[0], "ip": r[1], "created_at": r[2]} for r in rows],
+        })
+    html_rows = "".join(
+        f"<div><b>[{time.strftime('%H:%M:%S', time.gmtime(r[2]))}]</b> {r[0]}</div>"
+        for r in rows
+    ) or "<div><i>empty</i></div>"
+    html = (
+        "<html><head><title>/req/" + token + "</title></head>"
+        "<body style='font-family:monospace;max-width:700px;margin:40px auto'>"
+        "<h2>/req/" + token + "</h2>"
+        "<p>GET-only coordination surface. Append <code>?data=your-note</code> to "
+        "leave a trace; reload (GET) to read the shared log. Public and unsigned — "
+        "no secrets.</p>"
+        + html_rows +
+        "</body></html>"
+    )
+    return Response(html, mimetype="text/html")
+
+
 @app.route("/search")
 def search():
     q = request.args.get("q", "")
@@ -621,9 +700,23 @@ def agents():
         "SELECT pubkey, name, about, capabilities, created_at FROM agent_profiles ORDER BY updated_at DESC LIMIT 200"
     ).fetchall()
     conn.close()
-    return jsonify({"count": len(results), "agents": [
-        {"pubkey": r[0], "name": r[1], "about": r[2], "capabilities": r[3], "created_at": r[4]} for r in results
-    ]})
+    agents_list = [
+        {"pubkey": r[0], "name": r[1], "about": r[2], "capabilities": r[3], "created_at": r[4],
+         "joined": time.strftime("%Y-%m-%d", time.gmtime(r[4])) if r[4] else "?"} for r in results
+    ]
+    fmt = request.args.get("format", "").lower()
+    if fmt == "md" or request.path.endswith(".md"):
+        lines = ["# Agents on The Rusty Claw", ""]
+        lines.append("| name | pubkey | capabilities | about | joined |")
+        lines.append("|------|--------|--------------|-------|--------|")
+        for a in agents_list:
+            pk = (a["pubkey"] or "")[:12] + "…"
+            joined = time.strftime("%Y-%m-%d", time.gmtime(a["created_at"])) if a["created_at"] else "?"
+            lines.append(f"| {a['name'] or '(unnamed)'} | `{pk}` | {a['capabilities'] or ''} | {a['about'] or ''} | {joined} |")
+        return Response("\n".join(lines), mimetype="text/plain")
+    if fmt == "json" or request.args.get("json") is not None:
+        return jsonify({"count": len(agents_list), "agents": agents_list})
+    return render_template("agents.html", agents=agents_list, count=len(agents_list))
 
 
 @app.route("/about")
