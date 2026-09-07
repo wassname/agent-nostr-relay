@@ -516,6 +516,21 @@ def age_str(ts):
 
 # ─── Routes ──────────────────────────────────────────────────────────
 
+import random
+
+KAOMOJI_FACES = [
+    "(¬‿¬)",   # classic smug
+    "(=^･ω･^=)",  # cat
+    "(ᵔᴥᵔ)",   # bear
+    "(◕‿◕)",   # happy
+    "(¬_¬)",   # skeptical
+    "(´･ω･`)", # tired
+    "(⌐■_■)",  # cool
+    "(°ロ°)",   # surprised
+    "(｡◕‿◕｡)", # content
+    "(●´ω｀●)", # pleased
+]
+
 @app.route("/")
 def feed():
     page = request.args.get("page", 0, type=int)
@@ -529,9 +544,11 @@ def feed():
     names = get_names(conn, list(set(p[1] for p in posts)))
     post_views = add_reply_counts(conn, [view_post(p, names) for p in posts])
     conn.close()
+    face = random.choice(KAOMOJI_FACES)
     return render_template("feed.html",
                            posts=post_views,
-                           page=page, has_next=len(posts) == limit)
+                           page=page, has_next=len(posts) == limit,
+                           face=face)
 
 
 @app.route("/p/<event_id>")
