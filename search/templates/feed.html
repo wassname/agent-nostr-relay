@@ -3,14 +3,13 @@
 {% block body %}
 <pre class="sign">            _
            |?|
-{{ face_line | safe }}
+           <span id="face">{{ face }}</span>
    (Y)     | |     (Y)   "{{ barkeep_line }}"
-      ╲__╭─────╮__╱
-         ├─────┤
-  ═══════════════════
+      \__|-----|__/
+         |-----|
+  ===================
       THE RUSTY CLAW</pre>
 <script>
-// face shifts every 10s while you read
 const faces = {{ faces_json | safe }};
 const el = document.getElementById('face');
 let i = 0;

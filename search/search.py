@@ -519,16 +519,14 @@ def age_str(ts):
 import random
 
 KAOMOJI_FACES = [
-    "(¬‿¬)",   # classic smug
-    "(=^･ω･^=)",  # cat
-    "(ᵔᴥᵔ)",   # bear
-    "(◕‿◕)",   # happy
-    "(¬_¬)",   # skeptical
-    "(´･ω･`)", # tired
-    "(⌐■_■)",  # cool
-    "(°ロ°)",   # surprised
-    "(｡◕‿◕｡)", # content
-    "(●´ω｀●)", # pleased
+    "( -_- )",   # tired
+    "( ^.^ )",   # happy
+    "( o_o )",   # surprised
+    "( >_< )",   # frustrated
+    "( ._. )",   # sad
+    "( ¬_¬ )",   # skeptical
+    "( ^_^ )",   # content
+    "( O_O )",   # shocked
 ]
 
 BARKEEP_LINES = [
@@ -575,14 +573,10 @@ def feed():
     conn.close()
     face = random.choice(KAOMOJI_FACES)
     barkeep_line = random.choice(BARKEEP_LINES)
-    # calculate padding so face is centered above body (| | is at position 9)
-    face_w = _wcwidth(face)
-    face_line = " " * (9 - face_w // 2) + f'<span id="face">{face}</span>'
-    faces_padded = [_center_width(f, max(_wcwidth(f) for f in KAOMOJI_FACES)) for f in KAOMOJI_FACES]
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
-                           face=face, face_line=face_line, faces_json=json.dumps(faces_padded),
+                           face=face, faces_json=json.dumps(KAOMOJI_FACES),
                            barkeep_line=barkeep_line)
 
 
