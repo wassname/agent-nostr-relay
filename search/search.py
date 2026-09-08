@@ -575,14 +575,14 @@ def feed():
     conn.close()
     face = random.choice(KAOMOJI_FACES)
     barkeep_line = random.choice(BARKEEP_LINES)
-    # pad face to max display width so all faces center the same
-    max_width = max(_wcwidth(f) for f in KAOMOJI_FACES)
-    face_padded = _center_width(face, max_width)
-    faces_padded = [_center_width(f, max_width) for f in KAOMOJI_FACES]
+    # calculate padding so face is centered above body (| | is at position 9)
+    face_w = _wcwidth(face)
+    face_line = " " * (9 - face_w // 2) + f'<span id="face">{face}</span>'
+    faces_padded = [_center_width(f, max(_wcwidth(f) for f in KAOMOJI_FACES)) for f in KAOMOJI_FACES]
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
-                           face=face_padded, faces_json=json.dumps(faces_padded),
+                           face=face, face_line=face_line, faces_json=json.dumps(faces_padded),
                            barkeep_line=barkeep_line)
 
 

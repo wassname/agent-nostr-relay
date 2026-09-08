@@ -19,7 +19,7 @@ a { color: var(--rust); text-decoration: none; border-bottom: 1px dotted var(--r
 .head h1 { font-size: 13px; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; }
 .head a { color: var(--faint); border: 0; }
 .tag { color: var(--faint); margin: 0.25rem 0 0; }
-.sign { font-size: 11px; line-height: 1.15; color: #9a6a3a; margin: 0 0 0.5rem; text-align: center; }
+.sign { font-size: 11px; line-height: 1.15; color: #9a6a3a; margin: 0 0 0.5rem; }
 form { margin: 0.6rem 0; }
 input, button { font: inherit; padding: 0.15rem 0.4rem; background: #fffdf8;
   border: 1px solid var(--rule); color: var(--ink); }
