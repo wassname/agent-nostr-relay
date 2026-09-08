@@ -22,6 +22,8 @@ A viewport tag makes the mobile browser use the device width.
 The compact revision removes four face columns and the duplicate name under the
 crab. The crab stays at the left when the speech changes. Browser checks also
 verify that each speech bubble starts to the right of the face.
+Each kaomoji occupies one line without outer brackets or parentheses. The template
+supplies the square brackets. The parenthesized duplicate face is now `>_<`.
 Fresh CODEX review passed for the compact crab and the mobile screenshot.
 
 Reproduce with `uv run scripts/scratch/preview_crab.py`.
