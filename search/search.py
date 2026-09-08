@@ -523,13 +523,11 @@ KAOMOJI_FACES = [
     "•‿•", "-_-", "(•‿•)", "^_^", ">w<", "¬‿¬", "x_x", "o_o",
 ]
 
-CRAB = r"""\
- \
-      \         /
+CRAB = r"""           /
+      \     /
   (Y) [{face}] (Y)
-      /_________\
-      |_|     |_|
-    THE RUSTY CLAW"""
+      /_____\
+      |_| |_|"""
 
 BARKEEP_LINES = [
     "the usual?",
@@ -563,10 +561,12 @@ def feed():
     names = get_names(conn, list(set(p[1] for p in posts)))
     post_views = add_reply_counts(conn, [view_post(p, names) for p in posts])
     conn.close()
-    faces = [_center_width(face, 9) for face in KAOMOJI_FACES]
+    faces = [_center_width(face, 5) for face in KAOMOJI_FACES]
     face = random.choice(faces)
     barkeep_line = random.choice(BARKEEP_LINES)
-    sign_before, sign_after = cowsay.draw(barkeep_line, CRAB, to_console=False).split("{face}")
+    bubble = cowsay.draw(barkeep_line, "", to_console=False)
+    sign = "\n".join(" " * 12 + line for line in bubble.splitlines()) + "\n" + CRAB
+    sign_before, sign_after = sign.split("{face}")
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,

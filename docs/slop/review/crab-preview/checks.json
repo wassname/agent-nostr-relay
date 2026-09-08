@@ -3,82 +3,82 @@
   "route_status": 200,
   "faces": [
     {
-      "face": "   •‿•   ",
-      "display_columns": 9,
+      "face": " •‿• ",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     },
     {
-      "face": "   -_-   ",
-      "display_columns": 9,
+      "face": " -_- ",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     },
     {
-      "face": "  (•‿•)  ",
-      "display_columns": 9,
+      "face": "(•‿•)",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     },
     {
-      "face": "   ^_^   ",
-      "display_columns": 9,
+      "face": " ^_^ ",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     },
     {
-      "face": "   >w<   ",
-      "display_columns": 9,
+      "face": " >w< ",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     },
     {
-      "face": "   ¬‿¬   ",
-      "display_columns": 9,
+      "face": " ¬‿¬ ",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     },
     {
-      "face": "   x_x   ",
-      "display_columns": 9,
+      "face": " x_x ",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     },
     {
-      "face": "   o_o   ",
-      "display_columns": 9,
+      "face": " o_o ",
+      "display_columns": 5,
       "bounds": {
-        "x": 346.484375,
-        "y": 94.03125,
-        "width": 59.609375,
+        "x": 280.25,
+        "y": 81.390625,
+        "width": 33.125,
         "height": 13
       }
     }

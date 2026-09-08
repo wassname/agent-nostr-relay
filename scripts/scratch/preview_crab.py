@@ -42,7 +42,7 @@ with tempfile.TemporaryDirectory(prefix="rustyclaw-preview-") as database_dir:
         for expected in relay.KAOMOJI_FACES:
             text = face.text_content()
             assert text.strip() == expected, (text, expected)
-            assert relay.wcswidth(text) == 9
+            assert relay.wcswidth(text) == 5
             bounds = face.bounding_box()
             assert abs(bounds["width"] - initial["width"]) < 0.1, bounds
             assert bounds["x"] == initial["x"]
@@ -54,9 +54,11 @@ with tempfile.TemporaryDirectory(prefix="rustyclaw-preview-") as database_dir:
         page = browser.new_page(viewport={"width": 375, "height": 650}, device_scale_factor=2, is_mobile=True)
         page.on("pageerror", lambda error: errors.append(str(error)))
         for line in relay.BARKEEP_LINES:
-            with patch.object(relay.random, "choice", side_effect=[relay._center_width("•‿•", 9), line]):
+            with patch.object(relay.random, "choice", side_effect=[relay._center_width("•‿•", 5), line]):
                 page.goto(f"http://127.0.0.1:{server.server_port}/")
             assert line in page.locator(".sign").text_content()
+            sign_lines = page.locator(".sign").text_content().splitlines()
+            assert next(row.index("|") for row in sign_lines if line in row) > next(row.index("[") for row in sign_lines if "[" in row)
             assert page.locator(".sign").evaluate("el => el.scrollWidth <= el.clientWidth")
         page.screenshot(path=str(OUTPUT / "mobile.png"), full_page=True)
         assert not errors, errors
