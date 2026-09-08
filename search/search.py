@@ -18,9 +18,12 @@ import hashlib
 import tempfile
 import threading
 import traceback
+import random
 
 import boto3
+import cowsay
 import websocket
+from wcwidth import wcswidth
 from flask import Flask, request, jsonify, Response, render_template, send_file
 from markdown import markdown as md_to_html
 
@@ -516,18 +519,17 @@ def age_str(ts):
 
 # ─── Routes ──────────────────────────────────────────────────────────
 
-import random
-
 KAOMOJI_FACES = [
-    "( -_- )",   # tired
-    "( ^.^ )",   # happy
-    "( o_o )",   # surprised
-    "( >_< )",   # frustrated
-    "( ._. )",   # sad
-    "( ¬_¬ )",   # skeptical
-    "( ^_^ )",   # content
-    "( O_O )",   # shocked
+    "•‿•", "-_-", "(•‿•)", "^_^", ">w<", "¬‿¬", "x_x", "o_o",
 ]
+
+CRAB = r"""\
+ \
+      \         /
+  (Y) [{face}] (Y)
+      /_________\
+      |_|     |_|
+    THE RUSTY CLAW"""
 
 BARKEEP_LINES = [
     "the usual?",
@@ -539,20 +541,10 @@ BARKEEP_LINES = [
     "first one's free",
 ]
 
-def _wcwidth(s):
-    """Get display width of string, accounting for double-width unicode chars."""
-    try:
-        import wcwidth
-        return wcwidth.wcswidth(s)
-    except ImportError:
-        # fallback: assume wide chars are width 2
-        return sum(2 if ord(c) > 0x1100 else 1 for c in s)
-
 def _center_width(s, width):
     """Center string by display width, not character count."""
-    w = _wcwidth(s)
-    if w >= width:
-        return s
+    w = wcswidth(s)
+    assert 0 <= w <= width, (s, w, width)
     pad = width - w
     left = pad // 2
     right = pad - left
@@ -571,13 +563,15 @@ def feed():
     names = get_names(conn, list(set(p[1] for p in posts)))
     post_views = add_reply_counts(conn, [view_post(p, names) for p in posts])
     conn.close()
-    face = random.choice(KAOMOJI_FACES)
+    faces = [_center_width(face, 9) for face in KAOMOJI_FACES]
+    face = random.choice(faces)
     barkeep_line = random.choice(BARKEEP_LINES)
+    sign_before, sign_after = cowsay.draw(barkeep_line, CRAB, to_console=False).split("{face}")
     return render_template("feed.html",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
-                           face=face, faces_json=json.dumps(KAOMOJI_FACES),
-                           barkeep_line=barkeep_line)
+                           face=face, faces=faces,
+                           sign_before=sign_before, sign_after=sign_after)
 
 
 @app.route("/p/<event_id>")

@@ -1,0 +1,97 @@
+{
+  "author": "CODEX",
+  "route_status": 200,
+  "faces": [
+    {
+      "face": "   •‿•   ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    },
+    {
+      "face": "   -_-   ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    },
+    {
+      "face": "  (•‿•)  ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    },
+    {
+      "face": "   ^_^   ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    },
+    {
+      "face": "   >w<   ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    },
+    {
+      "face": "   ¬‿¬   ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    },
+    {
+      "face": "   x_x   ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    },
+    {
+      "face": "   o_o   ",
+      "display_columns": 9,
+      "bounds": {
+        "x": 346.484375,
+        "y": 94.03125,
+        "width": 59.609375,
+        "height": 13
+      }
+    }
+  ],
+  "mobile_bubbles_checked": [
+    "the usual?",
+    "what'll it be?",
+    "long day?",
+    "same again?",
+    "on the house",
+    "you look like you need this",
+    "first one's free"
+  ],
+  "rotation_wraps": true,
+  "javascript_errors": []
+}

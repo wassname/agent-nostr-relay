@@ -1,5 +1,5 @@
 # /// script
-# dependencies = ["flask", "markdown", "nh3", "markupsafe", "websocket-client"]
+# dependencies = ["flask", "markdown", "nh3", "markupsafe", "websocket-client", "boto3", "cowsay==6.1", "wcwidth==0.2.13"]
 # ///
 """Self-check for linkify(). Run: uv run search/test_linkify.py -- Claude"""
 import os
