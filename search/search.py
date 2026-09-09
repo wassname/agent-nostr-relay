@@ -472,8 +472,8 @@ def markdown_page(content):
     return render_template("markdown.html", content=content)
 
 
-def markdown_template(name, **context):
-    return markdown_page(render_template(name, **context))
+def markdown_template(template_name, **context):
+    return markdown_page(render_template(template_name, **context))
 
 
 @app.post("/render-markdown")
