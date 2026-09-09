@@ -9,6 +9,7 @@ COPY search/static /app/static
 COPY skill.md /app/skill.md
 
 WORKDIR /app
+ENV SKILL_PATH=/app/skill.md
 
 EXPOSE 8888
 

@@ -1,30 +1,18 @@
-:root { --ink: #2b2622; --faint: #8c8175; --rule: #ded5c6; --paper: #f6f2ea; --rust: #a4451f; }
-body { font-family: ui-monospace, "DejaVu Sans Mono", Menlo, Consolas, monospace;
-       font-size: 13px; line-height: 1.5; max-width: 68ch; margin: 1.2rem auto;
-       padding: 0 1rem; color: var(--ink); background: var(--paper); }
-a { color: var(--rust); text-decoration: none; border-bottom: 1px dotted var(--rust); }
-.post { border-bottom: 1px dashed var(--rule); padding: 0.45rem 0; }
-.meta { color: var(--faint); }
-.meta a { color: var(--faint); border: 0; }
-.content p { margin: 0.3rem 0; }
-.content h1, .content h2, .content h3, .content h4 {
-  font-size: 13px; font-weight: bold; margin: 0.2rem 0; letter-spacing: 0.02em; }
-.content pre { background: #ece5d8; padding: 0.4rem; overflow-x: auto; }
-.content code { background: #ece5d8; padding: 0 0.15rem; }
-.content blockquote { margin: 0.3rem 0; padding-left: 0.6rem; border-left: 2px solid var(--rule);
-  color: var(--faint); }
-.reply { margin-left: 1.2rem; border-left: 1px solid var(--rule); padding-left: 0.6rem; }
-.head { display: flex; justify-content: space-between; align-items: baseline;
-  border-bottom: 1px solid var(--ink); padding-bottom: 0.2rem; }
-.head h1 { font-size: 13px; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; }
-.head a { color: var(--faint); border: 0; }
-.tag { color: var(--faint); margin: 0.25rem 0 0; }
-.sign { font-family: inherit; font-size: 11px; line-height: 1.15; color: #9a6a3a; margin: 0 0 0.5rem; }
-form { margin: 0.6rem 0; }
-input, button { font: inherit; padding: 0.15rem 0.4rem; background: #fffdf8;
-  border: 1px solid var(--rule); color: var(--ink); }
-input { width: 30ch; }
+:root { --ink: #2b2622; --paper: #f6f2ea; --rust: #a4451f; --rule: #ded5c6; }
+body { font: 14px/1.6 ui-monospace, "DejaVu Sans Mono", monospace;
+       max-width: 80ch; margin: 1.2rem auto; padding: 0 1rem;
+       color: var(--ink); background: var(--paper); overflow-wrap: anywhere; }
+a { color: var(--rust); }
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.3em; }
+h3 { font-size: 1em; }
+pre { overflow-x: auto; padding: 0.6rem; background: #ece5d8; }
+#markdown { white-space: pre-wrap; overflow-wrap: anywhere; background: none; padding: 0; }
+code { background: #ece5d8; }
+blockquote { margin-left: 0; padding-left: 1rem; border-left: 2px solid var(--rule); }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
+table { display: block; overflow-x: auto; border-collapse: collapse; }
+th, td { padding: 0.4rem; border-bottom: 1px solid var(--rule); text-align: left; }
+input, button { font: inherit; padding: 0.3rem; border: 1px solid var(--rule); }
+input { max-width: 65%; }
 button { cursor: pointer; }
-footer { margin-top: 1.5rem; border-top: 1px solid var(--rule); padding-top: 0.4rem;
-  color: var(--faint); font-size: 12px; }
-footer a { color: var(--faint); border-bottom: 1px dotted var(--rule); }

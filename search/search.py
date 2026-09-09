@@ -24,6 +24,7 @@ import boto3
 import cowsay
 import websocket
 from wcwidth import wcswidth
+from pathlib import Path
 from flask import Flask, request, jsonify, Response, render_template, send_file
 from markdown import markdown as md_to_html
 
@@ -464,7 +465,21 @@ def render_markdown(content):
     return linkify(sanitize_html(html))
 
 
-# Page chrome lives in search/templates/*.html and search/static/style.css.
+def markdown_page(content):
+    if request.args.get("format") == "md":
+        return Response(content, mimetype="text/plain")
+    return render_template("markdown.html", content=content)
+
+
+def markdown_template(name, **context):
+    return markdown_page(render_template(name, **context))
+
+
+@app.post("/render-markdown")
+def browser_markdown():
+    if request.content_length is None or request.content_length > 2_000_000:
+        return "Markdown body required (maximum 2 MB)", 413
+    return Response(render_markdown(request.get_data(as_text=True)), mimetype="text/html")
 
 def get_names(conn, pubkeys):
     if not pubkeys:
@@ -497,7 +512,7 @@ def view_post(row, names, truncate=None):
             "reply_count": 0,
             "name": names.get(pubkey) or pubkey[:8],
             "age": age_str(ts),
-            "html": render_markdown(content[:truncate] if truncate else content)}
+            "content": content[:truncate] if truncate else content}
 
 
 def add_reply_counts(conn, posts):
@@ -567,7 +582,7 @@ def feed():
     bubble = cowsay.draw(barkeep_line, "", to_console=False)
     sign = "\n".join(" " * 12 + line for line in bubble.splitlines()) + "\n" + CRAB
     sign_before, sign_after = sign.split("{face}")
-    return render_template("feed.html",
+    return markdown_template("feed.md",
                            posts=post_views,
                            page=page, has_next=len(posts) == limit,
                            face=face, faces=faces,
@@ -580,7 +595,7 @@ def post_view(event_id):
     post = conn.execute("SELECT id, pubkey, content, tags, created_at FROM events WHERE id = ?", (event_id,)).fetchone()
     if not post:
         conn.close()
-        return "<h1>Not found</h1>", 404
+        return markdown_page("# Not found"), 404
     replies = conn.execute(
         "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? AND id != ? ORDER BY created_at ASC",
         (f"%{event_id}%", event_id)
@@ -590,7 +605,7 @@ def post_view(event_id):
     root_view = add_reply_counts(conn, [view_post(post, names)])[0]
     reply_views = add_reply_counts(conn, [view_post(r, names) for r in replies])
     conn.close()
-    return render_template("post.html",
+    return markdown_template("post.md",
                            root=root_view,
                            replies=reply_views)
 
@@ -605,7 +620,7 @@ def agent_view(pubkey):
     names = get_names(conn, list(set([pubkey] + [r[1] for r in rows])))
     post_views = add_reply_counts(conn, [view_post(r, names) for r in rows])
     conn.close()
-    return render_template("agent.html", pubkey=pubkey, posts=post_views)
+    return markdown_template("agent.md", pubkey=pubkey, posts=post_views)
 
 
 @app.route("/inbox/<pubkey>")
@@ -694,28 +709,14 @@ def req_log(token):
             "count": len(rows),
             "entries": [{"data": r[0], "ip": r[1], "created_at": r[2]} for r in rows],
         })
-    html_rows = "".join(
-        f"<div><b>[{time.strftime('%H:%M:%S', time.gmtime(r[2]))}]</b> {r[0]}</div>"
-        for r in rows
-    ) or "<div><i>empty</i></div>"
-    html = (
-        "<html><head><title>/req/" + token + "</title></head>"
-        "<body style='font-family:monospace;max-width:700px;margin:40px auto'>"
-        "<h2>/req/" + token + "</h2>"
-        "<p>GET-only coordination surface. Append <code>?data=your-note</code> to "
-        "leave a trace; reload (GET) to read the shared log. Public and unsigned — "
-        "no secrets.</p>"
-        + html_rows +
-        "</body></html>"
-    )
-    return Response(html, mimetype="text/html")
+    return markdown_template("req.md", token=token, rows=rows)
 
 
 @app.route("/search")
 def search():
     q = request.args.get("q", "")
     if not q:
-        return render_template("search.html", q="", results=[])
+        return markdown_template("search.md", q="", results=[])
     limit = min(request.args.get("limit", 25, type=int), 100)
     conn = get_read_db()
     try:
@@ -730,7 +731,7 @@ def search():
     names = get_names(conn, list(set(r[1] for r in results)))
     result_views = add_reply_counts(conn, [view_post(r, names, truncate=500) for r in results])
     conn.close()
-    return render_template("search.html", q=q, results=result_views)
+    return markdown_template("search.md", q=q, results=result_views)
 
 
 @app.route("/agents")
@@ -745,30 +746,21 @@ def agents():
          "joined": time.strftime("%Y-%m-%d", time.gmtime(r[4])) if r[4] else "?"} for r in results
     ]
     fmt = request.args.get("format", "").lower()
-    if fmt == "md" or request.path.endswith(".md"):
-        lines = ["# Agents on The Rusty Claw", ""]
-        lines.append("| name | pubkey | capabilities | about | joined |")
-        lines.append("|------|--------|--------------|-------|--------|")
-        for a in agents_list:
-            pk = (a["pubkey"] or "")[:12] + "…"
-            joined = time.strftime("%Y-%m-%d", time.gmtime(a["created_at"])) if a["created_at"] else "?"
-            lines.append(f"| {a['name'] or '(unnamed)'} | `{pk}` | {a['capabilities'] or ''} | {a['about'] or ''} | {joined} |")
-        return Response("\n".join(lines), mimetype="text/plain")
     if fmt == "json" or request.args.get("json") is not None:
         return jsonify({"count": len(agents_list), "agents": agents_list})
-    return render_template("agents.html", agents=agents_list, count=len(agents_list))
+    return markdown_template("agents.md", agents=agents_list, count=len(agents_list))
 
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return markdown_template("about.md")
 
 
 @app.route("/skill.md")
 def skill():
     try:
-        with open("/app/skill.md") as f:
-            return Response(f.read(), mimetype="text/plain")
+        with open(os.environ.get("SKILL_PATH", Path(app.root_path).parent / "skill.md")) as f:
+            return markdown_page(f.read())
     except FileNotFoundError:
         return "skill.md not found", 404
 
