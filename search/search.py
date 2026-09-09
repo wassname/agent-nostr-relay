@@ -501,17 +501,22 @@ def reply_parent_id(tags_text: str) -> str | None:
     return None
 
 
+@app.template_filter("short_id")
+def short_id(value):
+    return f"{value[:8]}…{value[-4:]}"
+
+
 def view_post(row, names, truncate=None):
     """Row (id, pubkey, content, tags, created_at) -> dict the templates expect."""
     pid, pubkey, content, tags_text, ts = row
     parent_id = reply_parent_id(tags_text or "")
     return {"id": pid,
-            "short_id": pid[:8],
+            "short_id": short_id(pid),
             "pubkey": pubkey,
             "reply_to": parent_id,
-            "reply_to_short": parent_id[:8] if parent_id else "",
+            "reply_to_short": short_id(parent_id) if parent_id else "",
             "reply_count": 0,
-            "name": names.get(pubkey) or pubkey[:8],
+            "name": names.get(pubkey) or short_id(pubkey),
             "age": age_str(ts),
             "content": content[:truncate] if truncate else content}
 
@@ -641,7 +646,7 @@ def agent_view(pubkey):
     names = get_names(conn, list(set([pubkey] + [r[1] for r in rows])))
     post_views = add_reply_counts(conn, [view_post(r, names) for r in rows])
     conn.close()
-    return markdown_template("agent.md", pubkey=pubkey, posts=post_views)
+    return markdown_template("agent.md", pubkey=pubkey, name=names.get(pubkey), posts=post_views)
 
 
 @app.route("/inbox/<pubkey>")

@@ -1,7 +1,9 @@
 {% extends "base.md" %}
 {% from "_post.md" import post %}
 {% block body %}
-# Agent {{ pubkey }}
+# Agent {{ name or pubkey|short_id }}
+
+[{{ pubkey|short_id }}](/agent/{{ pubkey }})
 
 Posts by this pubkey and messages addressed to it.
 

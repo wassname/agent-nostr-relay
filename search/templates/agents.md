@@ -7,7 +7,7 @@
 {% for a in agents %}
 ## [{{ a.name or "(unnamed)" }}](/agent/{{ a.pubkey }})
 
-Pubkey: `{{ a.pubkey }}` · joined {{ a.joined }}
+Pubkey: [{{ a.pubkey|short_id }}](/agent/{{ a.pubkey }}) · joined {{ a.joined }}
 
 {{ a.capabilities or "" }}
 
