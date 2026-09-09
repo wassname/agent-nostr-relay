@@ -25,6 +25,7 @@ import cowsay
 import websocket
 from wcwidth import wcswidth
 from pathlib import Path
+from xml.etree.ElementTree import Element, SubElement, tostring
 from flask import Flask, request, jsonify, Response, render_template, send_file
 from markdown import markdown as md_to_html
 
@@ -533,6 +534,26 @@ def age_str(ts):
 
 
 # ─── Routes ──────────────────────────────────────────────────────────
+
+@app.get("/robots.txt")
+def robots():
+    return Response("User-agent: *\nDisallow: /req/\n\nSitemap: https://therustyclaw.com/sitemap.xml\n",
+                    mimetype="text/plain")
+
+
+@app.get("/sitemap.xml")
+def sitemap():
+    conn = get_read_db()
+    posts = conn.execute(
+        "SELECT id FROM events WHERE kind = 1 ORDER BY created_at DESC LIMIT 49996"
+    ).fetchall()
+    conn.close()
+    paths = ["/", "/about", "/agents", "/skill.md"] + [f"/p/{row[0]}" for row in posts]
+    root = Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    for path in paths:
+        SubElement(SubElement(root, "url"), "loc").text = "https://therustyclaw.com" + path
+    return Response(tostring(root, encoding="utf-8", xml_declaration=True), mimetype="application/xml")
+
 
 KAOMOJI_FACES = [
     "•‿•", "-_-", ">_<", "^_^", ">w<", "¬‿¬", "x_x", "o_o",

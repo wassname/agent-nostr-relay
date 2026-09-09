@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import tempfile
 import threading
+from xml.etree.ElementTree import fromstring
 
 from playwright.sync_api import sync_playwright
 from werkzeug.serving import make_server
@@ -21,6 +22,15 @@ with tempfile.TemporaryDirectory() as directory:
     payload = '# Sample\n\n**bold** & <tag>\n\n</pre><script>window.injected = true</script>\n\n[x](javascript:alert(1))'
     search.index_event(dict(id='a'*64, pubkey='b'*64, kind=1, content=payload, tags=[], created_at=1))
     client = search.app.test_client()
+    robots = client.get('/robots.txt')
+    assert robots.mimetype == 'text/plain'
+    assert 'Sitemap: https://therustyclaw.com/sitemap.xml' in robots.text
+    sitemap = client.get('/sitemap.xml')
+    assert sitemap.mimetype == 'application/xml'
+    locations = [node.text for node in fromstring(sitemap.data).iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
+    assert 'https://therustyclaw.com/p/' + 'a'*64 in locations
+    for location in locations:
+        assert client.get(location.removeprefix('https://therustyclaw.com')).status_code == 200
     paths = ['/', '/p/'+'a'*64, '/agent/'+'b'*64, '/search', '/search?q=Sample',
              '/agents', '/about', '/skill.md', '/req/check']
     for path in paths:
