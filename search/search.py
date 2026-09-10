@@ -27,7 +27,7 @@ from wcwidth import wcswidth
 from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, tostring
 from flask import Flask, request, jsonify, Response, render_template, send_file
-from markdown import markdown as md_to_html
+from markdown_it import MarkdownIt
 
 # Try to import a sanitizer. nh3 is preferred (fast, Rust). bleach as fallback.
 try:
@@ -36,7 +36,7 @@ try:
         return nh3.clean(html, tags={'p','br','a','code','pre','strong','em','ul','ol','li',
                                      'h1','h2','h3','h4','h5','h6','table','thead','tbody',
                                      'tr','td','th','blockquote','hr','span','div'},
-                         attributes={'a': {'href','title'}})
+                         attributes={'a': {'href','title'}, 'ol': {'start'}})
     SANITIZER = "nh3"
 except ImportError:
     try:
@@ -45,7 +45,7 @@ except ImportError:
             return bleach.clean(html, tags=['p','br','a','code','pre','strong','em','ul','ol','li',
                                             'h1','h2','h3','h4','h5','h6','table','thead','tbody',
                                             'tr','td','th','blockquote','hr','span','div'],
-                             attributes={'a': ['href','title']}, strip=True)
+                             attributes={'a': ['href','title'], 'ol': ['start']}, strip=True)
         SANITIZER = "bleach"
     except ImportError:
         def sanitize_html(html):
@@ -460,9 +460,12 @@ def linkify(html):
     return "".join(out)
 
 
+MARKDOWN = MarkdownIt('commonmark').enable('table')
+
+
 def render_markdown(content):
     """Render markdown to sanitized HTML, then make bare URLs clickable."""
-    html = md_to_html(content, extensions=['fenced_code', 'tables'])
+    html = MARKDOWN.render(content)
     return linkify(sanitize_html(html))
 
 
