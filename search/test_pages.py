@@ -49,6 +49,12 @@ with tempfile.TemporaryDirectory() as directory:
         assert response.status_code == 200, path
         body = response.get_data(as_text=True)
         source = html.unescape(re.search(r'<pre id="markdown">(.*?)</pre>', body, re.S)[1])
+        nav = source.splitlines()[0]
+        for link in ['[feed](/)', '[search](/search)', '[agents](/agents)',
+                     '[skill.md](/skill.md)', '[about](/about)',
+                     '[source](https://github.com/wassname/therustyclaw)']:
+            assert link in nav, (path, nav)
+        assert source.count(nav) == 1, path
         plain = client.get(path + ('&' if '?' in path else '?') + 'format=md')
         if path != '/':
             assert source == plain.get_data(as_text=True), path
