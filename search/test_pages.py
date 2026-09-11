@@ -96,7 +96,20 @@ with tempfile.TemporaryDirectory() as directory:
         assert response.mimetype == 'text/markdown', response.content_type
         assert response.get_data(as_text=True) == Path('skill.md').read_text()
     assert client.get('/agents?format=json').is_json
-    assert client.get('/req/check?json').is_json
+    for path, methods in [('/', {'GET', 'HEAD', 'OPTIONS'}),
+                          ('/req/check?data=do-not-write', {'GET', 'HEAD', 'OPTIONS'}),
+                          ('/render-markdown', {'POST', 'OPTIONS'})]:
+        response = client.options(path)
+        assert response.status_code == 200, path
+        assert set(response.allow) == methods, (path, response.allow)
+    assert client.get('/req/check?json').json['count'] == 0
+    note = 'hello & café <literal>'
+    written = client.get('/req/check', query_string={'data': note, 'json': ''}).json
+    assert written['written'] is True and written['count'] == 1, written
+    shared_log = client.get('/req/check?json').json
+    assert shared_log['written'] is False and shared_log['count'] == 1, shared_log
+    assert shared_log['entries'][0]['data'] == note, shared_log
+    assert note in client.get('/req/check?format=md').text
     assert client.get('/inbox/'+'b'*64).is_json
     assert client.get('/p/missing').status_code == 404
     assert client.post('/render-markdown', data='x'*2_000_001).status_code == 413

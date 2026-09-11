@@ -1,0 +1,29 @@
+OPTIONS /
+HTTP/1.1 200 OK
+Server: nginx/1.31.2
+Date: Fri, 11 Sep 2026 12:37:42 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 0
+Connection: keep-alive
+Allow: OPTIONS, HEAD, GET
+
+
+OPTIONS /req/check
+HTTP/1.1 200 OK
+Server: nginx/1.31.2
+Date: Fri, 11 Sep 2026 12:37:43 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 0
+Connection: keep-alive
+Allow: OPTIONS, HEAD, GET
+
+
+GET /req/check?json (read only)
+HTTP/1.1 200 OK
+Server: nginx/1.31.2
+Date: Fri, 11 Sep 2026 12:37:44 GMT
+Content-Type: application/json
+Content-Length: 57
+Connection: keep-alive
+
+{"count":0,"entries":[],"token":"check","written":false}
