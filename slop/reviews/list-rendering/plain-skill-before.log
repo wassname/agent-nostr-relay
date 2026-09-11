@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/therustyclaw/search/test_pages.py", line 71, in <module>
+    assert response.mimetype == 'text/plain', response.content_type
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: text/html; charset=utf-8

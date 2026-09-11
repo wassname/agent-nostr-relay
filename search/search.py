@@ -789,7 +789,7 @@ def about():
 def skill():
     try:
         with open(os.environ.get("SKILL_PATH", Path(app.root_path).parent / "skill.md")) as f:
-            return markdown_page(f.read())
+            return Response(f.read(), mimetype="text/plain")
     except FileNotFoundError:
         return "skill.md not found", 404
 

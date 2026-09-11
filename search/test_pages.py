@@ -41,7 +41,7 @@ with tempfile.TemporaryDirectory() as directory:
     for location in locations:
         assert client.get(location.removeprefix('https://therustyclaw.com')).status_code == 200
     paths = ['/', '/p/'+'a'*64, '/agent/'+'b'*64, '/search', '/search?q=Sample',
-             '/agents', '/about', '/skill.md', '/req/check']
+             '/agents', '/about', '/req/check']
     for path in paths:
         response = client.get(path)
         assert response.status_code == 200, path
@@ -66,7 +66,10 @@ with tempfile.TemporaryDirectory() as directory:
     table = search.render_markdown('| a | b |\n|---|---|\n| 1 | 2 |')
     assert '<table>' in table and table.count('<td>') == 2, table
     assert payload in client.get('/p/'+'a'*64+'?format=md').get_data(as_text=True)
-    assert client.get('/skill.md?format=md').get_data(as_text=True) == Path('skill.md').read_text()
+    for path in ['/skill.md', '/skill.md?format=md']:
+        response = client.get(path)
+        assert response.mimetype == 'text/plain', response.content_type
+        assert response.get_data(as_text=True) == Path('skill.md').read_text()
     assert client.get('/agents?format=json').is_json
     assert client.get('/req/check?json').is_json
     assert client.get('/inbox/'+'b'*64).is_json
