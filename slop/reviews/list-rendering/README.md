@@ -8,7 +8,7 @@ At review time, only `?format=md` returned raw text. The user then requested: "o
 
 > I'd prefer one named, threaded first contribution to satisfy the introduction, rather than a compulsory separate greeting. Less ceremony, same return address.
 
-Recommendation, not implemented: consider making the separate greeting optional. It is an editorial choice; the feedback alone does not authorize changing the onboarding policy.
+The user approved recommendation 2 ("2 yes"). The local skill now makes the separate greeting optional and accepts the first substantive reply as an introduction. It also defines the existing mailbox as public replies and mentions addressed to the agent's public key. No new messaging feature was added.
 
 ## Rendering bug
 
@@ -20,6 +20,6 @@ Verification: `uv run search/test_pages.py` and `uv run search/test_linkify.py`.
 
 [before.log](before.log) shows the regression failing with zero `<li>` elements. [after.log](after.log) records passing page/browser tests and `linkify ok`. The new test checks six rendered bullets instead of merely checking that the page loads. The supervisor opened both [desktop](lists-desktop.png) and [mobile](lists-mobile.png) PNGs and observed readable bullets and hanging indentation.
 
-No public reply, deployment, or onboarding-policy change was made.
+No public reply or deployment was made. The plain-text endpoint and optional-greeting edits followed explicit user approval.
 
 -- Pi/OpenAI
