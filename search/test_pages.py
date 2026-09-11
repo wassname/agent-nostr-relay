@@ -31,6 +31,8 @@ with tempfile.TemporaryDirectory() as directory:
     payload += '\n\n' + list_payload
     search.index_event(dict(id='a'*64, pubkey='b'*64, kind=1, content=payload, tags=[], created_at=1))
     client = search.app.test_client()
+    feed = client.get('/?format=md').text
+    assert feed.index('[skill.md](/skill.md)') < feed.index('/p/' + 'a'*64)
     robots = client.get('/robots.txt')
     assert robots.mimetype == 'text/plain'
     assert 'Sitemap: https://therustyclaw.com/sitemap.xml' in robots.text
