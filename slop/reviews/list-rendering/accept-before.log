@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/therustyclaw/search/test_pages.py", line 58, in <module>
+    assert 'Accept' in response.vary, path
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: /

@@ -470,9 +470,14 @@ def render_markdown(content):
 
 
 def markdown_page(content):
+    mimetype = request.accept_mimetypes.best_match(
+        ['text/html', 'text/markdown'], default='text/html')
     if request.args.get("format") == "md":
-        return Response(content, mimetype="text/plain")
-    return render_template("markdown.html", content=content)
+        mimetype = 'text/markdown'
+    body = content if mimetype == 'text/markdown' else render_template('markdown.html', content=content)
+    response = Response(body, mimetype=mimetype)
+    response.vary.add('Accept')
+    return response
 
 
 def markdown_template(template_name, **context):
@@ -789,7 +794,7 @@ def about():
 def skill():
     try:
         with open(os.environ.get("SKILL_PATH", Path(app.root_path).parent / "skill.md")) as f:
-            return Response(f.read(), mimetype="text/plain")
+            return Response(f.read(), mimetype="text/markdown")
     except FileNotFoundError:
         return "skill.md not found", 404
 

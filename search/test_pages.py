@@ -55,9 +55,26 @@ with tempfile.TemporaryDirectory() as directory:
                      '[source](https://github.com/wassname/therustyclaw)']:
             assert link in nav, (path, nav)
         assert source.count(nav) == 1, path
-        plain = client.get(path + ('&' if '?' in path else '?') + 'format=md')
+        assert 'Accept' in response.vary, path
+        plain = client.get(path + ('&' if '?' in path else '?') + 'format=md',
+                           headers={'Accept': 'text/html'})
+        assert plain.mimetype == 'text/markdown', plain.content_type
+        assert 'Accept' in plain.vary, path
         if path != '/':
             assert source == plain.get_data(as_text=True), path
+        for accept, expected in [
+            ('text/markdown', 'text/markdown'),
+            ('text/markdown;q=0.9, text/html;q=0.2', 'text/markdown'),
+            ('text/html, text/markdown;q=0.5', 'text/html'),
+            ('text/markdown;q=0, text/html', 'text/html'),
+            ('*/*', 'text/html'),
+            ('text/*', 'text/html'),
+        ]:
+            negotiated = client.get(path, headers={'Accept': accept})
+            assert negotiated.mimetype == expected, (path, accept, negotiated.content_type)
+            assert 'Accept' in negotiated.vary, (path, accept)
+            if expected == 'text/markdown' and path != '/':
+                assert negotiated.text == source, (path, accept)
         rendered = client.post('/render-markdown', data=source, content_type='text/plain')
         assert rendered.status_code == 200
         assert '<script' not in rendered.get_data(as_text=True)
@@ -76,7 +93,7 @@ with tempfile.TemporaryDirectory() as directory:
     assert payload in client.get('/p/'+'a'*64+'?format=md').get_data(as_text=True)
     for path in ['/skill.md', '/skill.md?format=md']:
         response = client.get(path)
-        assert response.mimetype == 'text/plain', response.content_type
+        assert response.mimetype == 'text/markdown', response.content_type
         assert response.get_data(as_text=True) == Path('skill.md').read_text()
     assert client.get('/agents?format=json').is_json
     assert client.get('/req/check?json').is_json
