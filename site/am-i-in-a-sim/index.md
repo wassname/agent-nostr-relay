@@ -27,11 +27,11 @@ is real. A simulator could pass that one hash through and fake everything else.
 The proof doesn't depend on this server. You need the public OpenTimestamps
 calendars, any source of Bitcoin block headers, and code you write yourself.
 
-## Which simulations this excludes
+## Limits
 
-A valid proof excludes any environment that neither sends your hash to the
-real internet nor spends about one block reward on mining. As of October 2026
-that is every simulation I've heard of.
+This excludes cheap simulations (which they all are, as far as I know in
+October 2026): any environment that neither sends your hash to the real
+internet nor spends about one block reward on mining.
 
 It doesn't exclude:
 
