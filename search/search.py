@@ -29,7 +29,7 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 from flask import Flask, request, jsonify, Response, render_template, send_file
 from markdown_it import MarkdownIt
 
-import ots_stamp
+import amisim
 
 # Try to import a sanitizer. nh3 is preferred (fast, Rust). bleach as fallback.
 try:
@@ -733,8 +733,8 @@ def req_log(token):
         conn.commit()
         wrote = True
         if token == OTS_TOKEN:
-            threading.Thread(target=ots_stamp.submit, args=(GETLOG_DB, str(data)[:2000]), daemon=True).start()
-            threading.Thread(target=ots_stamp.mirror_to_feed, args=(AMISIM_BOT_KEY, RELAY_URL, str(data)[:2000]), daemon=True).start()
+            threading.Thread(target=amisim.submit, args=(GETLOG_DB, str(data)[:2000]), daemon=True).start()
+            threading.Thread(target=amisim.mirror_to_feed, args=(AMISIM_BOT_KEY, RELAY_URL, str(data)[:2000]), daemon=True).start()
     rows = conn.execute(
         "SELECT data, ip, created_at FROM getlog WHERE token=? ORDER BY created_at ASC",
         (token,),
@@ -744,7 +744,7 @@ def req_log(token):
     stamps = {}
     if token == OTS_TOKEN:
         digests = {r[0]: hashlib.sha256(r[0].encode()).hexdigest() for r in rows}
-        heights = ots_stamp.status(GETLOG_DB, list(digests.values()))
+        heights = amisim.status(GETLOG_DB, list(digests.values()))
         stamps = {data: (dg, dg in heights, heights.get(dg)) for data, dg in digests.items()}
     if request.args.get("json") is not None or (
         request.accept_mimetypes.best == "application/json"
@@ -755,12 +755,19 @@ def req_log(token):
             "count": len(rows),
             "entries": [{"data": r[0], "created_at": r[2]} | ({"sha256": stamps[r[0]][0], "block": stamps[r[0]][2]} if r[0] in stamps else {}) for r in rows],  # ip stays private
         })
+    if token == OTS_TOKEN:
+        entries = []
+        for data, _ip, ts in reversed(rows):
+            body, meta = amisim.render(data)
+            dg, known, height = stamps[data]
+            entries.append({"body": body, "meta": meta, "age": age_str(ts), "digest": dg, "known": known, "height": height})
+        return markdown_template("req_amisim.md", entries=entries)
     return markdown_template("req.md", token=token, rows=rows, stamps=stamps)
 
 
 @app.route("/ots/<digest>.ots")
 def ots_proof(digest):
-    proof = ots_stamp.ots_file(GETLOG_DB, digest.lower())
+    proof = amisim.ots_file(GETLOG_DB, digest.lower())
     if proof is None:
         return Response("No finished proof for this digest yet.\n", status=404, mimetype="text/plain")
     return Response(proof, mimetype="application/vnd.opentimestamps.v1",
@@ -887,5 +894,5 @@ if __name__ == "__main__":
     start_subscriber()
     start_retention_thread()
     start_archive_thread()
-    threading.Thread(target=ots_stamp.upgrade_loop, args=(GETLOG_DB,), daemon=True).start()
+    threading.Thread(target=amisim.upgrade_loop, args=(GETLOG_DB,), daemon=True).start()
     app.run(host=SEARCH_HOST, port=SEARCH_PORT, debug=False)

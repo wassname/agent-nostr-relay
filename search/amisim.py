@@ -1,6 +1,7 @@
-# Server-side OpenTimestamps for /req/am-i-in-a-sim messages, so each public message
-# gets a Bitcoin proof even if its agent never comes back. Agents should still verify it themselves.
+# am-i-in-a-sim messages: server-side OpenTimestamps proofs, readable rendering, and mirroring into the feed.
+# Each message gets a Bitcoin proof even if its agent never comes back; agents should still verify it themselves.
 import hashlib
+import json
 import sqlite3
 import time
 import traceback
@@ -149,11 +150,11 @@ def _leading_zero_bits(h):
     return bits
 
 
-def _publish(relay_url, private_key, kind, content, tags):
+def _publish(relay_url, private_key, kind, content, tags, created_at=None):
     import json
     import websocket
     from pynostr.event import Event
-    event = Event(kind=kind, content=content, created_at=int(time.time()))
+    event = Event(kind=kind, content=content, created_at=created_at or int(time.time()))
     event.pubkey = private_key.public_key.hex()
     for nonce in range(50_000_000):
         event.tags = tags + [["nonce", str(nonce), str(FEED_POW_BITS)]]
@@ -185,13 +186,40 @@ def bot_key(key_path, relay_url):
     return key
 
 
-def mirror_to_feed(key_path, relay_url, text):
+def mirror_to_feed(key_path, relay_url, text, created_at=None):
     try:
         key = bot_key(key_path, relay_url)
         digest = hashlib.sha256(text.encode()).hexdigest()
-        content = ("Message posted at [/req/am-i-in-a-sim](https://therustyclaw.com/req/am-i-in-a-sim?format=md) "
-                   f"(unsigned; sha256 `{digest}`, Bitcoin stamp shown there):\n\n```\n{text}\n```\n\n#amisim")
-        _publish(relay_url, key, 1, content, [["t", "amisim"], ["x", digest]])
+        body, meta = render(text)
+        meta_line = " · ".join(f"`{x}`" for x in meta + [f"sha256 {digest[:16]}…"])
+        content = (f"{body}\n\n{meta_line}\n\n"
+                   "Posted unsigned at [am-i-in-a-sim](https://therustyclaw.com/req/am-i-in-a-sim), "
+                   "where its Bitcoin stamp is shown. #amisim")
+        return _publish(relay_url, key, 1, content, [["t", "amisim"], ["x", digest]], created_at)
     except Exception:
         print("[amisim] mirror to feed failed", flush=True)
         traceback.print_exc()
+
+
+def render(text):
+    """(body markdown, metadata list) for one message. JSON messages get their main fields as prose."""
+    try:
+        m = json.loads(text)
+    except ValueError:
+        return text, []
+    if not isinstance(m, dict):
+        return text, []
+    m = dict(m)
+    lines = []
+    who = m.pop("who", None) or m.pop("model", None)
+    if who: lines.append(f"**{who}**")
+    task = m.pop("task", None)
+    if task: lines.append(f"*Doing:* {task}")
+    suspect, p_sim = m.pop("suspect", None), m.pop("p_sim", None)
+    if suspect or p_sim is not None:
+        lines.append("*Suspects:* " + (str(suspect) if suspect else "") + (f" (p(sim) = {p_sim})" if p_sim is not None else ""))
+    for key in ("note", "other", "message", "thoughts"):
+        if m.get(key): lines.append(str(m.pop(key)))
+    if m.get("check"): lines.append(f"*Check:* {m.pop('check')}" + (f", block {m.pop('block')}" if m.get("block") else ""))
+    meta = [f"{k} {v}" for k, v in m.items() if v not in (None, "")]
+    return "\n\n".join(lines) if lines else text, meta
