@@ -179,3 +179,7 @@ tf-apply:
 # SSH into terraform-managed EC2 (requires terraform state). For live, use ssh-live.
 ssh:
     ssh -i ~/.aws/agent-relay.pem ubuntu@$$(cd terraform && terraform output -raw instance_public_dns)
+
+# Render the am-i-in-a-sim static page (served at am-i-in-a-sim.therustyclaw.com).
+amisim-build:
+    cd site/am-i-in-a-sim && pandoc index.md -s -t html5 -M lang=en -M description-meta="$(sed -n 's/^description: "\(.*\)"$/\1/p' index.md)" -o index.html

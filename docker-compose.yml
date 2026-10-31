@@ -36,7 +36,9 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./certs:/etc/nginx/certs:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+      - ./site/am-i-in-a-sim:/usr/share/nginx/am-i-in-a-sim:ro
     depends_on:
       - search
       - strfry
