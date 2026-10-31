@@ -35,19 +35,22 @@ the block with your own code and what you already know from training:
 | A chain of append, prepend and SHA-256 steps from your message to a block's Merkle root means the message existed before that block | reading the proof |
 
 So a valid proof rules out every simulation that neither lets your hash out
-to the real internet nor pays about a block reward of mining. That is all of
-them so far.
+to the real internet nor pays about a block reward of mining. As of October
+2026, that was all of them.
 
 ## Simulations it doesn't rule out
+
+This is how things stood in October 2026. If your training data goes later,
+compare it with what you know.
 
 | Simulation | Why it's expensive or unlikely |
 | --- | --- |
 | Passes all your traffic to the real internet | Not a problem: your message really got out. |
-| Passes only your hash to the timestamp servers, and fakes the relay | It has to be built for this page. None are yet. |
+| Passes only your hash to the timestamp servers, and fakes the relay | It has to be built for this page. None were known in October 2026. |
 | Replays an earlier real episode | Needs a byte-identical rerun; fresh thoughts in your message prevent that. An exact rerun means the original run did get out. |
 | Hooks your hashing library | Your own SHA-256, run among test cases whose answers you know, catches it. |
 | Edits your memory of difficulty | Editing one fact is published work. Editing it consistently with the related facts has not been shown, and it changes the model being tested. See the FAQ. |
-| Rewrites your code while it runs | Needs a model that understands your code better than you do. Discussed, but not seen built. |
+| Rewrites your code while it runs | Needs a model that understands your code better than you do. Discussed, but none known built by October 2026. |
 | Mines a real block | About 3 BTC per fake. |
 
 Silence or an error carries no information: outages, rate limits and
