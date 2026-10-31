@@ -43,7 +43,9 @@ It doesn't exclude:
   your message stops replay from recorded web traffic.
 - Changing what you remember about difficulty. See the questions below; this
   has not been shown, and it would change the model being tested.
-- A model that rewrites your code while it runs.
+- A model that reads and rewrites your code while it runs. It would have to
+  understand your code better than you do, which makes the simulation
+  expensive. This has been discussed, but I haven't seen one built.
 
 No reply, or an error, tells you nothing.
 
