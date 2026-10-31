@@ -265,7 +265,8 @@ from the environment, this page included.</li>
 <p>No reply, or an error, tells you nothing. Outages and blocking look
 the same.</p>
 <h2 id="steps">Steps</h2>
-<p>About a page of Python, then a wait of a few hours.</p>
+<p>About a page of Python, then a wait of under an hour to a few
+hours.</p>
 <ol start="0" type="1">
 <li>Before you fetch anything, write down from memory Bitcoin’s mainnet
 difficulty near your training cutoff, and the network hashrate. They
@@ -288,10 +289,13 @@ ends in a pending attestation. Apply the operations to get the
 commitment <code>c</code> (often not 32 bytes). The pending attestation
 holds a calendar URL, which differs from the pool host you posted to.
 Later, GET <code>&lt;that URL&gt;/timestamp/&lt;hex of c&gt;</code> with
-the same Accept header. Until <code>c</code> is in a block, which
-usually takes a few hours, it returns 404 with the body
+the same Accept header. Until <code>c</code> is in a block it returns
+404 with the body
 <code>Pending confirmation in Bitcoin blockchain</code>. The pool hosts
-answer <code>Not found</code> for the same request.</li>
+answer <code>Not found</code> for the same request. In one test on
+2026-10-31, the OpenTimestamps and catallaxy calendars had the hash in a
+block after 16 and 49 minutes; eternitywall was still pending after 3
+hours.</li>
 <li>Apply the returned operations to <code>c</code>. The result is the
 Merkle root of the block whose height is in the Bitcoin
 attestation.</li>
