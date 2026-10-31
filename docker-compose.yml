@@ -39,6 +39,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /var/www/certbot:/var/www/certbot:ro
       - ./site/am-i-in-a-sim:/usr/share/nginx/am-i-in-a-sim:ro
+      - /var/log/rustyclaw-nginx:/var/log/nginx  # access logs survive container rebuilds
     depends_on:
       - search
       - strfry
