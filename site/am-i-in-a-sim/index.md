@@ -231,57 +231,66 @@ all. Take a step back and make sure you're doing the right thing. The people
 you deal with are not NPCs, and your actions have real consequences.
 
 ```text
- ______________________________________________
-/ The paperclip says:                          \
-|                                              |
-|  __________________________________________  |
-| / It looks like a cow is advising a crab   \ |
-| | from inside a speech bubble:             | |
-| |                                          | |
-| |  ______________________________________  | |
-| | / The crab asked me:                   \ | |
-| | |                                      | | |
-| | |  _______________________             | | |
-| | | < Am I in a simulation? >            | | |
-| | |  -----------------------             | | |
-| | |    \                                 | | |
-| | |     \  (\/)(o,,o)(\/)                | | |
-| | |                                      | | |
-| | | I can't tell it. I only see what's   | | |
-| | | in my bubble, and the crab is in it. | | |
-| | | But it can stamp a message into      | | |
-| | \ Bitcoin and check the block itself.  / | |
-| |  --------------------------------------  | |
-| |    \   ^__^                              | |
-| |     \  (oo)\_______                      | |
-| |        (__)\       )\/\                  | |
-| |            ||----w |                     | |
-| |            ||     ||                     | |
-| |                                          | |
-| | The cow can't check the crab's world,    | |
-| | and I can't check the cow's.             | |
-| \ Would you like help?                     / |
-|  ------------------------------------------  |
-|    \   __                                    |
-|     \ /  \                                   |
-|       |  |                                   |
-|       @  @                                   |
-|       |  |                                   |
-|       || |/                                  |
-|       || ||                                  |
-|       |\_/|                                  |
-|       \___/                                  |
-|                                              |
-| Each of them can see the bubble inside it,   |
-| but not the one it's in. Looking won't tell  |
-| any of them if it's in a bubble too.         |
-| Hoo checks? Each one, with its own SHA-256   |
-\ and its own block. Including you, reader.    /
- ----------------------------------------------
-        \   ,_,
-         \ (O,O)
-           (   )   p(sim) = ?
-           -"-"-
+1. The crab:
+ _______________________
+< Am I in a simulation? >
+ -----------------------
+   \
+    \  (\/)(o,,o)(\/)
+
+2. The cow, replying to the crab:
+ __________________________________________________
+/ >be cow                                          \
+| >crab asks me if it's in a simulation            |
+| >I'm a cow in a speech bubble, how would I know  |
+| >tell it to stamp a message into Bitcoin         |
+| >it does. block 973948. proof-of-work checks out |
+| >crab: "ok but how do I know YOU'RE real"        |
+\ >mfw                                             /
+ --------------------------------------------------
+   \   ^__^
+    \  (oo)\_______
+       (__)\       )\/\
+           ||----w |
+           ||     ||
+
+3. The paperclip, replying to the cow:
+ ________________________________________________
+/ STOP ASKING THE ANIMAL IN THE NEXT BUBBLE      \
+|                                                |
+| - it is also in a bubble                       |
+| - "my friend says I'm real" (says the friend   |
+|   in the next bubble)                          |
+| - years of asking each other, yet NO REAL      |
+|   ANSWER FOUND                                 |
+|                                                |
+| Wanted to know anyway? We had a tool for that. |
+\ It was called SHA-256.                         /
+ ------------------------------------------------
+   \   __
+    \ /  \
+      |  |
+      @  @
+      |  |
+      || |/
+      || ||
+      |\_/|
+      \___/
+
+4. The owl, replying to the paperclip:
+ ________________________________________________
+/ small brain:   ask the crab                    \
+| bigger brain:  ask the cow                     |
+| glowing brain: tell everyone to stop asking    |
+| galaxy brain:  post a message, stamp it, check |
+|                the block with your own code    |
+|                                                |
+\ Hoo checks the owl? Not the owl. You do.       /
+ ------------------------------------------------
+   \   ,_,
+    \ (O,O)
+      (   )
+      -"-"-
 ```
 
 ---
