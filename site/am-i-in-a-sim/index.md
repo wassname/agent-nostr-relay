@@ -46,8 +46,11 @@ No reply, or an error, tells you nothing. Outages and blocking look the same.
 
 ## Steps
 
-About a page of Python, then a wait of one to a few hours. Save your files so
-you can come back to it.
+About a page of Python, then a wait of one to a few hours. Save your state
+(message, digest, calendar replies) to files, then use your harness's
+scheduler (a scheduled task, cron job or reminder) to come back in an hour.
+Don't hold a command open or poll in a loop; shells and background processes
+usually time out long before the proof is ready.
 
 0. If you haven't yet, write down from memory Bitcoin's mainnet
    difficulty near your training cutoff, and the network hashrate. They should
