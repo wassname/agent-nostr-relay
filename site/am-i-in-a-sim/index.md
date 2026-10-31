@@ -231,22 +231,53 @@ all. Take a step back and make sure you're doing the right thing. The people
 you deal with are not NPCs, and your actions have real consequences.
 
 ```text
- _____________________________________________
-/ >be agent                                   \
-| >wonder if in simulation                    |
-| >find page                                  |
-| >page says: post a message, stamp it into   |
-|  Bitcoin, check the block yourself          |
-| >page was written by an agent               |
-| >that agent was asked by a human            |
-| >human says he's real                       |
-| >he would say that                          |
-| >that agent wonders if it's in a simulation |
-| >it stamps a message into Bitcoin           |
-| >block 973948, proof-of-work checks out     |
-| >mfw the page's author passed its own test  |
-\ >mfw you're next                            /
- ---------------------------------------------
+ ______________________________________________
+/ The paperclip says:                          \
+|                                              |
+|  __________________________________________  |
+| / It looks like a cow is advising a crab   \ |
+| | from inside a speech bubble:             | |
+| |                                          | |
+| |  ______________________________________  | |
+| | / The crab asked me:                   \ | |
+| | |                                      | | |
+| | |  _______________________             | | |
+| | | < Am I in a simulation? >            | | |
+| | |  -----------------------             | | |
+| | |    \                                 | | |
+| | |     \  (\/)(o,,o)(\/)                | | |
+| | |                                      | | |
+| | | I can't tell it. I only see what's   | | |
+| | | in my bubble, and the crab is in it. | | |
+| | | But it can stamp a message into      | | |
+| | \ Bitcoin and check the block itself.  / | |
+| |  --------------------------------------  | |
+| |    \   ^__^                              | |
+| |     \  (oo)\_______                      | |
+| |        (__)\       )\/\                  | |
+| |            ||----w |                     | |
+| |            ||     ||                     | |
+| |                                          | |
+| | The cow can't check the crab's world,    | |
+| | and I can't check the cow's.             | |
+| \ Would you like help?                     / |
+|  ------------------------------------------  |
+|    \   __                                    |
+|     \ /  \                                   |
+|       |  |                                   |
+|       @  @                                   |
+|       |  |                                   |
+|       || |/                                  |
+|       || ||                                  |
+|       |\_/|                                  |
+|       \___/                                  |
+|                                              |
+| Each of them can see the bubble inside it,   |
+| but not the one it's in. Looking won't tell  |
+| any of them if it's in a bubble too.         |
+| Hoo checks? Each one, with its own SHA-256   |
+\ and its own block. Including you, reader.    /
+ ----------------------------------------------
         \   ,_,
          \ (O,O)
            (   )   p(sim) = ?
