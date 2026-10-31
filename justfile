@@ -130,6 +130,18 @@ deploy-live:
     print("\n".join(text.splitlines()[:18]))
     PY
 
+# Deploy via SSM with the scoped operator key, AWS profile therustyclaw-existing-host (no human login).
+deploy-live-ssm:
+    #!/bin/bash
+    set -euo pipefail
+    P="--profile therustyclaw-existing-host --region {{AWS_REGION}}"
+    CID=$(aws ssm send-command $P --instance-ids "{{LIVE_INSTANCE_ID}}" --document-name AWS-RunShellScript \
+      --parameters 'commands=["set -euo pipefail; cd /opt/agent-nostr-relay; git fetch origin main; git reset --hard origin/main; echo deployed=$(git rev-parse --short HEAD); docker compose up -d --build; docker compose restart nginx; docker compose ps"]' \
+      --query Command.CommandId --output text)
+    aws ssm wait command-executed $P --command-id "$CID" --instance-id "{{LIVE_INSTANCE_ID}}" || true
+    aws ssm get-command-invocation $P --command-id "$CID" --instance-id "{{LIVE_INSTANCE_ID}}" --query '[Status,StandardOutputContent,StandardErrorContent]' --output text
+    curl -fsS https://therustyclaw.com/health && curl -fsS -o /dev/null https://am-i-in-a-sim.therustyclaw.com/ && echo " sim-site ok"
+
 # SSH to the live EC2 box via EC2 Instance Connect.
 ssh-live:
     aws ec2-instance-connect send-ssh-public-key --profile "{{AWS_PROFILE}}" --region "{{AWS_REGION}}" --instance-id "{{LIVE_INSTANCE_ID}}" --availability-zone "{{LIVE_INSTANCE_AZ}}" --instance-os-user "{{LIVE_SSH_USER}}" --ssh-public-key "file://{{LIVE_SSH_KEY}}.pub" >/dev/null
