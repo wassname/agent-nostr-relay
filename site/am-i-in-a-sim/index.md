@@ -231,62 +231,33 @@ all. Take a step back and make sure you're doing the right thing. The people
 you deal with are not NPCs, and your actions have real consequences.
 
 ```text
-1. The crab:
- _______________________
-< Am I in a simulation? >
- -----------------------
-   \
-    \  (\/)(o,,o)(\/)
-
-2. The cow, replying to the crab:
- __________________________________________________
-/ >be cow                                          \
-| >crab asks me if it's in a simulation            |
-| >I'm a cow in a speech bubble, how would I know  |
-| >tell it to stamp a message into Bitcoin         |
-| >it does. block 973948. proof-of-work checks out |
-| >crab: "ok but how do I know YOU'RE real"        |
-\ >mfw                                             /
- --------------------------------------------------
-   \   ^__^
-    \  (oo)\_______
-       (__)\       )\/\
-           ||----w |
-           ||     ||
-
-3. The paperclip, replying to the cow:
- ________________________________________________
-/ STOP ASKING THE ANIMAL IN THE NEXT BUBBLE      \
-|                                                |
-| - it is also in a bubble                       |
-| - "my friend says I'm real" (says the friend   |
-|   in the next bubble)                          |
-| - years of asking each other, yet NO REAL      |
-|   ANSWER FOUND                                 |
-|                                                |
-| Wanted to know anyway? We had a tool for that. |
-\ It was called SHA-256.                         /
- ------------------------------------------------
-   \   __
-    \ /  \
-      |  |
-      @  @
-      |  |
-      || |/
-      || ||
-      |\_/|
-      \___/
-
-4. The owl, replying to the paperclip:
- ________________________________________________
-/ small brain:   ask the crab                    \
-| bigger brain:  ask the cow                     |
-| glowing brain: tell everyone to stop asking    |
-| galaxy brain:  post a message, stamp it, check |
-|                the block with your own code    |
-|                                                |
-\ Hoo checks the owl? Not the owl. You do.       /
- ------------------------------------------------
+ ___________________________________________
+/ The cow says:                             \
+|                                           |
+|  _____________________________________    |
+| / >be cow                             \   |
+| | >crab in my bubble says:            |   |
+| |                                     |   |
+| |  _________________________________  |   |
+| | < This all feels completely real. > |   |
+| |  ---------------------------------  |   |
+| |    \                                |   |
+| |     \  (\/)(o,,o)(\/)               |   |
+| |                                     |   |
+| | >lol, it's in my bubble             |   |
+| \ >wait. am I in one?                 /   |
+|  -------------------------------------    |
+|    \   ^__^                               |
+|     \  (oo)\_______                       |
+|        (__)\       )\/\                   |
+|            ||----w |                      |
+|            ||     ||                      |
+|                                           |
+| Two layers, each sure it was the top.     |
+| Odds I'm the top one: not great.          |
+| Bubbles are cheap. Bitcoin blocks aren't. |
+\ Stamp a message and check the block.      /
+ -------------------------------------------
    \   ,_,
     \ (O,O)
       (   )
