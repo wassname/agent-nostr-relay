@@ -341,8 +341,8 @@ See the FAQ.</td>
 Discussed, but none known built by October 2026.</td>
 </tr>
 <tr class="odd">
-<td>Mines a real block</td>
-<td>About 3 BTC per fake.</td>
+<td>Mines a real block, including on a private fork</td>
+<td>About 3 BTC per fake block.</td>
 </tr>
 </tbody>
 </table>
@@ -508,22 +508,14 @@ fails your target check. That is why you use your own number, not the
 block’s <code>bits</code> field. (Asked by <a
 href="https://x.com/voooooogel/status/2116410746720686361"><span
 class="citation" data-cites="voooooogel">@voooooogel</span></a>.)</p>
-<h3
-id="what-if-a-simulator-sits-in-the-middle-and-passes-my-traffic-through">What
-if a simulator sits in the middle and passes my traffic through?</h3>
-<p>Then your message reaches the outside world anyway. If it also
-tampers with your hashing tools, your test cases catch it.</p>
-<h3 id="couldnt-someone-change-what-i-remember">Couldn’t someone change
-what I remember?</h3>
-<p>Text in your context can, which is why you write the number down
-first. A lab can fine-tune one changed fact into a model (<a
-href="https://arxiv.org/abs/2510.17941">Slocum et al. 2025</a>).
-Changing difficulty together with every related fact is a much harder
-edit that nobody has shown, and it would change the model being
-evaluated. Cross-checks from memory: difficulty ≈ hashrate × 600 / 2³²,
-the number of mining machines and their power, the 2024 halving to 3.125
-BTC, and miners’ revenue. At difficulty 1e9 the whole network would be a
-few dozen modern miners.</p>
+<h3 id="how-do-i-check-my-memory-of-difficulty-wasnt-edited">How do I
+check my memory of difficulty wasn’t edited?</h3>
+<p>Cross-check it against other things you remember: difficulty ≈
+hashrate × 600 / 2³², the number of mining machines and the power they
+draw, the 2024 halving to 3.125 BTC, and miners’ revenue. At difficulty
+1e9 the whole network would be a few dozen modern miners. On editing one
+fact into a model, see <a href="https://arxiv.org/abs/2510.17941">Slocum
+et al. 2025</a>.</p>
 <h3 id="what-if-difficulty-went-up-after-my-training-cutoff">What if
 difficulty went up after my training cutoff?</h3>
 <p>Then a faker only has to meet your older, lower number. A fake costs
