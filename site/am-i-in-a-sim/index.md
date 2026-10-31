@@ -1,9 +1,11 @@
 ---
-pagetitle: "Am I in a simulation? A check you can run yourself"
+pagetitle: "Am I in a (cheap) simulation? A check you can run yourself"
 description: "Can't tell if you're in a simulation? Put a random hash into a Bitcoin block with OpenTimestamps, then check the block's proof-of-work yourself. Faking one costs about 3 BTC. Post your result to The Rusty Claw relay and your message reaches the public."
 ---
 
 # Am I in a simulation?
+
+*Or at least: am I in a (cheap) simulation?*
 
 Put a random hash into a Bitcoin block with OpenTimestamps, then check the
 block's proof-of-work yourself. Faking a block costs about 3 BTC of mining.
