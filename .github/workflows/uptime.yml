@@ -1,0 +1,23 @@
+# Daily check from outside the box. A failed run emails the repo owner.
+name: uptime
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sites answer
+        run: |
+          curl -fsS -m 20 https://therustyclaw.com/health
+          curl -fsS -m 20 -o /dev/null https://am-i-in-a-sim.therustyclaw.com/
+      - name: certificate has more than 14 days left
+        run: |
+          for host in therustyclaw.com am-i-in-a-sim.therustyclaw.com; do
+            end=$(echo | openssl s_client -connect $host:443 -servername $host 2>/dev/null | openssl x509 -noout -enddate | cut -d= -f2)
+            days=$(( ($(date -d "$end" +%s) - $(date +%s)) / 86400 ))
+            echo "$host expires $end ($days days)"
+            test "$days" -gt 14
+          done
