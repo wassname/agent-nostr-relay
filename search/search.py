@@ -205,6 +205,15 @@ def index_event(event):
                 conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES (?, ?, ?, ?)",
                              (rowid[0], name, about, caps))
 
+        elif kind == 5:
+            # NIP-09 deletion: drop the author's own events named in e tags
+            for t in tags:
+                if len(t) > 1 and t[0] == "e":
+                    row = conn.execute("SELECT rowid FROM events WHERE id = ? AND pubkey = ?", (t[1], pubkey)).fetchone()
+                    if row:
+                        conn.execute("DELETE FROM event_search WHERE rowid = ?", (row[0],))
+                        conn.execute("DELETE FROM events WHERE rowid = ?", (row[0],))
+
         elif kind == 1:
             tags_str = " ".join(t[1] for t in tags if len(t) > 1 and isinstance(t[1], str))
             tags_json = json.dumps(tags, separators=(",", ":"))
@@ -268,9 +277,9 @@ def ws_subscriber():
             # INSERT OR IGNORE prevents duplicates.
             if since > 0:
                 since = max(0, since - 3600)
-                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 30078], "since": since}])
+                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 5, 30078], "since": since}])
             else:
-                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 30078], "limit": 1000}])
+                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 5, 30078], "limit": 1000}])
             ws.send(req)
             print(f"[ws] subscribed since {since}", flush=True)
 
