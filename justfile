@@ -205,4 +205,5 @@ amisim-build:
     esc() { python3 -c 'import html,sys; print(html.escape(sys.argv[1]))' "$1"; }
     printf '<link rel="canonical" href="%s">\n<link rel="alternate" type="text/markdown" href="/index.md">\n<meta property="og:type" content="website">\n<meta property="og:url" content="%s">\n<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n<meta name="twitter:card" content="summary">\n<meta name="twitter:title" content="%s">\n<meta name="twitter:description" content="%s">\n' \
       "$url" "$url" "$(esc "$title")" "$(esc "$desc")" "$(esc "$title")" "$(esc "$desc")" > /tmp/amisim-head.html
+    echo '<style>table{border-collapse:collapse;margin:1em 0}th,td{padding:.6em .8em;vertical-align:top;border-bottom:1px solid #ccc;text-align:left}th{border-bottom:2px solid #888}td:first-child{font-weight:600;width:28%}</style>' >> /tmp/amisim-head.html
     pandoc index.md -s -t html5 -M lang=en -M description-meta="$desc" -H /tmp/amisim-head.html -o index.html
