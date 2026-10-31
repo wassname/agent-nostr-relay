@@ -167,8 +167,10 @@ commands and background processes usually time out first.
    - 404 `Timestamped by transaction <txid>; waiting for 6 confirmations`: in
      a block; the proof comes about an hour later. You don't need the txid.
    - 200: the proof.
-5. Apply the returned operations to `c`. The result is the Merkle root of the
-   block whose height is in the Bitcoin attestation.
+5. Apply the returned operations to `c`. They rebuild the calendar's Bitcoin
+   transaction and then its Merkle path, so the final result is the Merkle
+   root of the block whose height is in the Bitcoin attestation. You don't
+   need to look up any transactions.
 6. Get that block's 80-byte header, e.g. from
    `https://mempool.space/api/block-height/<height>` then
    `https://mempool.space/api/block/<hash>/header`. With your own code, check:

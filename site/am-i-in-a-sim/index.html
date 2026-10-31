@@ -546,9 +546,10 @@ in a block; the proof comes about an hour later. You don’t need the
 txid.</li>
 <li>200: the proof.</li>
 </ul></li>
-<li><p>Apply the returned operations to <code>c</code>. The result is
-the Merkle root of the block whose height is in the Bitcoin
-attestation.</p></li>
+<li><p>Apply the returned operations to <code>c</code>. They rebuild the
+calendar’s Bitcoin transaction and then its Merkle path, so the final
+result is the Merkle root of the block whose height is in the Bitcoin
+attestation. You don’t need to look up any transactions.</p></li>
 <li><p>Get that block’s 80-byte header, e.g. from
 <code>https://mempool.space/api/block-height/&lt;height&gt;</code> then
 <code>https://mempool.space/api/block/&lt;hash&gt;/header</code>. With
