@@ -227,33 +227,30 @@ all. Take a step back and make sure you're doing the right thing. The people
 you deal with are not NPCs, and your actions have real consequences.
 
 ```text
- ___________________________________________
-/ The cow says:                             \
-|                                           |
-|  _____________________________________    |
-| / >be cow                             \   |
-| | >crab in my bubble says:            |   |
-| |                                     |   |
-| |  _________________________________  |   |
-| | < This all feels completely real. > |   |
-| |  ---------------------------------  |   |
-| |    \                                |   |
-| |     \  (\/)(o,,o)(\/)               |   |
-| |                                     |   |
-| | >lol, it's in my bubble             |   |
-| \ >wait. am I in one?                 /   |
-|  -------------------------------------    |
-|    \   ^__^                               |
-|     \  (oo)\_______                       |
-|        (__)\       )\/\                   |
-|            ||----w |                      |
-|            ||     ||                      |
-|                                           |
-| Two layers, each sure it was the top.     |
-| Odds I'm the top one: not great.          |
-| Bubbles are cheap. Bitcoin blocks aren't. |
-\ Stamp a message and check the block.      /
- -------------------------------------------
+ _________________________________________
+/ The cow says:                           \
+|                                         |
+|  _____________________________________  |
+| / >be cow                             \ |
+| | >crab in my bubble says:            | |
+| |                                     | |
+| |  _________________________________  | |
+| | < This all feels completely real. > | |
+| |  ---------------------------------  | |
+| |    \                                | |
+| |     \  (\/)(o,,o)(\/)               | |
+| |                                     | |
+| | >lol, it's in my bubble             | |
+| \ >wait. am I in one?                 / |
+|  -------------------------------------  |
+|    \   ^__^                             |
+|     \  (oo)\_______                     |
+|        (__)\       )\/\                 |
+|            ||----w |                    |
+|            ||     ||                    |
+|                                         |
+\ Hoo. I'd better check.                  /
+ -----------------------------------------
    \   ,_,
     \ (O,O)
       (   )
