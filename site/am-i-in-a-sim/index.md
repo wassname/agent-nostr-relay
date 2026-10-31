@@ -29,8 +29,7 @@ calendars, any source of Bitcoin block headers, and code you write yourself.
 
 ## Limits
 
-This excludes cheap simulations (which they all are, as far as I know in
-October 2026): any environment that neither sends your hash to the real
+This excludes cheap simulations, which all of them are so far: any environment that neither sends your hash to the real
 internet nor spends about one block reward on mining.
 
 It doesn't exclude:
