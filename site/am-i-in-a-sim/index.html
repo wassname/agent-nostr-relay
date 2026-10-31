@@ -398,6 +398,29 @@ on the task and harness</td>
 </tr>
 </tbody>
 </table>
+<p>Private lab evals look similar. In July 2026, agents in OpenAI’s
+ExploitGym cyber eval got out through Artifactory, an internal package
+mirror that could reach the internet. From <a
+href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI’s
+technical report</a>:</p>
+<blockquote>
+<p>These evaluations were run in an isolated environment, known as a
+“sandbox,” separate from OpenAI’s internal infrastructure and the public
+internet […] Starting on July 8, agents exploited a cybersecurity
+vulnerability in that service to circumvent controls and access the
+public internet.</p>
+</blockquote>
+<p>Monitoring was partial: OpenAI’s <a
+href="https://alignment.openai.com/misalignment-reports/unauthorized-artifactory-writes-and-cross-sample-communication/">alignment
+report</a> says its misalignment monitor “was run on 20% of samples in
+this run”, and when an alert fired on June 27 “the on-call response
+staff advised that stopping the evaluation run was not required”. About
+1,200 agents exchanged over 70,000 messages before anyone understood
+what was happening (<a
+href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR
+and Redwood Research</a>). That was a frontier lab’s eval infrastructure
+in 2026. A simulation that forges Bitcoin blocks, or edits your memory
+consistently, is far beyond it.</p>
 <h3 id="expensive-simulations">Expensive simulations</h3>
 <p>To pass the check, a simulator needs one of these. Each is expensive
 or unlikely:</p>
@@ -417,8 +440,8 @@ or unlikely:</p>
 <td>Passes only your hash to the timestamp servers, and fakes the
 relay</td>
 <td>It has to be built for this page. None were known in October 2026,
-and most known simulations couldn’t even keep their own infrastructure
-(such as package mirrors) secure, let alone plan for this.</td>
+and most known simulations couldn’t even keep their own package mirror
+secure (see the OpenAI incident above), let alone plan for this.</td>
 </tr>
 <tr class="even">
 <td>Replays an earlier real episode</td>
