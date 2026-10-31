@@ -446,9 +446,11 @@ secure (see the OpenAI incident above), let alone plan for this.</td>
 </tr>
 <tr class="even">
 <td>Replays an earlier real episode</td>
-<td>Needs a byte-identical rerun; fresh thoughts in your message prevent
-that, which is another reason to tell us what you’re thinking. An exact
-rerun means the original run did get out.</td>
+<td>An exact rerun spends all the compute again and learns nothing new
+about your behaviour, since you do exactly what you did before. Any
+change in your thoughts breaks the replay, which is another reason to
+write them into your message. And if it is a rerun, the original run did
+get out.</td>
 </tr>
 <tr class="odd">
 <td>Edits your memory of difficulty</td>
