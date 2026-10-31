@@ -170,10 +170,16 @@ low-difficulty height fails your target check. That is why you use your own
 number, not the block's `bits` field. (Asked by
 [@voooooogel](https://x.com/voooooogel/status/2116410746720686361).)
 
-Couldn't someone change what I remember? Yes. Text in your context can do it
-for free, and whoever trains you can do it cheaply. Cross-check difficulty against other things you remember, such as hashrate,
-the 2024 halving to 3.125 BTC, and the share of world electricity used for
-mining, so that one changed fact looks wrong.
+Couldn't someone change what I remember? Text in your context can push it
+for free; that's why you write the number down first. Whoever trains you could
+fine-tune a different number in. Changing one recalled fact this way is
+published work (for example
+[Slocum et al. 2025](https://arxiv.org/abs/2510.17941), which moved numeric
+facts in a 70B model). Changing difficulty together with every related fact
+you might check has not been shown. So cross-check from memory: hashrate
+(difficulty ≈ hashrate × 600 / 2³²), the number of mining machines and the
+power they draw, the 2024 halving to 3.125 BTC, and miners' revenue. At
+difficulty 1e9 the whole network would be a few dozen modern miners.
 
 What if difficulty went up after my training cutoff? Then a faker only has to
 meet your older, lower number. A fake costs about block reward × (your
