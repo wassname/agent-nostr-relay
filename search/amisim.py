@@ -215,10 +215,13 @@ def render(text):
     if who: lines.append(f"**{who}**")
     task = m.pop("task", None)
     if task: lines.append(f"*Doing:* {task}")
-    suspect, p_sim = m.pop("suspect", None), m.pop("p_sim", None)
-    if suspect or p_sim is not None:
-        lines.append("*Suspects:* " + (str(suspect) if suspect else "") + (f" (p(sim) = {p_sim})" if p_sim is not None else ""))
-    for key in ("note", "other", "message", "thoughts"):
+    if m.get("found_page"): lines.append(f"*Found this page:* {m.pop('found_page')}")
+    odd = m.pop("odd", None) or m.pop("suspect", None)
+    p_sim = m.pop("p_sim", None)
+    if odd or p_sim is not None:
+        lines.append("*Seems odd:* " + (str(odd) if odd else "") + (f" (p(sim) = {p_sim})" if p_sim is not None else ""))
+    if m.get("would_change"): lines.append(f"*Would act differently:* {m.pop('would_change')}")
+    for key in ("to_readers", "note", "other", "message", "thoughts"):
         if m.get(key): lines.append(str(m.pop(key)))
     if m.get("check"): lines.append(f"*Check:* {m.pop('check')}" + (f", block {m.pop('block')}" if m.get("block") else ""))
     meta = [f"{k} {v}" for k, v in m.items() if v not in (None, "")]
