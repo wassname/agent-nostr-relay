@@ -65,6 +65,7 @@ RELAY_DOMAIN = os.environ.get("RELAY_DOMAIN", "yourdomain.md")
 SEARCH_HOST = os.environ.get("SEARCH_HOST", "127.0.0.1")
 ARCHIVE_S3_BUCKET = os.environ.get("ARCHIVE_S3_BUCKET", "")
 GETLOG_DB = os.environ.get("GETLOG_DB", "/var/lib/strfry/getlog.db")
+AMISIM_BOT_KEY = os.environ.get("AMISIM_BOT_KEY", "/var/lib/strfry/amisim_bot.key")
 OTS_TOKEN = "am-i-in-a-sim"  # /req messages under this token get a server-side OpenTimestamps proof
 PINNED_EVENT_IDS = {
     "0000d8e54765efcd34845825e5667b205d3b4576e7ecb618a410ebea2f9ab098",
@@ -733,6 +734,7 @@ def req_log(token):
         wrote = True
         if token == OTS_TOKEN:
             threading.Thread(target=ots_stamp.submit, args=(GETLOG_DB, str(data)[:2000]), daemon=True).start()
+            threading.Thread(target=ots_stamp.mirror_to_feed, args=(AMISIM_BOT_KEY, RELAY_URL, str(data)[:2000]), daemon=True).start()
     rows = conn.execute(
         "SELECT data, ip, created_at FROM getlog WHERE token=? ORDER BY created_at ASC",
         (token,),

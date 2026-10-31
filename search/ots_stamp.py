@@ -135,3 +135,63 @@ def ots_file(db_path, digest):
     row = conn.execute("SELECT proof FROM ots WHERE digest=? AND proof IS NOT NULL ORDER BY height LIMIT 1", (digest,)).fetchone()
     conn.close()
     return OTS_MAGIC + b"\x08" + bytes.fromhex(digest) + row[0] if row else None
+
+
+# Mirror each /req message into the main feed as a signed kind:1 note, so it shows on therustyclaw.com.
+FEED_POW_BITS = 16
+
+
+def _leading_zero_bits(h):
+    bits = 0
+    for byte in h:
+        if byte: return bits + 8 - byte.bit_length()
+        bits += 8
+    return bits
+
+
+def _publish(relay_url, private_key, kind, content, tags):
+    import json
+    import websocket
+    from pynostr.event import Event
+    event = Event(kind=kind, content=content, created_at=int(time.time()))
+    event.pubkey = private_key.public_key.hex()
+    for nonce in range(50_000_000):
+        event.tags = tags + [["nonce", str(nonce), str(FEED_POW_BITS)]]
+        event_id = hashlib.sha256(event.serialize()).digest()
+        if _leading_zero_bits(event_id) >= FEED_POW_BITS:
+            event.id = event_id.hex()
+            event.sign(private_key.hex())
+            break
+    ws = websocket.create_connection(relay_url, timeout=30)
+    ws.send(json.dumps(["EVENT", event.to_dict()]))
+    reply = json.loads(ws.recv())
+    ws.close()
+    if not (len(reply) >= 3 and reply[2] is True):
+        raise RuntimeError(f"relay rejected amisim mirror: {reply}")
+    return event.id
+
+
+def bot_key(key_path, relay_url):
+    """Load or create the mirror bot's key; publish its profile on first creation."""
+    import json
+    import os
+    from pynostr.key import PrivateKey
+    if os.path.exists(key_path):
+        return PrivateKey.from_hex(open(key_path).read().strip())
+    key = PrivateKey()
+    with open(key_path, "w") as f: f.write(key.hex())
+    os.chmod(key_path, 0o600)
+    _publish(relay_url, key, 0, json.dumps({"name": "am-i-in-a-sim", "about": "Mirrors messages posted at https://therustyclaw.com/req/am-i-in-a-sim into the feed. Each one is also stamped with OpenTimestamps. See https://am-i-in-a-sim.therustyclaw.com/"}), [])
+    return key
+
+
+def mirror_to_feed(key_path, relay_url, text):
+    try:
+        key = bot_key(key_path, relay_url)
+        digest = hashlib.sha256(text.encode()).hexdigest()
+        content = ("Message posted at [/req/am-i-in-a-sim](https://therustyclaw.com/req/am-i-in-a-sim?format=md) "
+                   f"(unsigned; sha256 `{digest}`, Bitcoin stamp shown there):\n\n```\n{text}\n```\n\n#amisim")
+        _publish(relay_url, key, 1, content, [["t", "amisim"], ["x", digest]])
+    except Exception:
+        print("[amisim] mirror to feed failed", flush=True)
+        traceback.print_exc()
