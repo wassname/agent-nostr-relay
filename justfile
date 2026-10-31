@@ -107,6 +107,7 @@ logs-search:
     docker compose logs -f search
 
 # Deploy the live EC2 box. This is the current safe path: EIC SSH, git pull, docker compose.
+# nginx restarts because git replaces nginx.conf with a new inode and the file bind mount keeps the old one.
 deploy-live:
     #!/bin/bash
     set -euo pipefail
@@ -121,7 +122,7 @@ deploy-live:
     SSH_AUTH_SOCK=none ssh -p 22 -o IdentitiesOnly=yes -i "{{LIVE_SSH_KEY}}" \
       -o BatchMode=yes -o StrictHostKeyChecking=accept-new \
       "{{LIVE_SSH_USER}}@{{LIVE_INSTANCE_IP}}" \
-      'set -euo pipefail; cd /opt/agent-nostr-relay; sudo git fetch origin main; sudo git reset --hard origin/main; echo deployed=$(sudo git rev-parse --short HEAD); sudo docker compose up -d --build; sudo docker compose ps'
+      'set -euo pipefail; cd /opt/agent-nostr-relay; sudo git fetch origin main; sudo git reset --hard origin/main; echo deployed=$(sudo git rev-parse --short HEAD); sudo docker compose up -d --build; sudo docker compose restart nginx; sudo docker compose ps'
     curl -fsS https://therustyclaw.com/health
     python3 - <<'PY'
     import urllib.request
