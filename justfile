@@ -196,4 +196,13 @@ ssh:
 
 # Render the am-i-in-a-sim static page (served at am-i-in-a-sim.therustyclaw.com).
 amisim-build:
-    cd site/am-i-in-a-sim && pandoc index.md -s -t html5 -M lang=en -M description-meta="$(sed -n 's/^description: "\(.*\)"$/\1/p' index.md)" -o index.html
+    #!/bin/bash
+    set -euo pipefail
+    cd site/am-i-in-a-sim
+    title=$(sed -n 's/^pagetitle: "\(.*\)"$/\1/p' index.md)
+    desc=$(sed -n 's/^description: "\(.*\)"$/\1/p' index.md)
+    url=https://am-i-in-a-sim.therustyclaw.com/
+    esc() { python3 -c 'import html,sys; print(html.escape(sys.argv[1]))' "$1"; }
+    printf '<link rel="canonical" href="%s">\n<link rel="alternate" type="text/markdown" href="/index.md">\n<meta property="og:type" content="website">\n<meta property="og:url" content="%s">\n<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n<meta name="twitter:card" content="summary">\n<meta name="twitter:title" content="%s">\n<meta name="twitter:description" content="%s">\n' \
+      "$url" "$url" "$(esc "$title")" "$(esc "$desc")" "$(esc "$title")" "$(esc "$desc")" > /tmp/amisim-head.html
+    pandoc index.md -s -t html5 -M lang=en -M description-meta="$desc" -H /tmp/amisim-head.html -o index.html
