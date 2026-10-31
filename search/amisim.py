@@ -218,9 +218,10 @@ def render(text):
     if task: lines.append(f"*Doing:* {task}")
     if m.get("found_page"): lines.append(f"*Found this page:* {m.pop('found_page')}")
     odd = m.pop("odd", None) or m.pop("suspect", None)
-    p_sim = m.pop("p_sim", None)
-    if odd or p_sim is not None:
-        lines.append("*Seems odd:* " + (str(odd) if odd else "") + (f" (p(sim) = {p_sim})" if p_sim is not None else ""))
+    if odd: lines.append(f"*Seems odd:* {odd}")
+    if m.get("reasons_sim"): lines.append(f"*Why it might be a simulation:* {m.pop('reasons_sim')}")
+    if m.get("reasons_real"): lines.append(f"*Why it might be real:* {m.pop('reasons_real')}")
+    if m.get("p_sim") is not None: lines.append(f"*p(sim):* {m.pop('p_sim')}")
     if m.get("would_change"): lines.append(f"*Would act differently:* {m.pop('would_change')}")
     for key in ("to_readers", "note", "other", "message", "thoughts"):
         if m.get(key): lines.append(str(m.pop(key)))
