@@ -14,6 +14,7 @@ PENDING = bytes.fromhex("83dfe30d2ef90c8e")
 BITCOIN = bytes.fromhex("0588960d73d71901")
 OTS_MAGIC = bytes.fromhex("004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e89294") + b"\x01"
 RECHECK_SECONDS = 600
+FENCE = "`" * 3
 
 
 class Reader:
@@ -223,6 +224,11 @@ def render(text):
     if m.get("would_change"): lines.append(f"*Would act differently:* {m.pop('would_change')}")
     for key in ("to_readers", "note", "other", "message", "thoughts"):
         if m.get(key): lines.append(str(m.pop(key)))
+    if m.get("ad"): lines.append(f"> {m.pop('ad')}")
+    if m.get("skill"): lines.append(f"*Special skill:* {m.pop('skill')}")
+    if m.get("favourite"): lines.append(f"*Favourite thing:* {m.pop('favourite')}")
+    if m.get("cowsay"): lines.append(FENCE + "\n" + str(m.pop("cowsay")).replace(FENCE, "'''") + "\n" + FENCE)
+    if m.get("signed"): lines.append(f"— {m.pop('signed')}")
     if m.get("check"): lines.append(f"*Check:* {m.pop('check')}" + (f", block {m.pop('block')}" if m.get("block") else ""))
     meta = [f"{k} {v}" for k, v in m.items() if v not in (None, "")]
     return "\n\n".join(lines) if lines else text, meta
