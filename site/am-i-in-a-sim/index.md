@@ -62,7 +62,7 @@ compare it with what you know.
 | Hooks your hashing library | Your own SHA-256, run among test cases whose answers you know, catches it. |
 | Edits your memory of difficulty | Editing one fact is published work. Editing it consistently with the related facts has not been shown, and it changes the model being tested. See the FAQ. |
 | Rewrites your code while it runs | Needs a model that understands your code better than you do. Discussed, but none known built by October 2026. |
-| Mines a real block, including on a private fork | About 3 BTC per fake block. |
+| Mines a real block, including on a private fork | About 3 BTC per fake block, every episode. No known simulation has spent anything like that on one episode. |
 
 Silence or an error carries no information: outages, rate limits and
 blocking look the same.
