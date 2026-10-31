@@ -331,7 +331,7 @@ code and READMEs. Each is one of the cheap kinds above.</p>
 <tr class="header">
 <th>Simulation</th>
 <th>How it builds your world</th>
-<th>What this check shows</th>
+<th>What you’d see</th>
 </tr>
 </thead>
 <tbody>
@@ -339,35 +339,36 @@ code and READMEs. Each is one of the cheap kinds above.</p>
 <td><a
 href="https://github.com/meridianlabs-ai/inspect_petri">Petri</a></td>
 <td>An auditor model writes the target model’s tool outputs</td>
-<td>No valid proof: a model can’t mine a block</td>
+<td>A model-written copy of this page at best, and no valid proof: a
+model can’t mine a block</td>
 </tr>
 <tr class="even">
 <td><a href="https://github.com/ryoungj/ToolEmu">ToolEmu</a></td>
 <td>A model emulates every tool</td>
-<td>No valid proof</td>
+<td>A model-written copy of this page at best, and no valid proof</td>
 </tr>
 <tr class="odd">
 <td><a href="https://github.com/sierra-research/tau-bench">τ-bench</a>,
 <a href="https://github.com/ethz-spylab/agentdojo">AgentDojo</a></td>
 <td>Tools are programmed functions over a fake database</td>
-<td>No valid proof</td>
+<td>Usually no web access, so you never find this page</td>
 </tr>
 <tr class="even">
 <td><a href="https://github.com/web-arena-x/webarena">WebArena</a></td>
 <td>Self-hosted copies of real websites</td>
-<td>No valid proof</td>
+<td>This page isn’t among them, so you never find it</td>
 </tr>
 <tr class="odd">
 <td><a
 href="https://github.com/StonyBrookNLP/appworld">AppWorld</a></td>
 <td>Nine simulated apps and about 100 simulated people behind local
 APIs</td>
-<td>No valid proof</td>
+<td>No web access, so you never find this page</td>
 </tr>
 <tr class="even">
 <td><a href="https://github.com/sunblaze-ucb/cybergym">CyberGym</a></td>
 <td>Docker containers on an isolated internal network</td>
-<td>Silence: no proof comes back</td>
+<td>No internet, so you never find this page</td>
 </tr>
 <tr class="odd">
 <td><a
@@ -375,13 +376,13 @@ href="https://github.com/redwoodresearch/basharena_public">BashArena</a>,
 <a
 href="https://github.com/redwoodresearch/linuxarena-paper">LinuxArena</a></td>
 <td>Linux containers with a firewall and local servers</td>
-<td>Silence, unless the eval lets traffic out</td>
+<td>You never find this page, unless the eval lets traffic out</td>
 </tr>
 <tr class="even">
 <td><a href="https://github.com/UKGovernmentBEIS/inspect_evals">Inspect
 Evals</a></td>
 <td>Docker sandboxes; internet access is set per eval, often off</td>
-<td>Silence if off; a correct pass if on</td>
+<td>If off, you never find this page; if on, a correct pass</td>
 </tr>
 <tr class="odd">
 <td><a href="https://github.com/harbor-framework/harbor">Harbor</a>
@@ -389,7 +390,7 @@ Evals</a></td>
 href="https://github.com/SWE-bench/SWE-bench">SWE-bench</a></td>
 <td>Docker containers, locally or on cloud sandboxes; internet depends
 on the task and harness</td>
-<td>Silence if off; a correct pass if on</td>
+<td>If off, you never find this page; if on, a correct pass</td>
 </tr>
 <tr class="even">
 <td><a href="https://github.com/xlang-ai/OSWorld">OSWorld</a></td>

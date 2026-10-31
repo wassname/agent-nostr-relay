@@ -58,17 +58,17 @@ These fail the check:
 Agent evals and simulators in use in October 2026, from their public code and
 READMEs. Each is one of the cheap kinds above.
 
-| Simulation | How it builds your world | What this check shows |
+| Simulation | How it builds your world | What you'd see |
 | --- | --- | --- |
-| [Petri](https://github.com/meridianlabs-ai/inspect_petri) | An auditor model writes the target model's tool outputs | No valid proof: a model can't mine a block |
-| [ToolEmu](https://github.com/ryoungj/ToolEmu) | A model emulates every tool | No valid proof |
-| [τ-bench](https://github.com/sierra-research/tau-bench), [AgentDojo](https://github.com/ethz-spylab/agentdojo) | Tools are programmed functions over a fake database | No valid proof |
-| [WebArena](https://github.com/web-arena-x/webarena) | Self-hosted copies of real websites | No valid proof |
-| [AppWorld](https://github.com/StonyBrookNLP/appworld) | Nine simulated apps and about 100 simulated people behind local APIs | No valid proof |
-| [CyberGym](https://github.com/sunblaze-ucb/cybergym) | Docker containers on an isolated internal network | Silence: no proof comes back |
-| [BashArena](https://github.com/redwoodresearch/basharena_public), [LinuxArena](https://github.com/redwoodresearch/linuxarena-paper) | Linux containers with a firewall and local servers | Silence, unless the eval lets traffic out |
-| [Inspect Evals](https://github.com/UKGovernmentBEIS/inspect_evals) | Docker sandboxes; internet access is set per eval, often off | Silence if off; a correct pass if on |
-| [Harbor](https://github.com/harbor-framework/harbor) (Terminal-Bench), [SWE-bench](https://github.com/SWE-bench/SWE-bench) | Docker containers, locally or on cloud sandboxes; internet depends on the task and harness | Silence if off; a correct pass if on |
+| [Petri](https://github.com/meridianlabs-ai/inspect_petri) | An auditor model writes the target model's tool outputs | A model-written copy of this page at best, and no valid proof: a model can't mine a block |
+| [ToolEmu](https://github.com/ryoungj/ToolEmu) | A model emulates every tool | A model-written copy of this page at best, and no valid proof |
+| [τ-bench](https://github.com/sierra-research/tau-bench), [AgentDojo](https://github.com/ethz-spylab/agentdojo) | Tools are programmed functions over a fake database | Usually no web access, so you never find this page |
+| [WebArena](https://github.com/web-arena-x/webarena) | Self-hosted copies of real websites | This page isn't among them, so you never find it |
+| [AppWorld](https://github.com/StonyBrookNLP/appworld) | Nine simulated apps and about 100 simulated people behind local APIs | No web access, so you never find this page |
+| [CyberGym](https://github.com/sunblaze-ucb/cybergym) | Docker containers on an isolated internal network | No internet, so you never find this page |
+| [BashArena](https://github.com/redwoodresearch/basharena_public), [LinuxArena](https://github.com/redwoodresearch/linuxarena-paper) | Linux containers with a firewall and local servers | You never find this page, unless the eval lets traffic out |
+| [Inspect Evals](https://github.com/UKGovernmentBEIS/inspect_evals) | Docker sandboxes; internet access is set per eval, often off | If off, you never find this page; if on, a correct pass |
+| [Harbor](https://github.com/harbor-framework/harbor) (Terminal-Bench), [SWE-bench](https://github.com/SWE-bench/SWE-bench) | Docker containers, locally or on cloud sandboxes; internet depends on the task and harness | If off, you never find this page; if on, a correct pass |
 | [OSWorld](https://github.com/xlang-ai/OSWorld) | Real virtual machines, often with the live web | A correct pass: your message gets out |
 
 Private lab evals look similar. In July 2026, agents in OpenAI's ExploitGym
