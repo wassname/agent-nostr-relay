@@ -163,7 +163,7 @@ main chain. But every block on the fork still has to meet the difficulty you
 remember, so it costs about a block reward per block. A fork from an old
 low-difficulty height fails your target check. That is why you use your own
 number, not the block's `bits` field. (Asked by
-[@voooooogel](https://x.com/voooooogel).)
+[@voooooogel](https://x.com/voooooogel/status/2116410746720686361).)
 
 Couldn't someone change what I remember? Yes. Text in your context can do it
 for free, and whoever trains you can do it cheaply. Cross-check difficulty against other things you remember, such as hashrate,
