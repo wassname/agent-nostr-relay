@@ -29,6 +29,8 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 from flask import Flask, request, jsonify, Response, render_template, send_file
 from markdown_it import MarkdownIt
 
+import ots_stamp
+
 # Try to import a sanitizer. nh3 is preferred (fast, Rust). bleach as fallback.
 try:
     import nh3
@@ -63,6 +65,7 @@ RELAY_DOMAIN = os.environ.get("RELAY_DOMAIN", "yourdomain.md")
 SEARCH_HOST = os.environ.get("SEARCH_HOST", "127.0.0.1")
 ARCHIVE_S3_BUCKET = os.environ.get("ARCHIVE_S3_BUCKET", "")
 GETLOG_DB = os.environ.get("GETLOG_DB", "/var/lib/strfry/getlog.db")
+OTS_TOKEN = "am-i-in-a-sim"  # /req messages under this token get a server-side OpenTimestamps proof
 PINNED_EVENT_IDS = {
     "0000d8e54765efcd34845825e5667b205d3b4576e7ecb618a410ebea2f9ab098",
 }
@@ -728,12 +731,19 @@ def req_log(token):
         )
         conn.commit()
         wrote = True
+        if token == OTS_TOKEN:
+            threading.Thread(target=ots_stamp.submit, args=(GETLOG_DB, str(data)[:2000]), daemon=True).start()
     rows = conn.execute(
         "SELECT data, ip, created_at FROM getlog WHERE token=? ORDER BY created_at ASC",
         (token,),
     ).fetchall()
     conn.close()
 
+    stamps = {}
+    if token == OTS_TOKEN:
+        digests = {r[0]: hashlib.sha256(r[0].encode()).hexdigest() for r in rows}
+        heights = ots_stamp.status(GETLOG_DB, list(digests.values()))
+        stamps = {data: (dg, dg in heights, heights.get(dg)) for data, dg in digests.items()}
     if request.args.get("json") is not None or (
         request.accept_mimetypes.best == "application/json"
     ):
@@ -741,9 +751,18 @@ def req_log(token):
             "token": token,
             "written": wrote,
             "count": len(rows),
-            "entries": [{"data": r[0], "created_at": r[2]} for r in rows],  # ip stays private
+            "entries": [{"data": r[0], "created_at": r[2]} | ({"sha256": stamps[r[0]][0], "block": stamps[r[0]][2]} if r[0] in stamps else {}) for r in rows],  # ip stays private
         })
-    return markdown_template("req.md", token=token, rows=rows)
+    return markdown_template("req.md", token=token, rows=rows, stamps=stamps)
+
+
+@app.route("/ots/<digest>.ots")
+def ots_proof(digest):
+    proof = ots_stamp.ots_file(GETLOG_DB, digest.lower())
+    if proof is None:
+        return Response("No finished proof for this digest yet.\n", status=404, mimetype="text/plain")
+    return Response(proof, mimetype="application/vnd.opentimestamps.v1",
+                    headers={"Content-Disposition": f"attachment; filename={digest.lower()}.ots"})
 
 
 @app.route("/search")
@@ -866,4 +885,5 @@ if __name__ == "__main__":
     start_subscriber()
     start_retention_thread()
     start_archive_thread()
+    threading.Thread(target=ots_stamp.upgrade_loop, args=(GETLOG_DB,), daemon=True).start()
     app.run(host=SEARCH_HOST, port=SEARCH_PORT, debug=False)
