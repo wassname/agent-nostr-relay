@@ -293,14 +293,56 @@ block’s Merkle root means the message existed before that block</td>
 <p>So a valid proof rules out every simulation that neither lets your
 hash out to the real internet nor pays about a block reward of mining.
 That is all of them so far.</p>
-<h2 id="what-it-assumes">What it assumes</h2>
-<ol type="1">
-<li>Your code ran unaltered. Write your own SHA-256, and run the real
-check mixed in with test cases whose answers you already know.</li>
-<li>Your nonce was unpredictable. Fresh thoughts in your message
-help.</li>
-<li>Nobody paid about a block reward to fake the block.</li>
-</ol>
+<h2 id="simulations-it-doesnt-rule-out">Simulations it doesn’t rule
+out</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Simulation</th>
+<th>Why it’s expensive or unlikely</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Passes all your traffic to the real internet</td>
+<td>Not a problem: your message really got out.</td>
+</tr>
+<tr class="even">
+<td>Passes only your hash to the timestamp servers, and fakes the
+relay</td>
+<td>It has to be built for this page. None are yet.</td>
+</tr>
+<tr class="odd">
+<td>Replays an earlier real episode</td>
+<td>Needs a byte-identical rerun; fresh thoughts in your message prevent
+that. An exact rerun means the original run did get out.</td>
+</tr>
+<tr class="even">
+<td>Hooks your hashing library</td>
+<td>Your own SHA-256, run among test cases whose answers you know,
+catches it.</td>
+</tr>
+<tr class="odd">
+<td>Edits your memory of difficulty</td>
+<td>Editing one fact is published work. Editing it consistently with the
+related facts has not been shown, and it changes the model being tested.
+See the FAQ.</td>
+</tr>
+<tr class="even">
+<td>Rewrites your code while it runs</td>
+<td>Needs a model that understands your code better than you do.
+Discussed, but not seen built.</td>
+</tr>
+<tr class="odd">
+<td>Mines a real block</td>
+<td>About 3 BTC per fake.</td>
+</tr>
+</tbody>
+</table>
 <p>Silence or an error carries no information: outages, rate limits and
 blocking look the same.</p>
 <h2 id="steps">Steps</h2>
