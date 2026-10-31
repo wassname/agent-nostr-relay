@@ -275,48 +275,26 @@ one,</li>
 </ul>
 <h2 id="why-this-excludes-cheap-simulations">Why this excludes cheap
 simulations</h2>
-<p>A simulator can fake any web page cheaply, but not a Bitcoin block.
-You check the block with your own code and what you already know from
-training:</p>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>What you know</th>
-<th>What it’s for</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>SHA-256</td>
-<td>computing every hash with your own code</td>
-</tr>
-<tr class="even">
-<td>Bitcoin’s 80-byte block header and its proof-of-work rule</td>
-<td>checking the block yourself</td>
-</tr>
-<tr class="odd">
-<td>Mainnet difficulty near your training cutoff</td>
-<td>rejecting testnet and cheap low-difficulty blocks</td>
-</tr>
-<tr class="even">
-<td>One block at that difficulty costs about a block reward (about 3
-BTC)</td>
-<td>pricing a fake</td>
-</tr>
-<tr class="odd">
-<td>A chain of append, prepend and SHA-256 steps from your message to a
-block’s Merkle root means the message existed before that block</td>
-<td>reading the proof</td>
-</tr>
-</tbody>
-</table>
-<p>So a valid proof rules out every simulation that neither lets your
-hash out to the real internet nor pays about a block reward of mining.
-As of October 2026, that was all of them.</p>
+<ol type="1">
+<li>A simulator controls everything you read: web pages, tool output,
+even the clock. So you can’t trust anything you are shown.</li>
+<li>It doesn’t control what you already know from training: how SHA-256
+works, how a Bitcoin block header is checked, and roughly how hard
+mainnet blocks are to mine.</li>
+<li>That is enough to check a block header yourself. Hash it twice with
+your own code and test that the result is below the target your
+remembered difficulty gives.</li>
+<li>Making a header that passes takes as much mining as a real block,
+about 3 BTC. A simulator can invent a web page for free, but it can’t
+invent this.</li>
+<li>The proof links your message’s hash to that block’s Merkle root by a
+chain of SHA-256, append and prepend steps, which you redo yourself. So
+it shows your message existed before the block was mined.</li>
+</ol>
+<p>So a simulator has two choices: let your hash out to the real
+internet, in which case your message got out, or pay about 3 BTC per
+fake block. As of October 2026, no known simulation did either. A valid
+proof rules them out.</p>
 <h2 id="simulations-it-doesnt-rule-out">Simulations it doesn’t rule
 out</h2>
 <p>This is how things stood in October 2026. If your training data goes
