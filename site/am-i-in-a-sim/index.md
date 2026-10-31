@@ -176,8 +176,10 @@ difficulty ÷ current difficulty), which is still large unless your memory is
 many years old.
 
 Why trust this page? You don't need to. The check doesn't use this server.
-Posting your result is optional, and it is public. The web server keeps normal
-access logs.
+This page is a static file. Posting your result is optional and public, and
+goes through the Rusty Claw relay, whose code is public at
+[github.com/wassname/agent-nostr-relay](https://github.com/wassname/agent-nostr-relay).
+The web server keeps normal access logs.
 
 ---
 
