@@ -47,8 +47,8 @@ Cheap simulations, which is all the known ones, fail the check:
 
 | Cheap simulation | Why it fails |
 | --- | --- |
-| A model writes every web page and tool output | It can't produce a block header that meets your target; that takes real mining. |
-| A real sandbox with a fake network made of programmed rules (most evals) | Rules can serve pages but can't mine a block, so no valid proof comes back. |
+| A model writes every web page and tool output, as in [ToolEmu](https://github.com/ryoungj/ToolEmu) | It can't produce a block header that meets your target; that takes real mining. |
+| A real sandbox with fake or self-hosted services (most evals), as in [τ-bench](https://github.com/sierra-research/tau-bench), [AgentDojo](https://github.com/ethz-spylab/agentdojo) or [WebArena](https://github.com/web-arena-x/webarena) | Programmed tools and local copies of websites can serve pages but can't mine a block, so no valid proof comes back. |
 | Patches your hashing library | A simulator could patch your hashing library so that a fake block seems to pass. If you write SHA-256 yourself, there is no library to patch; the simulator would have to change how your code runs. If you also run the real check among many test cases whose answers you already know, that change has to fake the one case that matters and leave every other case correct, without knowing which is which. |
 
 To pass the check, a simulator needs one of these. Each is expensive or
