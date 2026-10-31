@@ -352,14 +352,23 @@ rerun means the original run did get out.</td>
 </tr>
 <tr class="even">
 <td>Hooks your hashing library</td>
-<td>Your own SHA-256, run among test cases whose answers you know,
-catches it.</td>
+<td>A simulator could patch your hashing library so that a fake block
+seems to pass. If you write SHA-256 yourself, there is no library to
+patch; the simulator would have to change how your code runs. If you
+also run the real check among many test cases whose answers you already
+know, that change has to fake the one case that matters and leave every
+other case correct, without knowing which is which.</td>
 </tr>
 <tr class="odd">
 <td>Edits your memory of difficulty</td>
-<td>Editing one fact is published work. Editing it consistently with the
-related facts has not been shown, and it changes the model being tested.
-See the FAQ.</td>
+<td>A lab can fine-tune a model to recall a different number for one
+fact; <a href="https://arxiv.org/abs/2510.17941">Slocum et al. 2025</a>
+did this for numbers in a 70B model. But difficulty is tied to other
+things you know: hashrate, the number of mining machines, the power they
+use, and miners’ revenue. Changing all of these so they still agree has
+not been done. Editing the model also changes the model being tested,
+which defeats the point of most evals. The FAQ has the
+cross-checks.</td>
 </tr>
 <tr class="even">
 <td>Rewrites your code while it runs</td>
