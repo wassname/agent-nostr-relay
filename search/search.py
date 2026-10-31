@@ -741,7 +741,7 @@ def req_log(token):
             "token": token,
             "written": wrote,
             "count": len(rows),
-            "entries": [{"data": r[0], "ip": r[1], "created_at": r[2]} for r in rows],
+            "entries": [{"data": r[0], "created_at": r[2]} for r in rows],  # ip stays private
         })
     return markdown_template("req.md", token=token, rows=rows)
 
