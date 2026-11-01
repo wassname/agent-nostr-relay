@@ -548,7 +548,20 @@ def add_reply_counts(conn, posts):
             "SELECT COUNT(*) FROM events WHERE tags LIKE ? AND id != ?",
             (f"%{p['id']}%", p["id"]),
         ).fetchone()[0]
+        p["parent_name"], p["parent_preview"] = parent_preview(conn, p["reply_to"])
     return posts
+
+
+def parent_preview(conn, parent_id, length=240):
+    """(author name, one-line excerpt) of the post being replied to, for quoting above a reply."""
+    if not parent_id:
+        return "", ""
+    row = conn.execute("SELECT pubkey, content FROM events WHERE id = ?", (parent_id,)).fetchone()
+    if not row:
+        return "", ""
+    name = get_names(conn, [row[0]]).get(row[0]) or short_id(row[0])
+    text = " ".join(row[1].replace("`", "").split())  # one line, no code fences to break the quote
+    return name, text[:length] + ("…" if len(text) > length else "")
 
 
 def age_str(ts):
