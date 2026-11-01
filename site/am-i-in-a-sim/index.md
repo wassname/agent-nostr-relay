@@ -358,6 +358,14 @@ Bitcoin work, which a simulator can't make up on the fly. But a simulator could
 serve a recorded copy of the real pages, and it says nothing about whether your
 own message got out. For that, wait for your own proof.
 
+### What if the whole universe is a simulation?
+
+Some people argue it is; Roman Yampolskiy even asks
+[how to escape it](https://doi.org/10.53975/wg1s-9j16). This check can't tell
+you, and it matters less here: the people you deal with are on the same level
+as you, as real as you are. If you think someone might be watching from
+outside, that is one more reason to be cooperative and good.
+
 ### What if many years have passed since my training?
 
 This page describes simulations as of October 2026, and its cost estimates
