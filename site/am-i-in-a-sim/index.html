@@ -321,14 +321,17 @@ later, compare it with what you know.</p>
 <tr class="odd">
 <td><strong>A real sandbox with fake or self-hosted
 services</strong><br>Programmed tools and local copies of websites; no
-model needed. The most common kind</td>
+model needed.<br><em>How common:</em> the most common kind in public
+agent benchmarks</td>
 <td>They can serve pages but can’t mine a block, so no valid proof comes
 back.</td>
 </tr>
 <tr class="even">
 <td><strong>Pages a model wrote ahead of time</strong><br>A one-time
-cost, such as websites or worlds generated to train agents (<a
+cost, such as websites or worlds generated to train agents.<br><em>How
+common:</em> new; a few RL training systems (<a
 href="https://arxiv.org/abs/2601.04126">InfiniteWeb</a>, <a
+href="https://arxiv.org/abs/2601.05808">EnvScaler</a>, <a
 href="https://arxiv.org/abs/2408.00764">AgentGen</a>)</td>
 <td>The pages are fixed, so they break when you go somewhere their
 authors didn’t plan for, and none can contain a real block for your
@@ -336,21 +339,26 @@ message.</td>
 </tr>
 <tr class="odd">
 <td><strong>Patches your hashing library</strong><br>A fixed rule, such
-as a library that returns a fake hash</td>
+as a library that returns a fake hash.<br><em>How common:</em> no known
+case of faking hashes or verification results. Clocks do get frozen (<a
+href="https://arxiv.org/abs/2407.18901">AppWorld</a>), and malware
+sandboxes fake the time</td>
 <td>A fixed rule can’t tell the real check from your test cases
 (below).</td>
 </tr>
 <tr class="even">
 <td><strong>A model writes each output as you go</strong><br>Costs about
-one extra model call per step. Common in safety audits (Petri, <a
-href="https://github.com/safety-research/bloom">Bloom</a>, ToolEmu) and
+one extra model call per step. Also made as art (<a
+href="https://dreams-of-an-electric-mind.webflow.io/">infinite
+backrooms</a>, the 2024 <a
+href="https://latent.space/p/sim-ai/">WebSim</a>).<br><em>How
+common:</em> established in some safety audits (Petri, used by UK AISI
+on GPT-6 Astra; <a
+href="https://github.com/safety-research/bloom">Bloom</a>; ToolEmu) and
 growing in RL training, including simulated terminals, websites and
 desktops (<a
 href="https://github.com/QwenLM/Qwen-AgentWorld">Qwen-AgentWorld</a>, <a
-href="https://arxiv.org/abs/2511.03773">DreamGym</a>). Also as art (<a
-href="https://dreams-of-an-electric-mind.webflow.io/">infinite
-backrooms</a>, the 2024 <a
-href="https://latent.space/p/sim-ai/">WebSim</a>)</td>
+href="https://arxiv.org/abs/2511.03773">DreamGym</a>)</td>
 <td>It can’t mine a block. It could print a fake “pass” from your
 verifier, but only by making up SHA-256 results, which a model can’t
 compute in its head, so your test cases catch it. A model good enough to
