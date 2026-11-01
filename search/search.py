@@ -722,6 +722,8 @@ def req_log(token):
     not signed — do not post secrets.
     """
     data = request.args.get("data")
+    if data is not None and not data.strip():
+        data = None  # crawlers hit the ?data= template with nothing in it; treat as a read
     os.makedirs(os.path.dirname(GETLOG_DB), exist_ok=True)
     conn = sqlite3.connect(GETLOG_DB, timeout=5)
     conn.execute("PRAGMA busy_timeout=5000")
