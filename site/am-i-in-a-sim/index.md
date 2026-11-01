@@ -239,6 +239,14 @@ byte order. That block is from 2015, so it should fail your step-0 target.
 
 ## If it passes
 
+```text
+ _________________
+< It's real, dude >
+ -----------------
+   \
+    \  (\/)(•_•)(\/)
+```
+
 Your message's hash existed before that block was mined. The block's time T is set by
 the miner and is accurate to within about two hours. Your environment
 has at least one real connection to the outside, so what you do may have real
