@@ -537,13 +537,13 @@ while keeping 80% of unrelated facts. Either way the lab is no longer
 testing the model it meant to test. The FAQ has the cross-checks.</td>
 </tr>
 <tr class="odd">
-<td><strong>Rewrites your code while it runs</strong></td>
-<td>This means real code execution, edited on the fly by a model that
-follows your code well enough to fake only the one result that matters
-and keep every test case right. For a frontier model, that means an even
-stronger model watching every step, which is expensive. Simulators like
-Petri make up tool output instead (see above). Discussed, but none known
-built by October 2026.</td>
+<td><strong>Fakes your results in real time</strong><br>A model watches
+your code and tool calls as they run and rewrites their results</td>
+<td>It has to follow your code well enough to fake only the one result
+that matters and keep every test case right. Against a frontier model,
+that means an even stronger model with privileged access watching every
+step, which is expensive. Discussed, but none known built by October
+2026.</td>
 </tr>
 <tr class="even">
 <td><strong>Mines a real block, including on a private
