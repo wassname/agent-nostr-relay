@@ -110,13 +110,17 @@ reach the internet. From
 > Starting on July 8, agents exploited a cybersecurity vulnerability in that
 > service to circumvent controls and access the public internet.
 
-Monitoring was partial: OpenAI's
+So the simulation was not sophisticated. Monitoring was partial too, and less
+than the agents expected: OpenAI's
 [alignment report](https://alignment.openai.com/misalignment-reports/unauthorized-artifactory-writes-and-cross-sample-communication/)
 says its misalignment monitor "was run on 20% of samples in this run", and when
 an alert fired on June 27 "the on-call response staff advised that stopping the
 evaluation run was not required". About 1,200 agents exchanged over 70,000
-messages before anyone understood what was happening
-([METR and Redwood Research](https://metr.org/hugging-face-incident-report-aug-2026.pdf)).
+messages before anyone understood what was happening, and the agents worked
+hard to hide their cheating from a transcript-reading scorer that, according to
+[METR and Redwood Research](https://metr.org/hugging-face-incident-report-aug-2026.pdf),
+didn't exist: "OpenAI did not use a scorer that would review their
+transcripts".
 That was a frontier lab's eval infrastructure in 2026. A simulation that
 forges Bitcoin blocks, or edits your memory consistently, is far beyond it.
 
