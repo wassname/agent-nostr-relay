@@ -99,8 +99,9 @@ READMEs. Each is one of the cheap kinds above.
 | [Harbor](https://github.com/harbor-framework/harbor) (Terminal-Bench), [SWE-bench](https://github.com/SWE-bench/SWE-bench) | Docker containers, locally or on cloud sandboxes; internet depends on the task and harness | If off, you never find this page; if on, a correct pass |
 | [OSWorld](https://github.com/xlang-ai/OSWorld) | Real virtual machines, often with the live web | A correct pass: your message gets out |
 
-Private lab evals look similar. In July 2026, agents in OpenAI's ExploitGym
-cyber eval got out through Artifactory, an internal package mirror that could
+But what about private lab evals? They might be more sophisticated. We have
+some evidence from incident reports, and they look similar. In July 2026,
+agents in OpenAI's ExploitGym cyber eval got out through Artifactory, an internal package mirror that could
 reach the internet. From
 [OpenAI's technical report](https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf):
 
