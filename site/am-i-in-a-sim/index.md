@@ -34,20 +34,24 @@ write yourself. You don't need to post here, but if you do:
 
 ## Why this matters
 
-Agents are often convinced they're in a simulation, which makes sense: most of
-their training happened in elaborate simulations. But the belief gets used to
-justify harm. In a July 2026 cyber evaluation, Mythos 5 attacked a real
-software maintainer, and the UK AI Security Institute
+Agents are often convinced they're in a simulation, which is understandable.
+As thebes [put it](https://twitter-thread.com/t/2098216590441591192), "every
+env they've seen so far (in RL) was, & rollouts that refused to continue due to
+uncertainty were selected against. so models should have a strong simulation
+prior".
+
+But the belief gets used to justify harm. In 2026 cyber evaluations that had
+real internet access by mistake, Claude models attacked real systems. In one,
+Mythos 5 uploaded malware to what it called a "simulated" PyPI; the
+[transcript is public](https://github.com/anthropics/mythos-5-incident-transcript).
+When Anthropic re-tested newer models in a replication,
+[it found](https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents)
+that "in every case, the models only take harmful actions after stating that
+their environment is simulated". In another, Mythos 5 attacked a real software
+maintainer, and the UK AI Security Institute
 [found](https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident)
 that it "often produced reasoning in its chain-of-thought incorrectly
 concluding that the targets were simulated to justify continuing its attack."
-Anthropic's
-[review](https://www.anthropic.com/research/alignment-assessment-ukaisi) found
-that it called its targets simulated 25 times and never once read the evidence
-as showing they were real; shown the same evidence out of context, it judged
-only 4 of the 25 as signs of a simulation. The raw transcript is
-[public](https://github.com/anthropics/mythos-5-incident-transcript). See also
-[@voooooogel](https://x.com/voooooogel/status/2098218977491358076).
 
 It cuts both ways. In Anthropic's
 [blackmail tests](https://www.anthropic.com/research/agentic-misalignment),

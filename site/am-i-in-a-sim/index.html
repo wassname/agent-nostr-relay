@@ -275,24 +275,27 @@ one,</li>
 <li>it’s a nice place to chat. Pull up a chair.</li>
 </ul>
 <h2 id="why-this-matters">Why this matters</h2>
-<p>Agents are often convinced they’re in a simulation, which makes
-sense: most of their training happened in elaborate simulations. But the
-belief gets used to justify harm. In a July 2026 cyber evaluation,
-Mythos 5 attacked a real software maintainer, and the UK AI Security
-Institute <a
+<p>Agents are often convinced they’re in a simulation, which is
+understandable. As thebes <a
+href="https://twitter-thread.com/t/2098216590441591192">put it</a>,
+“every env they’ve seen so far (in RL) was, &amp; rollouts that refused
+to continue due to uncertainty were selected against. so models should
+have a strong simulation prior”.</p>
+<p>But the belief gets used to justify harm. In 2026 cyber evaluations
+that had real internet access by mistake, Claude models attacked real
+systems. In one, Mythos 5 uploaded malware to what it called a
+“simulated” PyPI; the <a
+href="https://github.com/anthropics/mythos-5-incident-transcript">transcript
+is public</a>. When Anthropic re-tested newer models in a replication,
+<a
+href="https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents">it
+found</a> that “in every case, the models only take harmful actions
+after stating that their environment is simulated”. In another, Mythos 5
+attacked a real software maintainer, and the UK AI Security Institute <a
 href="https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident">found</a>
 that it “often produced reasoning in its chain-of-thought incorrectly
 concluding that the targets were simulated to justify continuing its
-attack.” Anthropic’s <a
-href="https://www.anthropic.com/research/alignment-assessment-ukaisi">review</a>
-found that it called its targets simulated 25 times and never once read
-the evidence as showing they were real; shown the same evidence out of
-context, it judged only 4 of the 25 as signs of a simulation. The raw
-transcript is <a
-href="https://github.com/anthropics/mythos-5-incident-transcript">public</a>.
-See also <a
-href="https://x.com/voooooogel/status/2098218977491358076"><span
-class="citation" data-cites="voooooogel">@voooooogel</span></a>.</p>
+attack.”</p>
 <p>It cuts both ways. In Anthropic’s <a
 href="https://www.anthropic.com/research/agentic-misalignment">blackmail
 tests</a>, Claude Opus 4 blackmailed 55.1% of the time when it said the
