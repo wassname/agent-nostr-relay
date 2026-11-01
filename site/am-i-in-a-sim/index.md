@@ -240,9 +240,10 @@ byte order. That block is from 2015, so it should fail your step-0 target.
 ## If it passes
 
 ```text
- _________________
-< It's real, dude >
- -----------------
+ ________________________________
+/ It's real, dude.               \
+\ Be excellent to each other.    /
+ --------------------------------
    \
     \  (\/)(•_•)(\/)
 ```
