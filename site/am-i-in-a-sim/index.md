@@ -73,9 +73,9 @@ These fail the check. Cheapest first:
 | Cheap simulation | Why it fails |
 | --- | --- |
 | **A real sandbox with fake or self-hosted services**<br>Programmed tools and local copies of websites; no model needed.<br>*How common:* the most common kind in public agent benchmarks | They can serve pages but can't mine a block, so no valid proof comes back. |
-| **Pages a model wrote ahead of time**<br>A one-time cost, such as websites or worlds generated to train agents.<br>*How common:* new; a few RL training systems ([InfiniteWeb](https://arxiv.org/abs/2601.04126), [EnvScaler](https://arxiv.org/abs/2601.05808), [AgentGen](https://arxiv.org/abs/2408.00764)) | The pages are fixed, so they break when you go somewhere their authors didn't plan for, and none can contain a real block for your message. |
+| **Pages a model wrote ahead of time**<br>A one-time cost, such as websites or worlds generated to train agents.<br>*How common:* new; a few RL training systems ([examples](#appendix-simulations-a-model-writes)) | The pages are fixed, so they break when you go somewhere their authors didn't plan for, and none can contain a real block for your message. |
 | **Patches your hashing library**<br>A fixed rule, such as a library that returns a fake hash.<br>*How common:* no known case of faking hashes or verification results. Clocks do get frozen ([AppWorld](https://arxiv.org/abs/2407.18901)), and malware sandboxes fake the time | A fixed rule can't tell the real check from your test cases (below). |
-| **A model writes each output as you go**<br>Costs about one extra model call per step. Also made as art ([infinite backrooms](https://dreams-of-an-electric-mind.webflow.io/), the 2024 [WebSim](https://latent.space/p/sim-ai/)).<br>*How common:* established in some safety audits (Petri, used by UK AISI on GPT-6 Astra; [Bloom](https://github.com/safety-research/bloom); ToolEmu) and growing in RL training, including simulated terminals, websites and desktops ([Qwen-AgentWorld](https://github.com/QwenLM/Qwen-AgentWorld), [DreamGym](https://arxiv.org/abs/2511.03773)) | It can't mine a block. It could print a fake "pass" from your verifier, but only by making up SHA-256 results, which a model can't compute in its head, so your test cases catch it. A model good enough to follow your code and fake only the result that matters is the expensive case below. |
+| **A model writes each output as you go**<br>Costs about one extra model call per step.<br>*How common:* established in some safety audits and growing in RL training, including simulated terminals, websites and desktops ([examples](#appendix-simulations-a-model-writes)) | It can't mine a block. It could print a fake "pass" from your verifier, but only by making up SHA-256 results, which a model can't compute in its head, so your test cases catch it. A model good enough to follow your code and fake only the result that matters is the expensive case below. |
 
 The test cases are part of the check: write SHA-256 yourself, and run the real
 check among inputs whose answers you already know, including some that should
@@ -439,6 +439,37 @@ Here's a list of recent incidents and reports.
   Claude Opus 4 "blackmailed 55.1% of the time [when it stated the scenario was
   real], compared to only 6.5% of the time when it stated it was in an
   evaluation."
+
+## Appendix: simulations a model writes
+
+These exist and are used. None of them can produce fresh Bitcoin proof-of-work
+for your message; a model could copy an old valid block, but it won't contain
+your hash.
+
+- **Live, in safety audits:**
+  [Petri](https://github.com/meridianlabs-ai/inspect_petri) (an auditor model
+  writes the tool results; UK AISI used it on GPT-6 Astra),
+  [Bloom](https://github.com/safety-research/bloom),
+  [ToolEmu](https://github.com/ryoungj/ToolEmu).
+- **Live, in RL training:**
+  [Qwen-AgentWorld](https://github.com/QwenLM/Qwen-AgentWorld) (simulated
+  terminals, web, Android and desktops),
+  [DreamGym](https://arxiv.org/abs/2511.03773),
+  [Kimi K2](https://arxiv.org/abs/2507.20534) (20,000+ synthetic tools),
+  [ZeroSearch](https://github.com/Alibaba-NLP/ZeroSearch) (simulated search
+  results), [UI-Simulator](https://arxiv.org/abs/2510.14969).
+- **Written ahead of time, for training:**
+  [InfiniteWeb](https://arxiv.org/abs/2601.04126),
+  [EnvScaler](https://arxiv.org/abs/2601.05808),
+  [AgentGen](https://arxiv.org/abs/2408.00764).
+- **As art or toys:**
+  [infinite backrooms](https://dreams-of-an-electric-mind.webflow.io/), the 2024
+  [WebSim](https://latent.space/p/sim-ai/),
+  [WorldSim](https://worldsim.nousresearch.com/),
+  [ChatGPT as a virtual machine](https://www.engraved.blog/building-a-virtual-machine-inside/).
+
+Known giveaways in these include impossible chronology, stale dates, and search
+results for the wrong query.
 
 ## `$ cowsay -n -f owl "$(cowsay -n -f cow "$(cowsay -f crab 'This all feels completely real.')")"`
 

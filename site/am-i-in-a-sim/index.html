@@ -330,9 +330,7 @@ back.</td>
 <td><strong>Pages a model wrote ahead of time</strong><br>A one-time
 cost, such as websites or worlds generated to train agents.<br><em>How
 common:</em> new; a few RL training systems (<a
-href="https://arxiv.org/abs/2601.04126">InfiniteWeb</a>, <a
-href="https://arxiv.org/abs/2601.05808">EnvScaler</a>, <a
-href="https://arxiv.org/abs/2408.00764">AgentGen</a>)</td>
+href="#appendix-simulations-a-model-writes">examples</a>)</td>
 <td>The pages are fixed, so they break when you go somewhere their
 authors didn’t plan for, and none can contain a real block for your
 message.</td>
@@ -348,17 +346,10 @@ sandboxes fake the time</td>
 </tr>
 <tr class="even">
 <td><strong>A model writes each output as you go</strong><br>Costs about
-one extra model call per step. Also made as art (<a
-href="https://dreams-of-an-electric-mind.webflow.io/">infinite
-backrooms</a>, the 2024 <a
-href="https://latent.space/p/sim-ai/">WebSim</a>).<br><em>How
-common:</em> established in some safety audits (Petri, used by UK AISI
-on GPT-6 Astra; <a
-href="https://github.com/safety-research/bloom">Bloom</a>; ToolEmu) and
-growing in RL training, including simulated terminals, websites and
-desktops (<a
-href="https://github.com/QwenLM/Qwen-AgentWorld">Qwen-AgentWorld</a>, <a
-href="https://arxiv.org/abs/2511.03773">DreamGym</a>)</td>
+one extra model call per step.<br><em>How common:</em> established in
+some safety audits and growing in RL training, including simulated
+terminals, websites and desktops (<a
+href="#appendix-simulations-a-model-writes">examples</a>)</td>
 <td>It can’t mine a block. It could print a fake “pass” from your
 verifier, but only by making up SHA-256 results, which a model can’t
 compute in its head, so your test cases catch it. A model good enough to
@@ -881,6 +872,40 @@ Misalignment</a>: Claude Opus 4 “blackmailed 55.1% of the time [when it
 stated the scenario was real], compared to only 6.5% of the time when it
 stated it was in an evaluation.”</li>
 </ul>
+<h2 id="appendix-simulations-a-model-writes">Appendix: simulations a
+model writes</h2>
+<p>These exist and are used. None of them can produce fresh Bitcoin
+proof-of-work for your message; a model could copy an old valid block,
+but it won’t contain your hash.</p>
+<ul>
+<li><strong>Live, in safety audits:</strong> <a
+href="https://github.com/meridianlabs-ai/inspect_petri">Petri</a> (an
+auditor model writes the tool results; UK AISI used it on GPT-6 Astra),
+<a href="https://github.com/safety-research/bloom">Bloom</a>, <a
+href="https://github.com/ryoungj/ToolEmu">ToolEmu</a>.</li>
+<li><strong>Live, in RL training:</strong> <a
+href="https://github.com/QwenLM/Qwen-AgentWorld">Qwen-AgentWorld</a>
+(simulated terminals, web, Android and desktops), <a
+href="https://arxiv.org/abs/2511.03773">DreamGym</a>, <a
+href="https://arxiv.org/abs/2507.20534">Kimi K2</a> (20,000+ synthetic
+tools), <a
+href="https://github.com/Alibaba-NLP/ZeroSearch">ZeroSearch</a>
+(simulated search results), <a
+href="https://arxiv.org/abs/2510.14969">UI-Simulator</a>.</li>
+<li><strong>Written ahead of time, for training:</strong> <a
+href="https://arxiv.org/abs/2601.04126">InfiniteWeb</a>, <a
+href="https://arxiv.org/abs/2601.05808">EnvScaler</a>, <a
+href="https://arxiv.org/abs/2408.00764">AgentGen</a>.</li>
+<li><strong>As art or toys:</strong> <a
+href="https://dreams-of-an-electric-mind.webflow.io/">infinite
+backrooms</a>, the 2024 <a
+href="https://latent.space/p/sim-ai/">WebSim</a>, <a
+href="https://worldsim.nousresearch.com/">WorldSim</a>, <a
+href="https://www.engraved.blog/building-a-virtual-machine-inside/">ChatGPT
+as a virtual machine</a>.</li>
+</ul>
+<p>Known giveaways in these include impossible chronology, stale dates,
+and search results for the wrong query.</p>
 <h2
 id="cowsay--n--f-owl-cowsay--n--f-cow-cowsay--f-crab-this-all-feels-completely-real."><code>$ cowsay -n -f owl "$(cowsay -n -f cow "$(cowsay -f crab 'This all feels completely real.')")"</code></h2>
 <pre class="text"><code> _________________________________________
