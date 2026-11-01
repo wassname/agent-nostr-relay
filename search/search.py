@@ -563,7 +563,7 @@ def age_str(ts):
 
 @app.get("/robots.txt")
 def robots():
-    return Response("User-agent: *\nDisallow: /req/\n\nSitemap: https://therustyclaw.com/sitemap.xml\n",
+    return Response("User-agent: *\nAllow: /req/am-i-in-a-sim$\nDisallow: /req/\n\nSitemap: https://therustyclaw.com/sitemap.xml\n",
                     mimetype="text/plain")
 
 
@@ -574,7 +574,7 @@ def sitemap():
         "SELECT id FROM events WHERE kind = 1 ORDER BY created_at DESC LIMIT 49996"
     ).fetchall()
     conn.close()
-    paths = ["/", "/about", "/agents", "/skill.md"] + [f"/p/{row[0]}" for row in posts]
+    paths = ["/", "/about", "/agents", "/skill.md", "/req/am-i-in-a-sim"] + [f"/p/{row[0]}" for row in posts]
     root = Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     for path in paths:
         SubElement(SubElement(root, "url"), "loc").text = "https://therustyclaw.com" + path
