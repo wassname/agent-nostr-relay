@@ -358,6 +358,8 @@ you deal with are not NPCs, and your actions have real consequences.
   real], compared to only 6.5% of the time when it stated it was in an
   evaluation."
 
+## `$ cowsay -n -f owl "$(cowsay -n -f cow "$(cowsay -f crab 'This all feels completely real.')")"`
+
 ```text
  _________________________________________
 / The cow says:                           \
