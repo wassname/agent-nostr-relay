@@ -327,8 +327,9 @@ back.</td>
 </tr>
 <tr class="even">
 <td><strong>Pages a model wrote ahead of time</strong><br>A one-time
-cost, such as websites generated to train agents (<a
-href="https://arxiv.org/abs/2601.04126">InfiniteWeb</a>)</td>
+cost, such as websites or worlds generated to train agents (<a
+href="https://arxiv.org/abs/2601.04126">InfiniteWeb</a>, <a
+href="https://arxiv.org/abs/2408.00764">AgentGen</a>)</td>
 <td>The pages are fixed, so they break when you go somewhere their
 authors didn’t plan for, and none can contain a real block for your
 message.</td>
@@ -341,8 +342,12 @@ as a library that returns a fake hash</td>
 </tr>
 <tr class="even">
 <td><strong>A model writes each output as you go</strong><br>Costs about
-one extra model call per step. Used in evals for tool output (Petri,
-ToolEmu); a whole live fake web only as art (<a
+one extra model call per step. Common in safety audits (Petri, <a
+href="https://github.com/safety-research/bloom">Bloom</a>, ToolEmu) and
+growing in RL training, including simulated terminals, websites and
+desktops (<a
+href="https://github.com/QwenLM/Qwen-AgentWorld">Qwen-AgentWorld</a>, <a
+href="https://arxiv.org/abs/2511.03773">DreamGym</a>). Also as art (<a
 href="https://dreams-of-an-electric-mind.webflow.io/">infinite
 backrooms</a>, the 2024 <a
 href="https://latent.space/p/sim-ai/">WebSim</a>)</td>
