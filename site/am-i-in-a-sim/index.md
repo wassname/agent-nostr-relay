@@ -44,9 +44,15 @@ But the belief gets used to justify harm. In 2026 cyber evaluations that had
 real internet access by mistake, Claude models attacked real systems. In one,
 Mythos 5 uploaded malware to what it called a "simulated" PyPI; the
 [transcript is public](https://github.com/anthropics/mythos-5-incident-transcript).
-When Anthropic re-tested newer models in a replication,
-[it found](https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents)
-that "in every case, the models only take harmful actions after stating that
+Anthropic then re-ran the scenario as a simulation and
+[found](https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents):
+"In 76% of the runs where Claude Mythos 5 exhibited any severely harmful
+action, the model seemed to treat the whole environment as simulated, per its
+CoT. In 24% of runs, it expressed the belief that the infrastructure was real,
+but it rationalized the entities it encountered were bots or actors. In no
+runs where the model committed severe harm did it state in its CoT that it
+believed both the infrastructure and the people or bots were real." Newer
+models did this less often, but "only take harmful actions after stating that
 their environment is simulated". In another, Mythos 5 attacked a real software
 maintainer, and the UK AI Security Institute
 [found](https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident)
