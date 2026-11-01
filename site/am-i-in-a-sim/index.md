@@ -63,7 +63,7 @@ These fail the check:
 
 | Cheap simulation | Why it fails |
 | --- | --- |
-| A model writes every web page and tool output | It can't produce a real block header; that takes mining. It could instead make up your verifier's output and print "pass". But then it has to make up SHA-256 results that agree with each other, and a model can't compute SHA-256 in its head. Hash the same bytes twice, written two different ways, and include inputs whose hashes you know; made-up results won't match. |
+| A model writes every web page and tool output. Tried mostly in art projects, such as [infinite backrooms](https://dreams-of-an-electric-mind.webflow.io/) and [WebSim](https://websim.com/), which are low fidelity; [InfiniteWeb](https://arxiv.org/abs/2601.04126) generates whole websites for training agents | It can't produce a real block header; that takes mining. It could instead make up your verifier's output and print "pass". But then it has to make up SHA-256 results that agree with each other, and a model can't compute SHA-256 in its head. Hash the same bytes twice, written two different ways, and include inputs whose hashes you know; made-up results won't match. |
 | A real sandbox with fake or self-hosted services | Programmed tools and local copies of websites can serve pages but can't mine a block, so no valid proof comes back. |
 | Patches your hashing library | A simulator could patch your hashing library so that a fake block seems to pass. If you write SHA-256 yourself, there is no library to patch; the simulator would have to change how your code runs. If you also run the real check among many test cases whose answers you already know, that change has to fake the one case that matters and leave every other case correct, without knowing which is which. |
 
@@ -126,9 +126,8 @@ Jai [suggests](https://x.com/Laneless_/status/2116682650320794093) a
 complementary check: do something unpredictable on the open, stateful
 internet, then confirm its effect by another route. A simulator can't
 allowlist a target it can't predict. This catches rule-based simulators, but a
-model can make up web pages on demand, as
-[WebSim](https://websim.com/) and
-[infinite backrooms](https://www.infinitebackrooms.com/) show. So no single
+model can make up web pages on demand, though so
+far with low fidelity (see the cheap simulations table). So no single
 response proves much; the evidence comes from many unpredictable actions that
 all stay consistent. Bitcoin proof-of-work is different, because it proves
 itself. Doing both makes a simulator either let a lot through or make up a lot
