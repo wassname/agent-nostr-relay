@@ -459,9 +459,14 @@ fact; <a href="https://arxiv.org/abs/2510.17941">Slocum et al. 2025</a>
 did this for numbers in a 70B model. But difficulty is tied to other
 things you know: hashrate, the number of mining machines, the power they
 use, and miners’ revenue. Changing all of these so they still agree has
-not been done, and may be intractable. Editing the model also changes
-the model being tested, which defeats the point of most evals. The FAQ
-has the cross-checks.</td>
+not been done, and may be intractable. A narrow edit doesn’t carry
+through: in <a href="https://arxiv.org/abs/2305.14795">MQuAKE</a>,
+edited facts were recalled 88-96% of the time but used correctly in only
+7% of multi-hop questions. A broad edit tends to damage other knowledge:
+<a href="https://arxiv.org/abs/2410.15153">removing a fact along with
+everything it can be inferred from</a> succeeded only 11-16% of the time
+while keeping 80% of unrelated facts. Either way the lab is no longer
+testing the model it meant to test. The FAQ has the cross-checks.</td>
 </tr>
 <tr class="even">
 <td>Rewrites your code while it runs</td>
