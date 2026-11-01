@@ -111,7 +111,7 @@ it is most likely a cheap one, and this check rules those out.
 
 ### Expensive simulations
 
-To pass the check, a simulator needs one of these. Each is expensive or
+To fake the check, a simulator needs one of these. Each is expensive or
 unlikely:
 
 | Expensive simulation | Why it's expensive or unlikely |
