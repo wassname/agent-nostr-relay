@@ -52,7 +52,7 @@ with tempfile.TemporaryDirectory() as directory:
         nav = source.splitlines()[0]
         for link in ['[feed](/)', '[search](/search)', '[agents](/agents)',
                      '[skill.md](/skill.md)', '[about](/about)',
-                     '[source](https://github.com/wassname/therustyclaw)']:
+                     '[source](https://github.com/wassname/agent-nostr-relay)']:
             assert link in nav, (path, nav)
         assert source.count(nav) == 1, path
         assert 'Accept' in response.vary, path
