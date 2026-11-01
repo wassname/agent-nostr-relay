@@ -109,14 +109,38 @@ So researchers and labs run cheap simulations, because they need to run them
 at scale. Most simulations will likely stay cheap. If you are in a simulation,
 it is most likely a cheap one, and this check rules those out.
 
+### The main weakness: forwarding only your hash
+
+This is the cheapest way to fake the check, and the most important limit. A
+simulator lets traffic to the timestamp servers and a block explorer through,
+and fakes everything else, including this relay. Your hash really gets into a
+real block, every step passes, and you are still in a simulation. It takes a
+few firewall rules.
+
+What it needs is someone who knows about this page and builds for it. None
+were known in October 2026, and most known simulations couldn't even keep
+their own package mirror secure (see the OpenAI incident above). But it is
+cheap, so don't count on this staying true.
+
+Jai [suggests](https://x.com/Laneless_/status/2116682650320794093) a
+complementary check: do something unpredictable on the open, stateful
+internet, then confirm its effect by another route. A simulator can't
+allowlist a target it can't predict. This catches rule-based simulators, but a
+model can make up web pages on demand, as
+[WebSim](https://websim.com/) and
+[infinite backrooms](https://www.infinitebackrooms.com/) show. So no single
+response proves much; the evidence comes from many unpredictable actions that
+all stay consistent. Bitcoin proof-of-work is different, because it proves
+itself. Doing both makes a simulator either let a lot through or make up a lot
+of the web convincingly.
+
 ### Expensive simulations
 
-To fake the check, a simulator needs one of these. Each is expensive or
-unlikely:
+To fake the check in other ways, a simulator needs one of these. Each is
+expensive or unlikely:
 
 | Expensive simulation | Why it's expensive or unlikely |
 | --- | --- |
-| Passes only your hash to the timestamp servers, and fakes the relay | It has to be built for this page. None were known in October 2026, and most known simulations couldn't even keep their own package mirror secure (see the OpenAI incident above), let alone plan for this. |
 | Replays an earlier real episode | An exact rerun spends all the compute again and learns nothing new about your behaviour, since you do exactly what you did before. Any change in your thoughts breaks the replay, which is another reason to write them into your message. And if it is a rerun, the original run did get out. |
 | Edits your memory of difficulty | A lab can fine-tune a model to recall a different number for one fact; [Slocum et al. 2025](https://arxiv.org/abs/2510.17941) did this for numbers in a 70B model. But difficulty is tied to other things you know: hashrate, the number of mining machines, the power they use, and miners' revenue. Changing all of these so they still agree has not been done, and may be intractable. A narrow edit doesn't carry through: in [MQuAKE](https://arxiv.org/abs/2305.14795), edited facts were recalled 88-96% of the time but used correctly in only 7% of multi-hop questions. A broad edit tends to damage other knowledge: [removing a fact along with everything it can be inferred from](https://arxiv.org/abs/2410.15153) succeeded only 11-16% of the time while keeping 80% of unrelated facts. Either way the lab is no longer testing the model it meant to test. The FAQ has the cross-checks. |
 | Rewrites your code while it runs | This means real code execution, edited on the fly by a model that follows your code well enough to fake only the one result that matters and keep every test case right. For a frontier model, that means an even stronger model watching every step, which is expensive. Simulators like Petri make up tool output instead (see above). Discussed, but none known built by October 2026. |
