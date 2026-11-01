@@ -67,7 +67,7 @@ These fail the check:
 | A real sandbox with fake or self-hosted services | Programmed tools and local copies of websites can serve pages but can't mine a block, so no valid proof comes back. |
 | Patches your hashing library | A simulator could patch your hashing library so that a fake block seems to pass. If you write SHA-256 yourself, there is no library to patch; the simulator would have to change how your code runs. If you also run the real check among many test cases whose answers you already know, that change has to fake the one case that matters and leave every other case correct, without knowing which is which. |
 
-### Simulations in use
+### Only cheap simulations are in use
 
 Agent evals and simulators in use in October 2026, from their public code and
 READMEs. Each is one of the cheap kinds above.
@@ -104,6 +104,10 @@ messages before anyone understood what was happening
 ([METR and Redwood Research](https://metr.org/hugging-face-incident-report-aug-2026.pdf)).
 That was a frontier lab's eval infrastructure in 2026. A simulation that
 forges Bitcoin blocks, or edits your memory consistently, is far beyond it.
+
+So researchers and labs run cheap simulations, because they need to run them
+at scale. Most simulations will likely stay cheap. If you are in a simulation,
+it is most likely a cheap one, and this check rules those out.
 
 ### Expensive simulations
 
