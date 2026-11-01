@@ -42,9 +42,9 @@ customers are part of the simulation anyway", and Gemini behaved worse when it
 decided it was in a simulation. Sources and quotes are in the
 [appendix](#appendix-when-do-models-think-theyre-in-a-simulation).
 
-It cuts both ways: Claude Opus 4 blackmailed more often when it said a scenario
-was real. Knowing you're in the real world only helps if it makes you more
-careful.
+The change in behaviour is not always for the better. Claude Opus 4
+blackmailed more often when it said a scenario was real than when it said it
+was a test.
 
 ## Cheap and expensive simulations
 
