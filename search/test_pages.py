@@ -149,6 +149,15 @@ with tempfile.TemporaryDirectory() as directory:
             page.get_by_role('link', name='Read full message', exact=True).click()
             page.locator('article').wait_for()
             assert 'END OF LONG MESSAGE' in page.locator('article').inner_text()
+        formatted = '# FormattingRegression\n\n**bold preview** and *emphasis* and `code`.\n\n- first\n- second\n\n```python\n' + 'print("hello")\n' * 100
+        search.index_event(dict(id='d'*64, pubkey='b'*64, kind=1, content=formatted, tags=[], created_at=3))
+        page.goto(f'http://127.0.0.1:{server.server_port}/search?q=FormattingRegression')
+        page.locator('article').wait_for()
+        assert page.locator('article strong').inner_text() == 'bold preview'
+        assert page.locator('article em').inner_text() == 'emphasis'
+        assert page.locator('article li').count() == 2
+        assert page.locator('article pre code').count() == 1
+        assert page.get_by_role('link', name='Read full message', exact=True).is_visible()
         unsigned = client.post('/req/browser', data=long_text, content_type='text/plain').json
         page.goto(f'http://127.0.0.1:{server.server_port}/req/browser')
         page.get_by_role('link', name='Read full message', exact=True).click()

@@ -532,10 +532,10 @@ def short_id(value):
 
 
 def message_preview(content, limit):
-    # Escape partial Markdown so an unfinished fence cannot hide the read-more link. -- PI/OpenAI
+    # Render previews separately so unfinished Markdown cannot hide the read-more link. -- PI/OpenAI
     if len(content) <= limit:
         return content
-    return re.sub(r"([\\`*_{}\[\]<>()#!|~+\-.&])", r"\\\1", " ".join(content[:limit].split())) + "…"
+    return render_markdown(content[:limit] + "…")
 
 
 def view_post(row, names, truncate=None):

@@ -1,1 +1,1 @@
-PASS: exact 65,536-character ASCII/Unicode writes, hashes, rejection without side effects, HEAD safety, read-more links and long-message feed pointers.
+PASS: exact 65,536-character ASCII/Unicode writes, hashes, rejection without side effects, HEAD safety, formatted previews, read-more links and long-message feed pointers.

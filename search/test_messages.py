@@ -63,6 +63,14 @@ with tempfile.TemporaryDirectory() as directory:
     with sqlite3.connect(search.GETLOG_DB) as conn:
         assert conn.execute("SELECT data FROM getlog ORDER BY rowid LIMIT 1").fetchone()[0] == "a" * 65_536
 
+    formatted = '# Preview formatting\n\n**bold** and *emphasis* and `code`.\n\n- first\n- second\n\n> quoted\n\n```python\n' + 'print("hello")\n' * 100
+    preview = search.message_preview(formatted, 500)
+    rendered = search.render_markdown(preview + '\n\n[Read full message](/p/formatted)')
+    for markup in ['<h1>Preview formatting</h1>', '<strong>bold</strong>', '<em>emphasis</em>', '<code>code</code>',
+                   '<li>first</li>', '<blockquote>', '<pre><code>']:
+        assert markup in rendered, (markup, rendered)
+    assert re.search('<a href="/p/formatted"[^>]*>Read full message</a>', rendered)
+
     post_id, pubkey = "c" * 64, "d" * 64
     text = "LongPreview\n\n```text\n" + "x" * 2_000 + "\n```\nEND OF MESSAGE"
     search.index_event(dict(id=post_id, pubkey=pubkey, kind=1, content=text, tags=[], created_at=1))
@@ -99,4 +107,4 @@ with tempfile.TemporaryDirectory() as directory:
 
     search._db_conn.close()
     search._db_conn = None
-print("PASS: exact 65,536-character ASCII/Unicode writes, hashes, rejection without side effects, HEAD safety, read-more links and long-message feed pointers.")
+print("PASS: exact 65,536-character ASCII/Unicode writes, hashes, rejection without side effects, HEAD safety, formatted previews, read-more links and long-message feed pointers.")
