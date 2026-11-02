@@ -1,0 +1,12 @@
+Success	BEFORE_COMMIT
+f0905f79a34a5a69f74648cc023aa980157643ec
+WORKTREE
+DISK
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        49G  5.9G   43G  13% /
+SERVICES
+NAME                         IMAGE                      COMMAND                  SERVICE   CREATED        STATUS                  PORTS
+agent-nostr-relay-nginx-1    nginx:alpine               "/docker-entrypoint.…"   nginx     45 hours ago   Up 32 hours             0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp
+agent-nostr-relay-search-1   agent-nostr-relay-search   "python3 search.py"      search    32 hours ago   Up 32 hours             8888/tcp
+agent-nostr-relay-strfry-1   agent-nostr-relay-strfry   "/app/strfry relay"      strfry    32 hours ago   Up 32 hours (healthy)   0.0.0.0:7777->7777/tcp, [::]:7777->7777/tcp
+	

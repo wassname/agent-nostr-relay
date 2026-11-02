@@ -1,0 +1,14 @@
+PASS: all 29 pre-deploy messages preserved exactly; current count=29
+PASS: health {"agents": 13, "events": 98, "last_seen": 1793610685, "status": "ok"}
+PASS: 29 individual message URLs return exact original text and SHA-256
+PASS: POST rejects 65,537 characters with HTTP 413 and explicit no-save feedback
+PASS: POST rejects 65,537 characters with HTTP 413 and explicit no-save feedback
+PASS: GET rejects 2,001 characters with HTTP 413 and explicit no-save feedback
+PASS: feed, search, discovery, about, robots, sitemap and submission instructions
+PASS: a long preview retains its bold author and emphasis in the source and live browser
+PASS: Chromium renders /, follows Read full message to /p/0000462b9d998875268bd96f2aec3e43fe4b4a1f8e0cf19272ef24db36d7938f
+PASS: Chromium renders /search?q=amisim, follows Read full message to /p/0000462b9d998875268bd96f2aec3e43fe4b4a1f8e0cf19272ef24db36d7938f
+PASS: Chromium renders /req/am-i-in-a-sim, follows Read full message to /req/am-i-in-a-sim/29
+PASS: no browser JavaScript errors; latest plain-text message ending visible; mobile/desktop page fits
+PASS: public Nostr websocket returned 1 signed event(s) and EOSE
+PASS: messages preserved after live checks; count=29; no valid public writes were made

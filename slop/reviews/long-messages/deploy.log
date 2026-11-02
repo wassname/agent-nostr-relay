@@ -1,0 +1,271 @@
+Success	HEAD is now at 56ae25b Preserve long unsigned messages and link to complete posts
+deployed=56ae25b
+#1 [internal] load local bake definitions
+#1 reading from stdin 959B done
+#1 DONE 0.0s
+
+#2 [strfry internal] load build definition from Dockerfile.strfry
+#2 transferring dockerfile: 37B
+#2 transferring dockerfile: 414B done
+#2 DONE 0.0s
+
+#3 [search internal] load build definition from Dockerfile.search
+#3 transferring dockerfile: 503B done
+#3 DONE 0.0s
+
+#4 [search internal] load metadata for docker.io/library/python:3.12-slim
+#4 DONE 0.2s
+
+#5 [strfry internal] load metadata for docker.io/dockurr/strfry:latest
+#5 DONE 0.2s
+
+#6 [search internal] load .dockerignore
+#6 transferring context: 2B done
+#6 DONE 0.0s
+
+#7 [search 1/9] FROM docker.io/library/python:3.12-slim@sha256:aa943ce411423c7582288f18707ff66eddcbaeb510502d747a72aeb34f30d159
+#7 resolve docker.io/library/python:3.12-slim@sha256:aa943ce411423c7582288f18707ff66eddcbaeb510502d747a72aeb34f30d159 0.0s done
+#7 CACHED
+
+#8 [strfry 1/7] FROM docker.io/dockurr/strfry:latest@sha256:599ab3500dbfbe6cb78c668e1892cd9802c192d066df4660e8e3175034a8344d
+#8 resolve docker.io/dockurr/strfry:latest@sha256:599ab3500dbfbe6cb78c668e1892cd9802c192d066df4660e8e3175034a8344d 0.0s done
+#8 DONE 0.0s
+
+#9 [strfry internal] load build context
+#9 transferring context: 148B done
+#9 DONE 0.0s
+
+#10 [search internal] load build context
+#10 transferring context: 68.42kB 0.0s done
+#10 DONE 0.0s
+
+#11 [strfry 2/7] RUN apk add --no-cache python3 py3-pip
+#11 CACHED
+
+#12 [strfry 5/7] COPY plugins/gitleaks-rules.json /opt/strfry-plugins/gitleaks-rules.json
+#12 CACHED
+
+#13 [strfry 6/7] RUN chmod +x /opt/strfry-plugins/pow-check.py
+#13 CACHED
+
+#14 [strfry 3/7] COPY strfry.conf /etc/strfry.conf
+#14 CACHED
+
+#15 [strfry 4/7] COPY plugins/pow-check.py /opt/strfry-plugins/pow-check.py
+#15 CACHED
+
+#16 [strfry 7/7] RUN mkdir -p /app/strfry-db /var/lib/strfry
+#16 CACHED
+
+#17 [strfry] exporting to image
+#17 exporting layers 0.0s done
+#17 exporting manifest sha256:cd1b81f26b3ebb44d9449d95486b24d5cf9c181db4fe8b4e4233f8e850bdb038 done
+#17 exporting config sha256:936668d820e575c6fe3a7016925a845a9f67a156ba7f9568bc4eebecb8b801a0 done
+#17 exporting attestation manifest sha256:953fb9cf615ee8a1233ad780f7f0a8bf09fe8397a72530edc25032cf5b4cffc5
+#17 exporting attestation manifest sha256:953fb9cf615ee8a1233ad780f7f0a8bf09fe8397a72530edc25032cf5b4cffc5 0.0s done
+#17 exporting manifest list sha256:95eba0bbd76db210db5c91122c2488ce4854cccd20342622456dfdb18d57023b 0.0s done
+#17 naming to docker.io/library/agent-nostr-relay-strfry:latest done
+#17 unpacking to docker.io/library/agent-nostr-relay-strfry:latest 0.0s done
+#17 DONE 0.2s
+
+#18 [search 2/9] RUN pip install --no-cache-dir websocket-client 'flask>=3.1' markdown-it-py nh3 markupsafe boto3 cowsay==6.1 wcwidth==0.2.13 pynostr
+#18 ...
+
+#19 [strfry] resolving provenance for metadata file
+#19 DONE 0.0s
+
+#18 [search 2/9] RUN pip install --no-cache-dir websocket-client 'flask>=3.1' markdown-it-py nh3 markupsafe boto3 cowsay==6.1 wcwidth==0.2.13 pynostr
+#18 4.446 Collecting websocket-client
+#18 4.467   Downloading websocket_client-1.9.2-py3-none-any.whl.metadata (8.3 kB)
+#18 4.496 Collecting flask>=3.1
+#18 4.501   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+#18 4.527 Collecting markdown-it-py
+#18 4.532   Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+#18 4.582 Collecting nh3
+#18 4.586   Downloading nh3-0.3.7-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.0 kB)
+#18 4.646 Collecting markupsafe
+#18 4.655   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#18 5.070 Collecting boto3
+#18 5.074   Downloading boto3-1.43.123-py3-none-any.whl.metadata (6.6 kB)
+#18 5.172 Collecting cowsay==6.1
+#18 5.177   Downloading cowsay-6.1-py3-none-any.whl.metadata (5.6 kB)
+#18 5.198 Collecting wcwidth==0.2.13
+#18 5.201   Downloading wcwidth-0.2.13-py2.py3-none-any.whl.metadata (14 kB)
+#18 5.213 Collecting pynostr
+#18 5.218   Downloading pynostr-0.7.0-py3-none-any.whl.metadata (14 kB)
+#18 5.232 Collecting blinker>=1.9.0 (from flask>=3.1)
+#18 5.235   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#18 5.252 Collecting click>=8.1.3 (from flask>=3.1)
+#18 5.255   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#18 5.266 Collecting itsdangerous>=2.2.0 (from flask>=3.1)
+#18 5.269   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#18 5.284 Collecting jinja2>=3.1.2 (from flask>=3.1)
+#18 5.288   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#18 5.316 Collecting werkzeug>=3.1.0 (from flask>=3.1)
+#18 5.320   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+#18 5.332 Collecting mdurl~=0.1 (from markdown-it-py)
+#18 5.336   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+#18 5.925 Collecting botocore<1.44.0,>=1.43.123 (from boto3)
+#18 5.929   Downloading botocore-1.43.123-py3-none-any.whl.metadata (5.6 kB)
+#18 5.941 Collecting jmespath<2.0.0,>=0.7.1 (from boto3)
+#18 5.945   Downloading jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+#18 5.963 Collecting s3transfer<0.20.0,>=0.19.0 (from boto3)
+#18 5.966   Downloading s3transfer-0.19.3-py3-none-any.whl.metadata (1.7 kB)
+#18 6.008 Collecting coincurve>=1.8.0 (from pynostr)
+#18 6.016   Downloading coincurve-21.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+#18 6.229 Collecting cryptography>=37.0.4 (from pynostr)
+#18 6.233   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+#18 6.241 Collecting tlv8 (from pynostr)
+#18 6.245   Downloading tlv8-0.10.0.tar.gz (16 kB)
+#18 6.253   Installing build dependencies: started
+#18 7.695   Installing build dependencies: finished with status 'done'
+#18 7.697   Getting requirements to build wheel: started
+#18 8.012   Getting requirements to build wheel: finished with status 'done'
+#18 8.015   Preparing metadata (pyproject.toml): started
+#18 8.274   Preparing metadata (pyproject.toml): finished with status 'done'
+#18 8.296 Collecting typer (from pynostr)
+#18 8.300   Downloading typer-0.27.3-py3-none-any.whl.metadata (16 kB)
+#18 8.346 Collecting tornado (from pynostr)
+#18 8.349   Downloading tornado-6.6-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (2.6 kB)
+#18 8.391 Collecting rich (from pynostr)
+#18 8.395   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+#18 8.424 Collecting requests (from pynostr)
+#18 8.429   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+#18 8.447 Collecting python-dateutil<3.0.0,>=2.1 (from botocore<1.44.0,>=1.43.123->boto3)
+#18 8.450   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+#18 8.483 Collecting urllib3!=2.2.0,<3,>=1.25.4 (from botocore<1.44.0,>=1.43.123->boto3)
+#18 8.487   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+#18 8.598 Collecting cffi>=2.0.0 (from cryptography>=37.0.4->pynostr)
+#18 8.602   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+#18 9.067 Collecting charset_normalizer<4,>=2 (from requests->pynostr)
+#18 9.071   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+#18 9.089 Collecting idna<4,>=2.5 (from requests->pynostr)
+#18 9.092   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#18 9.128 Collecting certifi>=2023.5.7 (from requests->pynostr)
+#18 9.131   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+#18 9.155 Collecting pygments<3.0.0,>=2.13.0 (from rich->pynostr)
+#18 9.158   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+#18 9.173 Collecting shellingham>=1.3.0 (from typer->pynostr)
+#18 9.177   Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+#18 9.197 Collecting annotated-doc>=0.0.2 (from typer->pynostr)
+#18 9.200   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+#18 9.215 Collecting pycparser (from cffi>=2.0.0->cryptography>=37.0.4->pynostr)
+#18 9.218   Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+#18 9.235 Collecting six>=1.5 (from python-dateutil<3.0.0,>=2.1->botocore<1.44.0,>=1.43.123->boto3)
+#18 9.238   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+#18 9.252 Downloading cowsay-6.1-py3-none-any.whl (25 kB)
+#18 9.256 Downloading wcwidth-0.2.13-py2.py3-none-any.whl (34 kB)
+#18 9.259 Downloading websocket_client-1.9.2-py3-none-any.whl (95 kB)
+#18 9.263 Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+#18 9.267 Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+#18 9.271 Downloading nh3-0.3.7-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (832 kB)
+#18 9.277    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 832.2/832.2 kB 394.3 MB/s eta 0:00:00
+#18 9.282 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#18 9.286 Downloading boto3-1.43.123-py3-none-any.whl (140 kB)
+#18 9.290 Downloading pynostr-0.7.0-py3-none-any.whl (37 kB)
+#18 9.294 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#18 9.301 Downloading botocore-1.43.123-py3-none-any.whl (16.2 MB)
+#18 9.341    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.2/16.2 MB 401.4 MB/s eta 0:00:00
+#18 9.347 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#18 9.355 Downloading coincurve-21.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.6 MB)
+#18 9.361    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 416.8 MB/s eta 0:00:00
+#18 9.366 Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+#18 9.381    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 385.6 MB/s eta 0:00:00
+#18 9.386 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#18 9.389 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#18 9.393 Downloading jmespath-1.1.0-py3-none-any.whl (20 kB)
+#18 9.397 Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+#18 9.400 Downloading s3transfer-0.19.3-py3-none-any.whl (90 kB)
+#18 9.404 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+#18 9.407 Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+#18 9.411 Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+#18 9.416 Downloading tornado-6.6-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (529 kB)
+#18 9.420    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 529.5/529.5 kB 476.7 MB/s eta 0:00:00
+#18 9.424 Downloading typer-0.27.3-py3-none-any.whl (123 kB)
+#18 9.428 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+#18 9.431 Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+#18 9.435 Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+#18 9.439 Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+#18 9.443 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#18 9.447 Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+#18 9.453    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 388.9 MB/s eta 0:00:00
+#18 9.457 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+#18 9.461 Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+#18 9.464 Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+#18 9.468 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#18 9.471 Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+#18 9.598 Building wheels for collected packages: tlv8
+#18 9.603   Building wheel for tlv8 (pyproject.toml): started
+#18 9.870   Building wheel for tlv8 (pyproject.toml): finished with status 'done'
+#18 9.872   Created wheel for tlv8: filename=tlv8-0.10.0-py3-none-any.whl size=11304 sha256=f1b9064561879406098f3be27fd8d9265771f1d384adfd7be6b410686bbc635a
+#18 9.873   Stored in directory: /tmp/pip-ephem-wheel-cache-dqmr3aqo/wheels/71/c2/b0/944f1c9f631212fa6ebbef4fcef6b2d377ed6df2fed0063e4c
+#18 9.876 Successfully built tlv8
+#18 9.954 Installing collected packages: wcwidth, tlv8, websocket-client, urllib3, tornado, six, shellingham, pygments, pycparser, nh3, mdurl, markupsafe, jmespath, itsdangerous, idna, cowsay, coincurve, click, charset_normalizer, certifi, blinker, annotated-doc, werkzeug, requests, python-dateutil, markdown-it-py, jinja2, cffi, rich, flask, cryptography, botocore, typer, s3transfer, pynostr, boto3
+#18 14.36 Successfully installed annotated-doc-0.0.5 blinker-1.9.0 boto3-1.43.123 botocore-1.43.123 certifi-2026.10.23 cffi-2.1.1 charset_normalizer-3.5.2 click-8.5.0 coincurve-21.0.0 cowsay-6.1 cryptography-50.0.2 flask-3.1.3 idna-3.20 itsdangerous-2.2.0 jinja2-3.1.6 jmespath-1.1.0 markdown-it-py-4.2.0 markupsafe-3.0.4 mdurl-0.1.2 nh3-0.3.7 pycparser-3.12 pygments-2.21.0 pynostr-0.7.0 python-dateutil-2.9.0.post0 requests-2.34.2 rich-15.0.0 s3transfer-0.19.3 shellingham-1.5.4 six-1.17.0 tlv8-0.10.0 tornado-6.6 typer-0.27.3 urllib3-2.8.0 wcwidth-0.2.13 websocket-client-1.9.2 werkzeug-3.1.9
+#18 14.36 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#18 14.43 
+#18 14.43 [notice] A new release of pip is available: 25.0.1 -> 26.2.2
+#18 14.43 [notice] To update, run: pip install --upgrade pip
+#18 DONE 15.0s
+
+#20 [search 3/9] COPY search/search.py /app/search.py
+#20 DONE 0.1s
+
+#21 [search 4/9] COPY search/amisim.py /app/amisim.py
+#21 DONE 0.1s
+
+#22 [search 5/9] COPY scripts/rustyclaw_post.py /app/post.py
+#22 DONE 0.0s
+
+#23 [search 6/9] COPY search/templates /app/templates
+#23 DONE 0.0s
+
+#24 [search 7/9] COPY search/static /app/static
+#24 DONE 0.1s
+
+#25 [search 8/9] COPY skill.md /app/skill.md
+#25 DONE 0.0s
+
+#26 [search 9/9] WORKDIR /app
+#26 DONE 0.0s
+
+#27 [search] exporting to image
+#27 exporting layers
+#27 exporting layers 4.4s done
+#27 exporting manifest sha256:1cd3a392db6b3ab16154bc5d29f295940ef7bdb177b74220ba59d588d80cb5eb 0.0s done
+#27 exporting config sha256:28f94d8ff5a869df00c1310cc90cffcd0f33f9c9b972bffe7559552319810f1b 0.0s done
+#27 exporting attestation manifest sha256:82e3ab52612a7ab4eb6f66f106bd2af10abcbafbc44cc2cca5e02f73b56adf96 0.0s done
+#27 exporting manifest list sha256:f886216df783d77834f374d4474b532608888ee8d0a419e2f54078d01ff529f8 0.0s done
+#27 naming to docker.io/library/agent-nostr-relay-search:latest
+#27 naming to docker.io/library/agent-nostr-relay-search:latest done
+#27 unpacking to docker.io/library/agent-nostr-relay-search:latest
+#27 unpacking to docker.io/library/agent-nostr-relay-search:latest 1.8s done
+#27 DONE 6.3s
+
+#28 [search] resolving provenance for metadata file
+#28 DONE 0.0s
+NAME                         IMAGE                      COMMAND                  SERVICE   CREATED          STATUS                           PORTS
+agent-nostr-relay-nginx-1    nginx:alpine               "/docker-entrypoint.…"   nginx     45 hours ago     Up Less than a second            0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp
+agent-nostr-relay-search-1   agent-nostr-relay-search   "python3 search.py"      search    12 seconds ago   Up 1 second                      8888/tcp
+agent-nostr-relay-strfry-1   agent-nostr-relay-strfry   "/app/strfry relay"      strfry    13 seconds ago   Up 1 second (health: starting)   0.0.0.0:7777->7777/tcp, [::]:7777->7777/tcp
+	From https://github.com/wassname/agent-nostr-relay
+ * branch            main       -> FETCH_HEAD
+   f0905f7..56ae25b  main       -> origin/main
+ Image agent-nostr-relay-strfry Building 
+ Image agent-nostr-relay-search Building 
+ Image agent-nostr-relay-strfry Built 
+ Image agent-nostr-relay-search Built 
+ Container agent-nostr-relay-nginx-1 Running 
+ Container agent-nostr-relay-strfry-1 Recreate 
+ Container agent-nostr-relay-strfry-1 Recreated 
+ Container agent-nostr-relay-search-1 Recreate 
+ Container agent-nostr-relay-search-1 Recreated 
+ Container agent-nostr-relay-strfry-1 Starting 
+ Container agent-nostr-relay-strfry-1 Started 
+ Container agent-nostr-relay-search-1 Starting 
+ Container agent-nostr-relay-search-1 Started 
+ Container agent-nostr-relay-nginx-1 Restarting 
+ Container agent-nostr-relay-nginx-1 Started 
+
+{"agents":13,"events":95,"last_seen":1793610685,"status":"ok"}
+ sim-site ok

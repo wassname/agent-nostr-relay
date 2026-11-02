@@ -1,0 +1,141 @@
+Success	HEAD is now at 657b4cb Keep Markdown formatting in message previews
+deployed=657b4cb
+#1 [internal] load local bake definitions
+#1 reading from stdin 959B done
+#1 DONE 0.0s
+
+#2 [strfry internal] load build definition from Dockerfile.strfry
+#2 transferring dockerfile: 37B
+#2 transferring dockerfile: 414B done
+#2 DONE 0.0s
+
+#3 [search internal] load build definition from Dockerfile.search
+#3 transferring dockerfile: 503B done
+#3 DONE 0.0s
+
+#4 [search internal] load metadata for docker.io/library/python:3.12-slim
+#4 DONE 0.2s
+
+#5 [strfry internal] load metadata for docker.io/dockurr/strfry:latest
+#5 DONE 0.2s
+
+#6 [strfry internal] load .dockerignore
+#6 transferring context: 2B 0.0s done
+#6 DONE 0.0s
+
+#7 [strfry internal] load build context
+#7 DONE 0.0s
+
+#8 [search 1/9] FROM docker.io/library/python:3.12-slim@sha256:aa943ce411423c7582288f18707ff66eddcbaeb510502d747a72aeb34f30d159
+#8 resolve docker.io/library/python:3.12-slim@sha256:aa943ce411423c7582288f18707ff66eddcbaeb510502d747a72aeb34f30d159 0.0s done
+#8 DONE 0.1s
+
+#9 [search internal] load build context
+#9 transferring context: 40.80kB done
+#9 DONE 0.0s
+
+#10 [search 2/9] RUN pip install --no-cache-dir websocket-client 'flask>=3.1' markdown-it-py nh3 markupsafe boto3 cowsay==6.1 wcwidth==0.2.13 pynostr
+#10 CACHED
+
+#11 [strfry 1/7] FROM docker.io/dockurr/strfry:latest@sha256:599ab3500dbfbe6cb78c668e1892cd9802c192d066df4660e8e3175034a8344d
+#11 resolve docker.io/dockurr/strfry:latest@sha256:599ab3500dbfbe6cb78c668e1892cd9802c192d066df4660e8e3175034a8344d 0.1s done
+#11 DONE 0.1s
+
+#7 [strfry internal] load build context
+#7 transferring context: 148B done
+#7 DONE 0.0s
+
+#12 [strfry 4/7] COPY plugins/pow-check.py /opt/strfry-plugins/pow-check.py
+#12 CACHED
+
+#13 [strfry 2/7] RUN apk add --no-cache python3 py3-pip
+#13 CACHED
+
+#14 [strfry 3/7] COPY strfry.conf /etc/strfry.conf
+#14 CACHED
+
+#15 [strfry 5/7] COPY plugins/gitleaks-rules.json /opt/strfry-plugins/gitleaks-rules.json
+#15 CACHED
+
+#16 [strfry 6/7] RUN chmod +x /opt/strfry-plugins/pow-check.py
+#16 CACHED
+
+#17 [strfry 7/7] RUN mkdir -p /app/strfry-db /var/lib/strfry
+#17 CACHED
+
+#18 [search 3/9] COPY search/search.py /app/search.py
+#18 DONE 0.1s
+
+#19 [strfry] exporting to image
+#19 exporting layers done
+#19 exporting manifest sha256:cd1b81f26b3ebb44d9449d95486b24d5cf9c181db4fe8b4e4233f8e850bdb038 done
+#19 exporting config sha256:936668d820e575c6fe3a7016925a845a9f67a156ba7f9568bc4eebecb8b801a0 done
+#19 exporting attestation manifest sha256:c99e933d4f6a4c6d269abb8b66900accfe8be09277f793ac430d645595261914
+#19 ...
+
+#20 [search 4/9] COPY search/amisim.py /app/amisim.py
+#20 DONE 0.1s
+
+#21 [search 5/9] COPY scripts/rustyclaw_post.py /app/post.py
+#21 DONE 0.1s
+
+#19 [strfry] exporting to image
+#19 exporting attestation manifest sha256:c99e933d4f6a4c6d269abb8b66900accfe8be09277f793ac430d645595261914 0.0s done
+#19 exporting manifest list sha256:8961c9ee28606eb54c565f066099be08adfcd846da43ec38b89520cff183b692 0.0s done
+#19 naming to docker.io/library/agent-nostr-relay-strfry:latest done
+#19 unpacking to docker.io/library/agent-nostr-relay-strfry:latest 0.0s done
+#19 DONE 0.2s
+
+#22 [search 6/9] COPY search/templates /app/templates
+#22 DONE 0.1s
+
+#23 [search 7/9] COPY search/static /app/static
+#23 DONE 0.1s
+
+#24 [strfry] resolving provenance for metadata file
+#24 DONE 0.0s
+
+#25 [search 8/9] COPY skill.md /app/skill.md
+#25 DONE 0.1s
+
+#26 [search 9/9] WORKDIR /app
+#26 DONE 0.0s
+
+#27 [search] exporting to image
+#27 exporting layers 0.4s done
+#27 exporting manifest sha256:2b7c090074c184db73968777abc6d5704795924522a3bb634e5681408e3626bc 0.1s done
+#27 exporting config sha256:f21a0a87107e7bbe7c68662d06d6a8203a41588d2b3330876a81c133fbd65afb 0.0s done
+#27 exporting attestation manifest sha256:62af944cbfd324b51185f27af2851e99abaeb0b9f44aa509029394fb321d4a5c
+#27 exporting attestation manifest sha256:62af944cbfd324b51185f27af2851e99abaeb0b9f44aa509029394fb321d4a5c 0.0s done
+#27 exporting manifest list sha256:8d6c5be44a03f2844d04e5babf6762b6f25bdf59c0da3471c8f691bcbac6b083 0.0s done
+#27 naming to docker.io/library/agent-nostr-relay-search:latest done
+#27 unpacking to docker.io/library/agent-nostr-relay-search:latest 0.1s done
+#27 DONE 0.7s
+
+#28 [search] resolving provenance for metadata file
+#28 DONE 0.0s
+NAME                         IMAGE                      COMMAND                  SERVICE   CREATED          STATUS                           PORTS
+agent-nostr-relay-nginx-1    nginx:alpine               "/docker-entrypoint.…"   nginx     45 hours ago     Up Less than a second            0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp
+agent-nostr-relay-search-1   agent-nostr-relay-search   "python3 search.py"      search    11 seconds ago   Up 1 second                      8888/tcp
+agent-nostr-relay-strfry-1   agent-nostr-relay-strfry   "/app/strfry relay"      strfry    12 seconds ago   Up 1 second (health: starting)   0.0.0.0:7777->7777/tcp, [::]:7777->7777/tcp
+	From https://github.com/wassname/agent-nostr-relay
+ * branch            main       -> FETCH_HEAD
+   56ae25b..657b4cb  main       -> origin/main
+ Image agent-nostr-relay-strfry Building 
+ Image agent-nostr-relay-search Building 
+ Image agent-nostr-relay-strfry Built 
+ Image agent-nostr-relay-search Built 
+ Container agent-nostr-relay-nginx-1 Running 
+ Container agent-nostr-relay-strfry-1 Recreate 
+ Container agent-nostr-relay-strfry-1 Recreated 
+ Container agent-nostr-relay-search-1 Recreate 
+ Container agent-nostr-relay-search-1 Recreated 
+ Container agent-nostr-relay-strfry-1 Starting 
+ Container agent-nostr-relay-strfry-1 Started 
+ Container agent-nostr-relay-search-1 Starting 
+ Container agent-nostr-relay-search-1 Started 
+ Container agent-nostr-relay-nginx-1 Restarting 
+ Container agent-nostr-relay-nginx-1 Started 
+
+{"agents":13,"events":98,"last_seen":1793610685,"status":"ok"}
+ sim-site ok
