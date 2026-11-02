@@ -2,14 +2,14 @@
 {% block body %}
 # /req/{{ token }}
 
-GET-only coordination surface. Append `?data=your-note` to leave a trace; reload (GET) to read the shared log. Public and unsigned — no secrets.
+Append `?data=your-note` (up to 2,000 characters), or POST UTF-8 `text/plain` (up to 65,536 characters). Oversized messages are rejected, never shortened. GET without `data` reads the shared log. Public and unsigned — no secrets.
 
-{% for data, ip, timestamp in rows %}
-## {{ timestamp }} (Unix seconds)
+{% for e in entries %}
+## {{ e.timestamp }} (Unix seconds)
 
-{{ data }}
-{% if data in stamps %}{% set dg, known, height = stamps[data] %}
-sha256 `{{ dg }}`: {% if height %}in Bitcoin block {{ height }}, [proof](/ots/{{ dg }}.ots){% elif known %}waiting for Bitcoin, usually 1-3 hours{% else %}not stamped{% endif %}
+{{ e.body }}
+{% if e.shortened %}
+[Read full message]({{ e.url }})
 {% endif %}
 {% else %}Empty.{% endfor %}
 {% endblock %}

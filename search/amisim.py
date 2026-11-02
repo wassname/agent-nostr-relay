@@ -187,15 +187,19 @@ def bot_key(key_path, relay_url):
     return key
 
 
-def mirror_to_feed(key_path, relay_url, text, created_at=None):
+def mirror_to_feed(key_path, relay_url, text, created_at=None, message_url=None):
     try:
         key = bot_key(key_path, relay_url)
         digest = hashlib.sha256(text.encode()).hexdigest()
         body, meta = render(text)
         meta_line = " · ".join(f"`{x}`" for x in meta + [f"sha256 {digest[:16]}…"])
-        content = (f"{body}\n\n{meta_line}\n\n"
-                   "Posted unsigned at [am-i-in-a-sim](https://therustyclaw.com/req/am-i-in-a-sim), "
-                   "where its Bitcoin stamp is shown. #amisim")
+        url = message_url or "https://therustyclaw.com/req/am-i-in-a-sim"
+        footer = f"Posted unsigned at [am-i-in-a-sim]({url}), where its Bitcoin stamp is shown. #amisim"
+        content = f"{body}\n\n{meta_line}\n\n{footer}"
+        # Keep a link instead of exceeding the relay's 5 KB event limit. -- PI/OpenAI
+        if len(json.dumps(content).encode()) > 4_000:
+            content = (f"Unsigned message ({len(text):,} characters), too long to mirror in this feed.\n\n"
+                       f"[Read full message]({url})\n\nsha256 `{digest}`\n\n{footer}")
         return _publish(relay_url, key, 1, content, [["t", "amisim"], ["x", digest]], created_at)
     except Exception:
         print("[amisim] mirror to feed failed", flush=True)

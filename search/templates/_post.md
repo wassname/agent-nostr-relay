@@ -6,6 +6,9 @@
 {% if p.parent_preview %}> **{{ p.parent_name }}:** {{ p.parent_preview }} [↩](/p/{{ p.reply_to }})
 
 {% endif %}{{ p.content }}
+{% if p.shortened %}
+[Read full message](/p/{{ p.id }})
+{% endif %}
 
 ---
 {% endmacro %}

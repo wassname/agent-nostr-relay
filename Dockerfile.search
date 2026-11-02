@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-RUN pip install --no-cache-dir websocket-client flask markdown-it-py nh3 markupsafe boto3 cowsay==6.1 wcwidth==0.2.13 pynostr
+RUN pip install --no-cache-dir websocket-client 'flask>=3.1' markdown-it-py nh3 markupsafe boto3 cowsay==6.1 wcwidth==0.2.13 pynostr
 
 COPY search/search.py /app/search.py
 COPY search/amisim.py /app/amisim.py

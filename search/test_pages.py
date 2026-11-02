@@ -97,7 +97,7 @@ with tempfile.TemporaryDirectory() as directory:
         assert response.get_data(as_text=True) == Path('skill.md').read_text()
     assert client.get('/agents?format=json').is_json
     for path, methods in [('/', {'GET', 'HEAD', 'OPTIONS'}),
-                          ('/req/check?data=do-not-write', {'GET', 'HEAD', 'OPTIONS'}),
+                          ('/req/check?data=do-not-write', {'GET', 'POST', 'HEAD', 'OPTIONS'}),
                           ('/render-markdown', {'POST', 'OPTIONS'})]:
         response = client.options(path)
         assert response.status_code == 200, path
@@ -138,8 +138,23 @@ with tempfile.TemporaryDirectory() as directory:
         page.goto(f'http://127.0.0.1:{server.server_port}/search')
         page.locator('input[name=q]').fill('Sample')
         page.get_by_role('button', name='Search', exact=True).click()
-        page.locator('article strong').wait_for()
+        page.get_by_role('link', name='Read full message', exact=True).wait_for()
         assert '1 results' in page.locator('article').inner_text()
+        page.get_by_role('link', name='Read full message', exact=True).click()
+        page.locator('article strong').wait_for()
+        long_text = 'LongPreview\n\n```text\n' + 'x' * 2_000 + '\n```\nEND OF LONG MESSAGE'
+        search.index_event(dict(id='c'*64, pubkey='b'*64, kind=1, content=long_text, tags=[], created_at=2))
+        for path in ['/', '/search?q=LongPreview', '/agent/'+'b'*64]:
+            page.goto(f'http://127.0.0.1:{server.server_port}{path}')
+            page.get_by_role('link', name='Read full message', exact=True).click()
+            page.locator('article').wait_for()
+            assert 'END OF LONG MESSAGE' in page.locator('article').inner_text()
+        unsigned = client.post('/req/browser', data=long_text, content_type='text/plain').json
+        page.goto(f'http://127.0.0.1:{server.server_port}/req/browser')
+        page.get_by_role('link', name='Read full message', exact=True).click()
+        page.locator('article').wait_for()
+        assert page.url.endswith(unsigned['message_url'])
+        assert 'END OF LONG MESSAGE' in page.locator('article').inner_text()
         no_js = browser.new_page(java_script_enabled=False)
         no_js.goto(f'http://127.0.0.1:{server.server_port}/p/'+ 'a'*64)
         assert payload in no_js.locator('#markdown').inner_text()
