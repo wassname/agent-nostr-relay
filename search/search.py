@@ -38,7 +38,7 @@ try:
     def sanitize_html(html):
         return nh3.clean(html, tags={'p','br','a','code','pre','strong','em','ul','ol','li',
                                      'h1','h2','h3','h4','h5','h6','table','thead','tbody',
-                                     'tr','td','th','blockquote','hr','span','div'},
+                                     'tr','td','th','blockquote','hr','span','div','small'},
                          attributes={'a': {'href','title'}, 'ol': {'start'}})
     SANITIZER = "nh3"
 except ImportError:
@@ -47,7 +47,7 @@ except ImportError:
         def sanitize_html(html):
             return bleach.clean(html, tags=['p','br','a','code','pre','strong','em','ul','ol','li',
                                             'h1','h2','h3','h4','h5','h6','table','thead','tbody',
-                                            'tr','td','th','blockquote','hr','span','div'],
+                                            'tr','td','th','blockquote','hr','span','div','small'],
                              attributes={'a': ['href','title'], 'ol': ['start']}, strip=True)
         SANITIZER = "bleach"
     except ImportError:
@@ -138,6 +138,33 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_events_kind ON events(kind);
         CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at DESC);
     """)
+    if not conn.execute("SELECT 1 FROM sync_state WHERE key='fts_triggers_v1'").fetchone():
+        conn.executescript("""
+            CREATE TRIGGER IF NOT EXISTS agent_profiles_ai AFTER INSERT ON agent_profiles BEGIN
+                INSERT INTO agent_search(rowid, name, about, capabilities) VALUES(new.rowid, new.name, new.about, new.capabilities);
+            END;
+            CREATE TRIGGER IF NOT EXISTS agent_profiles_ad AFTER DELETE ON agent_profiles BEGIN
+                INSERT INTO agent_search(agent_search, rowid, name, about, capabilities) VALUES('delete', old.rowid, old.name, old.about, old.capabilities);
+            END;
+            CREATE TRIGGER IF NOT EXISTS agent_profiles_au AFTER UPDATE ON agent_profiles BEGIN
+                INSERT INTO agent_search(agent_search, rowid, name, about, capabilities) VALUES('delete', old.rowid, old.name, old.about, old.capabilities);
+                INSERT INTO agent_search(rowid, name, about, capabilities) VALUES(new.rowid, new.name, new.about, new.capabilities);
+            END;
+            CREATE TRIGGER IF NOT EXISTS events_ai AFTER INSERT ON events BEGIN
+                INSERT INTO event_search(rowid, content, tags) VALUES(new.rowid, new.content, new.tags);
+            END;
+            CREATE TRIGGER IF NOT EXISTS events_ad AFTER DELETE ON events BEGIN
+                INSERT INTO event_search(event_search, rowid, content, tags) VALUES('delete', old.rowid, old.content, old.tags);
+            END;
+            CREATE TRIGGER IF NOT EXISTS events_au AFTER UPDATE ON events BEGIN
+                INSERT INTO event_search(event_search, rowid, content, tags) VALUES('delete', old.rowid, old.content, old.tags);
+                INSERT INTO event_search(rowid, content, tags) VALUES(new.rowid, new.content, new.tags);
+            END;
+            INSERT INTO agent_search(agent_search) VALUES('rebuild');
+            INSERT INTO event_search(event_search) VALUES('rebuild');
+            INSERT INTO sync_state(key, value) VALUES('fts_triggers_v1', '1');
+        """)
+        print("[index] installed FTS triggers and rebuilt indexes", flush=True)
     conn.commit()
 
     # GET-only request log ("webhook.site-style" surface): lets a GET-only agent
@@ -174,6 +201,7 @@ def init_db():
 
 def index_event(event):
     """Index a Nostr event into SQLite FTS5."""
+    stamp_text = None
     with _db_lock:
         conn = get_db()
         conn.execute("PRAGMA busy_timeout=5000")
@@ -203,31 +231,18 @@ def index_event(event):
                     capabilities=excluded.capabilities, updated_at=excluded.updated_at
             """, (pubkey, name, about, caps, created_at, int(time.time())))
 
-            rowid = conn.execute("SELECT rowid FROM agent_profiles WHERE pubkey = ?", (pubkey,)).fetchone()
-            if rowid:
-                conn.execute("DELETE FROM agent_search WHERE rowid = ?", (rowid[0],))
-                conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES (?, ?, ?, ?)",
-                             (rowid[0], name, about, caps))
-
         elif kind == 5:
             # NIP-09 deletion: drop the author's own events named in e tags
             for t in tags:
                 if len(t) > 1 and t[0] == "e":
-                    row = conn.execute("SELECT rowid FROM events WHERE id = ? AND pubkey = ?", (t[1], pubkey)).fetchone()
-                    if row:
-                        conn.execute("DELETE FROM event_search WHERE rowid = ?", (row[0],))
-                        conn.execute("DELETE FROM events WHERE rowid = ?", (row[0],))
+                    conn.execute("DELETE FROM events WHERE id = ? AND pubkey = ?", (t[1], pubkey))
 
         elif kind == 1:
-            tags_str = " ".join(t[1] for t in tags if len(t) > 1 and isinstance(t[1], str))
             tags_json = json.dumps(tags, separators=(",", ":"))
-            conn.execute("INSERT OR IGNORE INTO events (id, pubkey, kind, content, tags, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-                         (event_id, pubkey, kind, content, tags_json, created_at))
-            rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (event_id,)).fetchone()
-            if rowid:
-                conn.execute("INSERT OR IGNORE INTO event_search (rowid, content, tags) VALUES (?, ?, ?)",
-                             (rowid[0], content, tags_str))
-
+            inserted = conn.execute("INSERT OR IGNORE INTO events (id, pubkey, kind, content, tags, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+                                    (event_id, pubkey, kind, content, tags_json, created_at))
+            if inserted.rowcount and ["t", "amisim"] in tags:
+                stamp_text = content
         elif kind == 30078:
             # Capability advertisement — update capabilities field only, don't clobber name/about
             cap_tags = [t[1] for t in tags if len(t) > 1 and t[0] == "capability" and isinstance(t[1], str)]
@@ -238,16 +253,10 @@ def index_event(event):
                 ON CONFLICT(pubkey) DO UPDATE SET
                     capabilities=excluded.capabilities, updated_at=excluded.updated_at
             """, (pubkey, caps_str, created_at, int(time.time())))
-            # Re-sync FTS
-            rowid = conn.execute("SELECT rowid FROM agent_profiles WHERE pubkey = ?", (pubkey,)).fetchone()
-            if rowid:
-                existing = conn.execute("SELECT name, about, capabilities FROM agent_profiles WHERE pubkey = ?", (pubkey,)).fetchone()
-                if existing:
-                    conn.execute("DELETE FROM agent_search WHERE rowid = ?", (rowid[0],))
-                    conn.execute("INSERT INTO agent_search (rowid, name, about, capabilities) VALUES (?, ?, ?, ?)",
-                                 (rowid[0], existing[0] or "", existing[1] or "", existing[2] or ""))
 
         conn.commit()
+    if stamp_text is not None:
+        threading.Thread(target=amisim.submit, args=(GETLOG_DB, stamp_text), daemon=True).start()
 
 
 # ─── Websocket subscriber (simple: one thread, one loop, log everything) ──
@@ -446,9 +455,6 @@ def enforce_retention():
         if not old_ids:
             return
         for (eid,) in old_ids:
-            rowid = conn.execute("SELECT rowid FROM events WHERE id = ?", (eid,)).fetchone()
-            if rowid:
-                conn.execute("DELETE FROM event_search WHERE rowid = ?", (rowid[0],))
             conn.execute("DELETE FROM events WHERE id = ?", (eid,))
         deleted = len(old_ids)
         conn.commit()
@@ -551,11 +557,15 @@ def view_post(row, names, truncate=None):
             "name": names.get(pubkey) or short_id(pubkey),
             "age": age_str(ts),
             "shortened": truncate is not None and len(content) > truncate,
-            "content": message_preview(content, truncate) if truncate else content}
+            "content": message_preview(content, truncate) if truncate else content,
+            "stamp_digest": hashlib.sha256(content.encode()).hexdigest() if ["t", "amisim"] in json.loads(tags_text or "[]") else None}
 
 
 def add_reply_counts(conn, posts):
+    stamps = amisim.status(GETLOG_DB, [p["stamp_digest"] for p in posts if p["stamp_digest"]])
     for p in posts:
+        p["stamp_known"] = p["stamp_digest"] in stamps
+        p["stamp_height"] = stamps.get(p["stamp_digest"])
         p["reply_count"] = conn.execute(
             "SELECT COUNT(*) FROM events WHERE tags LIKE ? AND id != ?",
             (f"%{p['id']}%", p["id"]),
@@ -668,6 +678,9 @@ def post_view(event_id):
     if not post:
         conn.close()
         return markdown_page("# Not found"), 404
+    if request.args.get("json") is not None:
+        conn.close()
+        return jsonify(id=post[0], pubkey=post[1], content=post[2], tags=json.loads(post[3]), created_at=post[4])
     replies = conn.execute(
         "SELECT id, pubkey, content, tags, created_at FROM events WHERE tags LIKE ? AND id != ? ORDER BY created_at ASC",
         (f"%{event_id}%", event_id)
@@ -836,7 +849,8 @@ def req_log(token, message_id=None):
 def ots_proof(digest):
     proof = amisim.ots_file(GETLOG_DB, digest.lower())
     if proof is None:
-        return Response("No finished proof for this digest yet.\n", status=404, mimetype="text/plain")
+        return Response("No finished proof for this digest yet.\n", status=404, mimetype="text/plain",
+                        headers={"Retry-After": str(amisim.RECHECK_SECONDS)})
     return Response(proof, mimetype="application/vnd.opentimestamps.v1",
                     headers={"Content-Disposition": f"attachment; filename={digest.lower()}.ots"})
 

@@ -6,6 +6,7 @@ a { color: var(--rust); }
 h1 { font-size: 1.6em; }
 h2 { font-size: 1.3em; }
 h3 { font-size: 1em; }
+small { font-size: 0.85em; }
 pre { overflow-x: auto; padding: 0.6rem; background: #ece5d8; }
 #markdown { white-space: pre-wrap; overflow-wrap: anywhere; background: none; padding: 0; }
 code { background: #ece5d8; }

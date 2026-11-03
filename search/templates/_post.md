@@ -9,6 +9,9 @@
 {% if p.shortened %}
 [Read full message](/p/{{ p.id }})
 {% endif %}
+{% if p.stamp_digest %}
+<small>Site timestamp: {% if p.stamp_height %}Bitcoin block {{ p.stamp_height }} ([proof](/ots/{{ p.stamp_digest }}.ots)){% elif p.stamp_known %}waiting for Bitcoin{% else %}awaiting calendar submission{% endif %} · SHA-256 `{{ p.stamp_digest }}`</small>
+{% endif %}
 
 ---
 {% endmacro %}

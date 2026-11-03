@@ -75,6 +75,8 @@ def submit(db_path, text):
     d = hashlib.sha256(text.encode()).digest()
     conn = connect(db_path)
     for pool in POOLS:
+        if conn.execute("SELECT 1 FROM ots WHERE digest=? AND pool=?", (d.hex(), pool)).fetchone():
+            continue
         try:
             reply = urllib.request.urlopen(urllib.request.Request(f"{pool}/digest", data=d, headers=HEADERS), timeout=20).read()
             prefix, c, calendar = parse_reply(d, reply)
@@ -106,9 +108,9 @@ def upgrade_once(db_path):
         walk(Reader(body), c, atts)
         heights = [Reader(p).varuint() for tag, p in atts if tag == BITCOIN]
         conn.execute("UPDATE ots SET proof=?, height=?, checked_at=? WHERE digest=? AND pool=?",
-                     (prefix + body, min(heights) if heights else None, int(time.time()), digest, pool))
+                     (prefix + body if heights else None, min(heights) if heights else None, int(time.time()), digest, pool))
         conn.commit()
-        print(f"[ots] {digest[:16]} stamped in block {heights}", flush=True)
+        print(f"[ots] {digest[:16]}: block {min(heights) if heights else 'pending'}", flush=True)
     conn.close()
 
 
@@ -134,7 +136,7 @@ def status(db_path, digests):
 def ots_file(db_path, digest):
     """Full .ots file for the first finished proof, or None."""
     conn = connect(db_path)
-    row = conn.execute("SELECT proof FROM ots WHERE digest=? AND proof IS NOT NULL ORDER BY height LIMIT 1", (digest,)).fetchone()
+    row = conn.execute("SELECT proof FROM ots WHERE digest=? AND proof IS NOT NULL AND height IS NOT NULL ORDER BY height LIMIT 1", (digest,)).fetchone()
     conn.close()
     return OTS_MAGIC + b"\x08" + bytes.fromhex(digest) + row[0] if row else None
 
