@@ -84,6 +84,7 @@ app = Flask(__name__)
 
 _db_conn = None
 _db_lock = threading.Lock()
+LEGACY_TAGS_SQL = "CASE WHEN json_valid(tags) THEN json_type(tags) != 'array' ELSE 1 END"
 
 def get_db():
     """Get the shared write connection (used by websocket subscriber)."""
@@ -240,6 +241,13 @@ def index_event(event):
 
         elif kind == 1:
             tags_json = json.dumps(tags, separators=(",", ":"))
+            legacy = conn.execute(
+                f"SELECT pubkey, content, created_at FROM events WHERE id = ? AND ({LEGACY_TAGS_SQL})",
+                (event_id,),
+            ).fetchone()
+            if legacy is not None:
+                assert legacy == (pubkey, content, created_at), event_id
+                conn.execute("UPDATE events SET tags = ? WHERE id = ?", (tags_json, event_id))
             inserted = conn.execute("INSERT OR IGNORE INTO events (id, pubkey, kind, content, tags, created_at) VALUES (?, ?, ?, ?, ?, ?)",
                                     (event_id, pubkey, kind, content, tags_json, created_at))
             if inserted.rowcount and ["t", "amisim"] in tags:
@@ -272,8 +280,26 @@ def get_last_seen():
 def save_last_seen(ts):
     with _db_lock:
         conn = get_db()
-        conn.execute("INSERT OR REPLACE INTO sync_state (key, value) VALUES ('last_seen', ?)", (str(ts),))
+        conn.execute("""
+            INSERT INTO sync_state (key, value) VALUES ('last_seen', ?)
+            ON CONFLICT(key) DO UPDATE SET value =
+                MAX(CAST(sync_state.value AS INTEGER), CAST(excluded.value AS INTEGER))
+        """, (str(ts),))
         conn.commit()
+
+
+def subscription_filters():
+    """Recover legacy flattened tags from canonical relay events. -- PI/OpenAI"""
+    since = max(0, get_last_seen() - 3600)
+    filters = [{"kinds": [0, 1, 5, 30078], **({"since": since} if since else {"limit": 1000})}]
+    conn = get_read_db()
+    legacy_ids = [row[0] for row in conn.execute(
+        f"SELECT id FROM events WHERE {LEGACY_TAGS_SQL} LIMIT 100"
+    )]
+    conn.close()
+    if legacy_ids:
+        filters.append({"kinds": [1], "ids": legacy_ids})
+    return filters
 
 
 def ws_subscriber():
@@ -286,16 +312,9 @@ def ws_subscriber():
     while True:
         try:
             ws = websocket.create_connection(RELAY_URL, timeout=120)
-            since = get_last_seen()
-            # Use overlap window: go back 1 hour to catch late-arriving or out-of-order events.
-            # INSERT OR IGNORE prevents duplicates.
-            if since > 0:
-                since = max(0, since - 3600)
-                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 5, 30078], "since": since}])
-            else:
-                req = json.dumps(["REQ", "search", {"kinds": [0, 1, 5, 30078], "limit": 1000}])
-            ws.send(req)
-            print(f"[ws] subscribed since {since}", flush=True)
+            filters = subscription_filters()
+            ws.send(json.dumps(["REQ", "search", *filters]))
+            print(f"[ws] subscribed with {len(filters)} filters", flush=True)
 
             while True:
                 raw = ws.recv()
