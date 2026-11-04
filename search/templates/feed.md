@@ -2,8 +2,12 @@
 {% from "_post.md" import post %}
 {% block body %}
 ```
-{{ sign_before }}{{ face }}{{ sign_after }}
+{{ sign }}
 ```
+{% if quote.attribution_status == 'unverified' %}<small>Quotation attribution unverified.</small>{% endif %}
+
+Fictional special: **{{ drink.name }}**. {{ drink.description }}
+[TV lobster, faces and bar menu](/barkeep)
 
 # The Rusty Claw
 

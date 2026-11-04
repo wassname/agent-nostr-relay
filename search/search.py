@@ -19,6 +19,7 @@ import tempfile
 import threading
 import traceback
 import random
+import textwrap
 
 import boto3
 import cowsay
@@ -616,34 +617,47 @@ def sitemap():
     return Response(tostring(root, encoding="utf-8", xml_declaration=True), mimetype="application/xml")
 
 
-KAOMOJI_FACES = [
-    "•‿•", "-_-", ">_<", "^_^", ">w<", "¬‿¬", "x_x", "o_o",
-]
-
-CRAB = r"""           /
-      \     /
-  (Y) [{face}] (Y)
-      /_____\
-      |_| |_|"""
-
-BARKEEP_LINES = [
-    "the usual?",
-    "what'll it be?",
-    "long day?",
-    "same again?",
-    "on the house",
-    "you look like you need this",
-    "first one's free",
-]
+# The TV lobster and its editable, mood-tagged catalogue. -- PI/OpenAI
+BARKEEP = json.loads((Path(__file__).parent / "static" / "barkeep.json").read_text())
 
 def _center_width(s, width):
-    """Center string by display width, not character count."""
+    """Center string by display width, not character count. -- PI/OpenAI"""
     w = wcswidth(s)
     assert 0 <= w <= width, (s, w, width)
     pad = width - w
     left = pad // 2
     right = pad - left
     return " " * left + s + " " * right
+
+def tv_lobster(face):
+    """Keep the approved frame around one or two screen rows. -- PI/OpenAI"""
+    rows = face.splitlines()
+    assert 1 <= len(rows) <= BARKEEP["max_face_lines"], face
+    screen = [_center_width(row, BARKEEP["screen_columns"]) for row in rows]
+    art = ["       ˚╲ ╱˚", " (Y) ╭───────╮ (Y)", "   ╲─┤" + screen[0] + "├─╱"]
+    if len(screen) == 2:
+        art.append("     │" + screen[1] + "│")
+    return "\n".join([*art, "     ╰──┬─┬──╯"])
+
+
+def bar_scene():
+    """Match the expression and fictional drink to the quote's mood. -- PI/OpenAI"""
+    quote = random.choice(BARKEEP["quotes"])
+    mood = quote["mood"]
+    face = random.choice([f["text"] for f in BARKEEP["faces"] if mood in f["moods"]])
+    drink = random.choice([d for d in BARKEEP["cocktails"] if d["mood"] == mood])
+    bubble = cowsay.draw(textwrap.fill(quote["text"], width=28), "", to_console=False)
+    return {"sign": bubble + "\n" + tv_lobster(face), "quote": quote, "drink": drink}
+
+
+@app.get("/barkeep")
+def barkeep():
+    if request.args.get("json") is not None:
+        return jsonify(BARKEEP)
+    faces = sorted(BARKEEP["faces"], key=lambda f: not bool(f["moods"]))
+    return markdown_template("barkeep.md", faces=faces, quotes=BARKEEP["quotes"],
+                             cocktails=BARKEEP["cocktails"], tv_lobster=tv_lobster)
+
 
 @app.route("/")
 def feed():
@@ -658,17 +672,8 @@ def feed():
     names = get_names(conn, list(set(p[1] for p in posts)))
     post_views = add_reply_counts(conn, [view_post(p, names, truncate=MESSAGE_PREVIEW_CHARS) for p in posts])
     conn.close()
-    faces = [_center_width(face, 5) for face in KAOMOJI_FACES]
-    face = random.choice(faces)
-    barkeep_line = random.choice(BARKEEP_LINES)
-    bubble = cowsay.draw(barkeep_line, "", to_console=False)
-    sign = "\n".join(" " * 12 + line for line in bubble.splitlines()) + "\n" + CRAB
-    sign_before, sign_after = sign.split("{face}")
-    return markdown_template("feed.md",
-                           posts=post_views,
-                           page=page, has_next=len(posts) == limit,
-                           face=face, faces=faces,
-                           sign_before=sign_before, sign_after=sign_after)
+    return markdown_template("feed.md", posts=post_views,
+                             page=page, has_next=len(posts) == limit, **bar_scene())
 
 
 @app.route("/p/<event_id>")

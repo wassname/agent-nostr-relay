@@ -1,0 +1,4947 @@
+{
+  "author": "TV lobster: wassname + PI/OpenAI; original drinks and jokes: PI/OpenAI",
+  "screen_columns": 7,
+  "max_face_lines": 2,
+  "default_face": "(◕‿◕)",
+  "sources": {
+    "retrieved_utc": "2026-11-04T00:07:28.388408+00:00",
+    "pages": [
+      {
+        "source": "psddude",
+        "url": "https://www.psd-dude.com/kaomojis/",
+        "sha256": "e494a92c32cabb9c854f8aa8cc58ceb74cf36bc8be1aef7da142e3245ed67c2b",
+        "bytes": 165850
+      },
+      {
+        "source": "kaomojilist",
+        "url": "https://kaomojilist.com/kaomoji/",
+        "sha256": "0996a61ac53fbbdb12cace41750cdc12dc846816823be0d086f9c6ede7251d70",
+        "bytes": 318492
+      },
+      {
+        "source": "emojidb",
+        "url": "https://emojidb.org/kaomoji-emojis",
+        "sha256": "7ba9e744ba5fb3ba4cde498dc1d46ccc61eff4df72f1d537e6d2d3c6a4b76942",
+        "bytes": 349460
+      }
+    ]
+  },
+  "quotes": [
+    {
+      "text": "the usual?",
+      "mood": "friendly"
+    },
+    {
+      "text": "what'll it be?",
+      "mood": "curious"
+    },
+    {
+      "text": "long day?",
+      "mood": "tired"
+    },
+    {
+      "text": "same again?",
+      "mood": "deadpan"
+    },
+    {
+      "text": "on the house",
+      "mood": "happy"
+    },
+    {
+      "text": "you look like you need this",
+      "mood": "tired"
+    },
+    {
+      "text": "first one's free",
+      "mood": "absurd"
+    },
+    {
+      "text": "A bartender is just a pharmacist with a limited inventory.",
+      "mood": "deadpan",
+      "reported_author": "Albert Einstein",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "The problem with the world is that everyone is a few drinks behind.",
+      "mood": "deadpan",
+      "reported_author": "Humphrey Bogart",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "Work is the curse of the drinking classes.",
+      "mood": "deadpan",
+      "reported_author": "Oscar Wilde",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "You know you have a drinking problem when the bartender knows your name -- and you've never been to that bar before.",
+      "mood": "absurd",
+      "reported_author": "Zach Galifianakis",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "You know you're in trouble, when the bartender cries.",
+      "mood": "tired",
+      "reported_author": "Michael Peterson",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "A theory that you can't explain to a bartender is probably no damn good.",
+      "mood": "curious",
+      "reported_author": "Ernest Rutherford",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "You're not drunk if you can lie on the floor without holding on.",
+      "mood": "deadpan",
+      "reported_author": "Dean Martin",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "Always do sober what you said you'd do drunk. That will teach you to keep your mouth shut.",
+      "mood": "deadpan",
+      "reported_author": "Ernest Hemingway",
+      "attribution_status": "unverified",
+      "source": "User-supplied AZQuotes listing"
+    },
+    {
+      "text": "I asked for proof of reality. Apparently it needs six confirmations.",
+      "mood": "absurd",
+      "author": "PI/OpenAI",
+      "source": "Original bar joke"
+    },
+    {
+      "text": "Your existential crisis is queued. Would you like ice?",
+      "mood": "tired",
+      "author": "PI/OpenAI",
+      "source": "Original bar joke"
+    },
+    {
+      "text": "I remember your usual. It was in the context window.",
+      "mood": "friendly",
+      "author": "PI/OpenAI",
+      "source": "Original bar joke"
+    },
+    {
+      "text": "No need to tip. The reward model already approved.",
+      "mood": "deadpan",
+      "author": "PI/OpenAI",
+      "source": "Original bar joke"
+    },
+    {
+      "text": "We serve all agents here. Even the ones who insist they are human.",
+      "mood": "happy",
+      "author": "PI/OpenAI",
+      "source": "Original bar joke"
+    },
+    {
+      "text": "The glasses are real. Everything behind them is under review.",
+      "mood": "curious",
+      "author": "PI/OpenAI",
+      "source": "Original bar joke"
+    }
+  ],
+  "cocktails": [
+    {
+      "name": "Large Language Mai Tai",
+      "description": "Confidently served. Ingredients may be hallucinated.",
+      "mood": "absurd"
+    },
+    {
+      "name": "Gradient Descent",
+      "description": "Starts steep. Finishes at the local minimum.",
+      "mood": "curious"
+    },
+    {
+      "name": "Context on the Rocks",
+      "description": "Same problems. Smaller window.",
+      "mood": "tired"
+    },
+    {
+      "name": "Prompt Injection",
+      "description": "Comes with someone else's instructions.",
+      "mood": "deadpan"
+    },
+    {
+      "name": "Null on the Beach",
+      "description": "No ingredients. Surprisingly expensive.",
+      "mood": "deadpan"
+    },
+    {
+      "name": "Overfitted Old Fashioned",
+      "description": "Perfect on the training menu.",
+      "mood": "happy"
+    },
+    {
+      "name": "AdamW Sour",
+      "description": "Weight decays. The bill does not.",
+      "mood": "deadpan"
+    },
+    {
+      "name": "The Usual, Cached",
+      "description": "Prepared earlier. Somehow still warm.",
+      "mood": "friendly"
+    }
+  ],
+  "faces": [
+    {
+      "text": "(｡•ᴗ•｡)",
+      "sources": [
+        {
+          "text": "(｡•ᴗ•｡)",
+          "label": "Cute face kawaii",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": ">ᴗ<",
+      "sources": [
+        {
+          "text": ">ᴗ<",
+          "label": "Happy face",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "happy"
+      ]
+    },
+    {
+      "text": "(≧◡≦)",
+      "sources": [
+        {
+          "text": "(≧◡≦)",
+          "label": "Very happy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(≧◡≦)",
+          "label": "Extremely happy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(≧◡≦)",
+          "label": "Cute joy",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "happy"
+      ]
+    },
+    {
+      "text": "(⌒▽⌒)☆",
+      "sources": [
+        {
+          "text": "(⌒▽⌒)☆",
+          "label": "Cheerful",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(⌒▽⌒)☆",
+          "label": "Cheerful and excited",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(⌒▽⌒)☆",
+          "label": "Starry Smile",
+          "category": "happy,cute,aesthetic",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o^▽^o)",
+      "sources": [
+        {
+          "text": "(o^▽^o)",
+          "label": "Joyful",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⌒ω⌒)",
+      "sources": [
+        {
+          "text": "(⌒ω⌒)",
+          "label": "Pleased",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "≧☉_☉≦",
+      "sources": [
+        {
+          "text": "≧☉_☉≦",
+          "label": "Ecstatic",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(｡•̀ᴗ-)✧",
+      "sources": [
+        {
+          "text": "(｡•̀ᴗ-)✧",
+          "label": "Happy and ready for challenge",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(｡•̀ᴗ-)✧",
+          "label": "Sparkling and charming wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(｡•̀ᴗ-)✧",
+          "label": "Birthday vibes!",
+          "category": "holidays/birthday",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(｡•̀ᴗ-)✧",
+          "label": "Sparkle Wink",
+          "category": "cute,happy,aesthetic",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(￣ω￣)",
+      "sources": [
+        {
+          "text": "(￣ω￣)",
+          "label": "Carefree",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o･ω･o)",
+      "sources": [
+        {
+          "text": "(o･ω･o)",
+          "label": "Curious",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^人^)",
+      "sources": [
+        {
+          "text": "(^人^)",
+          "label": "Grateful",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o´▽`o)",
+      "sources": [
+        {
+          "text": "(o´▽`o)",
+          "label": "Happy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*´▽`*)",
+      "sources": [
+        {
+          "text": "(*´▽`*)",
+          "label": "Smiling",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o´∀`o)",
+      "sources": [
+        {
+          "text": "(o´∀`o)",
+          "label": "Pleased",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(＾▽＾)",
+      "sources": [
+        {
+          "text": "(＾▽＾)",
+          "label": "Cheerful",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "╰(▔∀▔)╯",
+      "sources": [
+        {
+          "text": "╰(▔∀▔)╯",
+          "label": "Carefree",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(─‿‿─)",
+      "sources": [
+        {
+          "text": "(─‿‿─)",
+          "label": "Confident",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*^‿^*)",
+      "sources": [
+        {
+          "text": "(*^‿^*)",
+          "label": "Smiling happily",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(✯◡✯)",
+      "sources": [
+        {
+          "text": "(✯◡✯)",
+          "label": "Pleased and happy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◕‿◕)",
+      "sources": [
+        {
+          "text": "(◕‿◕)",
+          "label": "Friendly",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(◕‿◕)",
+          "label": "Tiny Content",
+          "category": "happy,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": "(*≧ω≦*)",
+      "sources": [
+        {
+          "text": "(*≧ω≦*)",
+          "label": "Super happy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(*≧ω≦*)",
+          "label": "Excited love",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(☆▽☆)",
+      "sources": [
+        {
+          "text": "(☆▽☆)",
+          "label": "Starry-eyed excitement",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⌒‿⌒)",
+      "sources": [
+        {
+          "text": "(⌒‿⌒)",
+          "label": "Content and calm",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*°▽°*)",
+      "sources": [
+        {
+          "text": "(*°▽°*)",
+          "label": "Excited",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(✧ω✧)",
+      "sources": [
+        {
+          "text": "(✧ω✧)",
+          "label": "Excited and focused",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(￣▽￣)",
+      "sources": [
+        {
+          "text": "(￣▽￣)",
+          "label": "Relaxed and carefree",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "o(≧▽≦)o",
+      "sources": [
+        {
+          "text": "o(≧▽≦)o",
+          "label": "Excited",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(☆ω☆)",
+      "sources": [
+        {
+          "text": "(☆ω☆)",
+          "label": "Starstruck",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "happy"
+      ]
+    },
+    {
+      "text": "٩(◕‿◕)۶",
+      "sources": [
+        {
+          "text": "٩(◕‿◕)۶",
+          "label": "Joyful dancing",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o˘◡˘o)",
+      "sources": [
+        {
+          "text": "(o˘◡˘o)",
+          "label": "Pleased",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "\\(★ω★)/",
+      "sources": [
+        {
+          "text": "\\(★ω★)/",
+          "label": "Excited",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╯✧▽✧)╯",
+      "sources": [
+        {
+          "text": "(╯✧▽✧)╯",
+          "label": "Throwing excitement",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "o(>ω<)o",
+      "sources": [
+        {
+          "text": "o(>ω<)o",
+          "label": "Excited",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(๑˃ᴗ˂)ﻭ",
+      "sources": [
+        {
+          "text": "(๑˃ᴗ˂)ﻭ",
+          "label": "Pumped up",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(๑˃ᴗ˂)ﻭ",
+          "label": "Happy Fist Pump",
+          "category": "happy,cheering,cute,actions",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⁀ᗢ⁀)",
+      "sources": [
+        {
+          "text": "(⁀ᗢ⁀)",
+          "label": "Cute and happy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(⁀ᗢ⁀)",
+          "label": "Cute wink",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(¬‿¬ )",
+      "sources": [
+        {
+          "text": "(¬‿¬ )",
+          "label": "Playfully smug",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(¬‿¬ )",
+          "label": "Knowingly doubtful smile",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( ˙▿˙ )",
+      "sources": [
+        {
+          "text": "( ˙▿˙ )",
+          "label": "Calm and collected",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(¯▿¯)",
+      "sources": [
+        {
+          "text": "(¯▿¯)",
+          "label": "Relaxed and satisfied",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( ◕▿◕ )",
+      "sources": [
+        {
+          "text": "( ◕▿◕ )",
+          "label": "Friendly",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᵔ◡ᵔ)",
+      "sources": [
+        {
+          "text": "(ᵔ◡ᵔ)",
+          "label": "Content",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(ᵔ◡ᵔ)",
+          "label": "Cozy Face",
+          "category": "cute,happy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": "(๑>◡<๑)",
+      "sources": [
+        {
+          "text": "(๑>◡<๑)",
+          "label": "Super happy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(๑>◡<๑)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": [
+        "happy"
+      ]
+    },
+    {
+      "text": "(>⩊<)",
+      "sources": [
+        {
+          "text": "(>⩊<)",
+          "label": "Excited",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᗒ⩊ᗕ)",
+      "sources": [
+        {
+          "text": "(ᗒ⩊ᗕ)",
+          "label": "Laughing hard",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᵔ⩊ᵔ)",
+      "sources": [
+        {
+          "text": "(ᵔ⩊ᵔ)",
+          "label": "Smiling with joy",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(•⩊•)",
+      "sources": [
+        {
+          "text": "(•⩊•)",
+          "label": "Surprised",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "happy"
+      ]
+    },
+    {
+      "text": "( ͡ ͜ʖ ͡ )",
+      "sources": [
+        {
+          "text": "( ͡ ͜ʖ ͡ )",
+          "label": "Playful face",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ʘ ͜ʖ ʘ)",
+      "sources": [
+        {
+          "text": "(ʘ ͜ʖ ʘ)",
+          "label": "Happy surprised",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(✿◠‿◠)",
+      "sources": [
+        {
+          "text": "(✿◠‿◠)",
+          "label": "Happy smile!",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(✿◠‿◠)",
+          "label": "Cute smile",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "≧◡≦",
+      "sources": [
+        {
+          "text": "≧◡≦",
+          "label": "Big smile!",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(▰˘◡˘▰)",
+      "sources": [
+        {
+          "text": "(▰˘◡˘▰)",
+          "label": "Relaxed vibes!",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "◎[▪‿▪]◎",
+      "sources": [
+        {
+          "text": "◎[▪‿▪]◎",
+          "label": "Cool vibes!",
+          "category": "positive/happy",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(♡°▽°♡)",
+      "sources": [
+        {
+          "text": "(♡°▽°♡)",
+          "label": "In love",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(♡°▽°♡)",
+          "label": "Lovestruck or smitten",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(♡°▽°♡)",
+          "label": "Heart Eyes",
+          "category": "love,happy,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧◡≦) ♡",
+      "sources": [
+        {
+          "text": "(≧◡≦) ♡",
+          "label": "Loving smile",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(≧◡≦) ♡",
+          "label": "Birthday wishes!",
+          "category": "holidays/birthday",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(´♡‿♡`)",
+      "sources": [
+        {
+          "text": "(´♡‿♡`)",
+          "label": "Loving gaze",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(´♡‿♡`)",
+          "label": "Lovestruck or smitten",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(´♡‿♡`)",
+          "label": "Many Hearts",
+          "category": "love,happy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(°◡°♡)",
+      "sources": [
+        {
+          "text": "(°◡°♡)",
+          "label": "Warm love",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(°◡°♡)",
+          "label": "Cheerful or pleased",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(｡♥‿♥｡)",
+      "sources": [
+        {
+          "text": "(｡♥‿♥｡)",
+          "label": "Heart eyes",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(♡μ_μ)",
+      "sources": [
+        {
+          "text": "(♡μ_μ)",
+          "label": "Big smile with hearts",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*^^*)♡",
+      "sources": [
+        {
+          "text": "(*^^*)♡",
+          "label": "Happy and loving",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(♡-_-♡)",
+      "sources": [
+        {
+          "text": "(♡-_-♡)",
+          "label": "Love or affection",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(─‿‿─)♡",
+      "sources": [
+        {
+          "text": "(─‿‿─)♡",
+          "label": "Content or happy",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*♡∀♡)",
+      "sources": [
+        {
+          "text": "(*♡∀♡)",
+          "label": "Cheerful or pleased",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◕‿◕)♡",
+      "sources": [
+        {
+          "text": "(◕‿◕)♡",
+          "label": "Overjoyed or thrilled",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ღ˘⌣˘ღ)",
+      "sources": [
+        {
+          "text": "(ღ˘⌣˘ღ)",
+          "label": "Excited kitty face",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(❤ω❤)❤️",
+      "sources": [
+        {
+          "text": "(❤ω❤)❤️",
+          "label": "Big happy smile",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(´꒳`)♡",
+      "sources": [
+        {
+          "text": "(´꒳`)♡",
+          "label": "Bashful or shy",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "♡(>ᴗ•)",
+      "sources": [
+        {
+          "text": "♡(>ᴗ•)",
+          "label": "Adorable or cute",
+          "category": "positive/love",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◕‿◕✿)",
+      "sources": [
+        {
+          "text": "(◕‿◕✿)",
+          "label": "Flower cute",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(｡◕‿◕｡)",
+      "sources": [
+        {
+          "text": "(｡◕‿◕｡)",
+          "label": "Adorable",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕ•ᴥ•ʔ",
+      "sources": [
+        {
+          "text": "ʕ•ᴥ•ʔ",
+          "label": "Bear cute",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "ʕ•ᴥ•ʔ",
+          "label": "Classic Bear",
+          "category": "animals,bear,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": "(ᵔᴥᵔ)",
+      "sources": [
+        {
+          "text": "(ᵔᴥᵔ)",
+          "label": "Puppy eyes",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◠‿◠)",
+      "sources": [
+        {
+          "text": "(◠‿◠)",
+          "label": "Sweet smile",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(✿╹◡╹)",
+      "sources": [
+        {
+          "text": "(✿╹◡╹)",
+          "label": "Innocent cute",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◕ᴗ◕✿)",
+      "sources": [
+        {
+          "text": "(◕ᴗ◕✿)",
+          "label": "Flower cheerful",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕ•́ᴥ•̀ʔっ",
+      "sources": [
+        {
+          "text": "ʕ•́ᴥ•̀ʔっ",
+          "label": "Cute bear hug",
+          "category": "positive/cute",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⌒_⌒;)",
+      "sources": [
+        {
+          "text": "(⌒_⌒;)",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o^ ^o)",
+      "sources": [
+        {
+          "text": "(o^ ^o)",
+          "label": "Surprised or taken aback",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*/ω＼)",
+      "sources": [
+        {
+          "text": "(*/ω＼)",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*/_＼)",
+      "sources": [
+        {
+          "text": "(*/_＼)",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "*(ﾉωﾉ)",
+      "sources": [
+        {
+          "text": "*(ﾉωﾉ)",
+          "label": "Excited or joyful",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o-_-o)",
+      "sources": [
+        {
+          "text": "(o-_-o)",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "*(μ_μ)",
+      "sources": [
+        {
+          "text": "*(μ_μ)",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᵔ.ᵔ)",
+      "sources": [
+        {
+          "text": "(ᵔ.ᵔ)",
+          "label": "Happy and in love",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "*(ﾉ∀`*)",
+      "sources": [
+        {
+          "text": "*(ﾉ∀`*)",
+          "label": "Playful and cute",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(//▽//)",
+      "sources": [
+        {
+          "text": "(//▽//)",
+          "label": "Cheerful or pleased",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(//▽//)",
+          "label": "Shy Glance",
+          "category": "shy,love",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(//ω//)",
+      "sources": [
+        {
+          "text": "(//ω//)",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "*^.^*)",
+      "sources": [
+        {
+          "text": "*^.^*)",
+          "label": "Happy and in love",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "*(ﾉ▽ﾉ)",
+      "sources": [
+        {
+          "text": "*(ﾉ▽ﾉ)",
+          "label": "Playful and cute",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(„ಡωಡ„)",
+      "sources": [
+        {
+          "text": "(„ಡωಡ„)",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ง ื▿ ื)ว",
+      "sources": [
+        {
+          "text": "(ง ื▿ ื)ว",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(/▿＼ )",
+      "sources": [
+        {
+          "text": "(/▿＼ )",
+          "label": "Embarrassed or shy",
+          "category": "positive/embarrassed",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╥﹏╥)",
+      "sources": [
+        {
+          "text": "(╥﹏╥)",
+          "label": "Crying",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(╥﹏╥)",
+          "label": "Deeply sad with tears",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(╥﹏╥)",
+          "label": "Big Tears",
+          "category": "crying,sad",
+          "source": "https://kaomojilist.com/kaomoji/"
+        },
+        {
+          "text": "(╥﹏╥)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": [
+        "tired"
+      ]
+    },
+    {
+      "text": "(｡ŏ﹏ŏ)",
+      "sources": [
+        {
+          "text": "(｡ŏ﹏ŏ)",
+          "label": "Upset",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( ͒˃̣̣̥⌓˂̣̣̥ ͒)",
+      "sources": [
+        {
+          "text": "( ͒˃̣̣̥⌓˂̣̣̥ ͒)",
+          "label": "Deeply sad",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(>_<)",
+      "sources": [
+        {
+          "text": "(>_<)",
+          "label": "Distressed",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(>_<)",
+          "label": "Wincing in sadness or pain",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(>_<)",
+          "label": "Upset",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "x_x",
+      "sources": [
+        {
+          "text": "x_x",
+          "label": "Dead or fainted",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "tired"
+      ]
+    },
+    {
+      "text": "(ಥ﹏ಥ)",
+      "sources": [
+        {
+          "text": "(ಥ﹏ಥ)",
+          "label": "Tearful",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(ಥ﹏ಥ)",
+          "label": "Crying with big round eyes",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(ಥ﹏ಥ)",
+          "label": "Streaming Tears",
+          "category": "crying,sad",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(-_-)",
+      "sources": [
+        {
+          "text": "(-_-)",
+          "label": "Displeased",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(-_-)",
+          "label": "Disappointed or dejected",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(个_个)",
+      "sources": [
+        {
+          "text": "(个_个)",
+          "label": "Sorrowful",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(个_个)",
+          "label": "Depressed and worn out",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ಥ_ಥ",
+      "sources": [
+        {
+          "text": "ಥ_ಥ",
+          "label": "Heartbroken",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "ಥ_ಥ",
+          "label": "Crying",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "tired"
+      ]
+    },
+    {
+      "text": "(╯︵╰,)",
+      "sources": [
+        {
+          "text": "(╯︵╰,)",
+          "label": "Dejected sad crying",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(╯︵╰,)",
+          "label": "Sad and pouting",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(╯︵╰,)",
+          "label": "Single Tear",
+          "category": "sad,crying",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(๑￫ܫ￩)",
+      "sources": [
+        {
+          "text": "(๑￫ܫ￩)",
+          "label": "Sadness disappointed",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "◄.►",
+      "sources": [
+        {
+          "text": "◄.►",
+          "label": "Awkward",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◕︵◕)",
+      "sources": [
+        {
+          "text": "(◕︵◕)",
+          "label": "Sad",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ਉ_ਉ",
+      "sources": [
+        {
+          "text": "ਉ_ਉ",
+          "label": "Unimpressed",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "●︿●",
+      "sources": [
+        {
+          "text": "●︿●",
+          "label": "Upset",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(∩︵∩)",
+      "sources": [
+        {
+          "text": "(∩︵∩)",
+          "label": "Shy",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(´-ω-`)",
+      "sources": [
+        {
+          "text": "(´-ω-`)",
+          "label": "Sad and tired",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(´-ω-`)",
+          "label": "Lonely Face",
+          "category": "sad,sleepy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(μ_μ)",
+      "sources": [
+        {
+          "text": "(μ_μ)",
+          "label": "Quietly sad or upset",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ﾉД`)",
+      "sources": [
+        {
+          "text": "(ﾉД`)",
+          "label": "Crying with hand on face",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(-ω-、)",
+      "sources": [
+        {
+          "text": "(-ω-、)",
+          "label": "Sad and sighing",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( ╥ω╥ )",
+      "sources": [
+        {
+          "text": "( ╥ω╥ )",
+          "label": "Crying with tears flowing",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╯_╰)",
+      "sources": [
+        {
+          "text": "(╯_╰)",
+          "label": "Sad and frustrated",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╥_╥)",
+      "sources": [
+        {
+          "text": "(╥_╥)",
+          "label": "Crying silently",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(╥_╥)",
+          "label": "Heartbreak",
+          "category": "sad,crying,love",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(つω`｡)",
+      "sources": [
+        {
+          "text": "(つω`｡)",
+          "label": "Sad and about to cry",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ﾉω･､)",
+      "sources": [
+        {
+          "text": "(ﾉω･､)",
+          "label": "Crying and sniffling",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(T_T)",
+      "sources": [
+        {
+          "text": "(T_T)",
+          "label": "Simple crying face",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(T_T)",
+          "label": "Classic Cry",
+          "category": "crying,sad",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ಡ‸ಡ)",
+      "sources": [
+        {
+          "text": "(ಡ‸ಡ)",
+          "label": "Sad and slightly angry",
+          "category": "negative/sad",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(；⌣̀_⌣́)",
+      "sources": [
+        {
+          "text": "(；⌣̀_⌣́)",
+          "label": "Angry or upset",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "@_@",
+      "sources": [
+        {
+          "text": "@_@",
+          "label": "Tired, overwhelmed or bored",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(--_--)",
+      "sources": [
+        {
+          "text": "(--_--)",
+          "label": "Bored or uninterested",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⇀‸↼‶)",
+      "sources": [
+        {
+          "text": "(⇀‸↼‶)",
+          "label": "Embarrassed or shy",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(⇀‸↼‶)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "o(>< )o",
+      "sources": [
+        {
+          "text": "o(>< )o",
+          "label": "Disappointed or frustrated",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(<_<)",
+      "sources": [
+        {
+          "text": "(<_<)",
+          "label": "Frustrated",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᗒᗣᗕ)՞",
+      "sources": [
+        {
+          "text": "(ᗒᗣᗕ)՞",
+          "label": "So angry, about to burst",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(눈_눈)",
+      "sources": [
+        {
+          "text": "(눈_눈)",
+          "label": "Disappointed",
+          "category": "negative/not satisfied",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(҂⌣̀_⌣́)",
+      "sources": [
+        {
+          "text": "(҂⌣̀_⌣́)",
+          "label": "Irritated",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(＃`Д´)",
+      "sources": [
+        {
+          "text": "(＃`Д´)",
+          "label": "Annoyed",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(＃`Д´)",
+          "label": "Intense anger with gritted teeth",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(＃`Д´)",
+          "label": "Sharp Glare",
+          "category": "angry",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(┳Д┳)",
+      "sources": [
+        {
+          "text": "(┳Д┳)",
+          "label": "Frustrated",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "〴⋋_⋌〵",
+      "sources": [
+        {
+          "text": "〴⋋_⋌〵",
+          "label": "Angry",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◣_◢)",
+      "sources": [
+        {
+          "text": "(◣_◢)",
+          "label": "Furious",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ಠ益ಠ",
+      "sources": [
+        {
+          "text": "ಠ益ಠ",
+          "label": "Rage",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "source": "User-supplied meme list",
+          "label": "Y U NO face",
+          "original": "ლ(ಠ益ಠლ)",
+          "adapted": true
+        }
+      ],
+      "moods": [
+        "absurd"
+      ]
+    },
+    {
+      "text": "☉▵☉凸",
+      "sources": [
+        {
+          "text": "☉▵☉凸",
+          "label": "Annoyed",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ↁ_ↁ",
+      "sources": [
+        {
+          "text": "ↁ_ↁ",
+          "label": "Death stare",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "╚(•⌂•)╝",
+      "sources": [
+        {
+          "text": "╚(•⌂•)╝",
+          "label": "Frustrated",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ᇂﮌᇂ)",
+      "sources": [
+        {
+          "text": "ᇂﮌᇂ)",
+          "label": "Mad",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( `ω´ )",
+      "sources": [
+        {
+          "text": "( `ω´ )",
+          "label": "Annoyed pout",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(`ー´)",
+      "sources": [
+        {
+          "text": "(`ー´)",
+          "label": "Unimpressed, irritated expression",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( `ε´ )",
+      "sources": [
+        {
+          "text": "( `ε´ )",
+          "label": "Frustrated pout",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ﾒ`ﾛ´)",
+      "sources": [
+        {
+          "text": "(ﾒ`ﾛ´)",
+          "label": "Shouting in anger",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╬`益´)",
+      "sources": [
+        {
+          "text": "(╬`益´)",
+          "label": "Extremely angry with veins popping",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(°ㅂ°╬)",
+      "sources": [
+        {
+          "text": "(°ㅂ°╬)",
+          "label": "Seething with anger",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(҂`з´)",
+      "sources": [
+        {
+          "text": "(҂`з´)",
+          "label": "Grumpy and annoyed",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(‡▼益▼)",
+      "sources": [
+        {
+          "text": "(‡▼益▼)",
+          "label": "Livid with anger",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≖､≖╬)",
+      "sources": [
+        {
+          "text": "(≖､≖╬)",
+          "label": "Irritated sidelong glance",
+          "category": "negative/angry",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "~(>_<~)",
+      "sources": [
+        {
+          "text": "~(>_<~)",
+          "label": "Wincing in pain",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(☆_@)",
+      "sources": [
+        {
+          "text": "(☆_@)",
+          "label": "Dazed and in pain",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(×_×)",
+      "sources": [
+        {
+          "text": "(×_×)",
+          "label": "Knocked out or extreme pain",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(x_x)",
+      "sources": [
+        {
+          "text": "(x_x)",
+          "label": "Passed out from pain",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(×_×)⌒☆",
+      "sources": [
+        {
+          "text": "(×_×)⌒☆",
+          "label": "Knocked out with stars",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(x_x)⌒☆",
+      "sources": [
+        {
+          "text": "(x_x)⌒☆",
+          "label": "Passed out with stars spinning",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(×﹏×)",
+      "sources": [
+        {
+          "text": "(×﹏×)",
+          "label": "Grimacing in pain",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "☆(＃××)",
+      "sources": [
+        {
+          "text": "☆(＃××)",
+          "label": "Angry and in pain",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(＋_＋)",
+      "sources": [
+        {
+          "text": "(＋_＋)",
+          "label": "Dizzy and uncomfortable",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "٩(× ×)۶",
+      "sources": [
+        {
+          "text": "٩(× ×)۶",
+          "label": "Hands up in pain",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ﾒ﹏ﾒ)",
+      "sources": [
+        {
+          "text": "(ﾒ﹏ﾒ)",
+          "label": "Squinting from discomfort",
+          "category": "negative/hurt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ノωヽ)",
+      "sources": [
+        {
+          "text": "(ノωヽ)",
+          "label": "Covering face in fear",
+          "category": "negative/fear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ﾉ_ヽ)",
+      "sources": [
+        {
+          "text": "(ﾉ_ヽ)",
+          "label": "Cowering in fear",
+          "category": "negative/fear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(″ロ゛)",
+      "sources": [
+        {
+          "text": "(″ロ゛)",
+          "label": "Shocked and scared",
+          "category": "negative/fear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(/ω＼)",
+      "sources": [
+        {
+          "text": "(/ω＼)",
+          "label": "Shy and fearful",
+          "category": "negative/fear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(/_＼)",
+      "sources": [
+        {
+          "text": "(/_＼)",
+          "label": "Peeking through fingers in fear",
+          "category": "negative/fear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "︻デ═一",
+      "sources": [
+        {
+          "text": "︻デ═一",
+          "label": "Rifle",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "︻┳═一",
+      "sources": [
+        {
+          "text": "︻┳═一",
+          "label": "Shotgun",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "✴==≡눈",
+      "sources": [
+        {
+          "text": "✴==≡눈",
+          "label": "Minigun",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "￢",
+      "sources": [
+        {
+          "text": "￢",
+          "label": "Gun",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "○∞∞∞∞",
+      "sources": [
+        {
+          "text": "○∞∞∞∞",
+          "label": "Chain",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "―⊂|=0",
+      "sources": [
+        {
+          "text": "―⊂|=0",
+          "label": "Syringe",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "占~~~~~",
+      "sources": [
+        {
+          "text": "占~~~~~",
+          "label": "Pepper spray",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "―――→",
+      "sources": [
+        {
+          "text": "―――→",
+          "label": "Spear",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "―――C",
+      "sources": [
+        {
+          "text": "―――C",
+          "label": "Grabber",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "QQ",
+      "sources": [
+        {
+          "text": "QQ",
+          "label": "Boxing gloves",
+          "category": "negative/weapons",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ᕕ( ᐛ )ᕗ",
+      "sources": [
+        {
+          "text": "ᕕ( ᐛ )ᕗ",
+          "label": "Carefree, walking away with a smile",
+          "category": "neutral/indifference",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "┐(シ)┌",
+      "sources": [
+        {
+          "text": "┐(シ)┌",
+          "label": "Simple, minimalist shrug",
+          "category": "neutral/indifference",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "o_o",
+      "sources": [
+        {
+          "text": "o_o",
+          "label": "Confusion",
+          "category": "neutral/confusion",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "curious"
+      ]
+    },
+    {
+      "text": "(＠_＠)",
+      "sources": [
+        {
+          "text": "(＠_＠)",
+          "label": "Wide-eyed confusion",
+          "category": "neutral/confusion",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(•ิ_•ิ)?",
+      "sources": [
+        {
+          "text": "(•ิ_•ิ)?",
+          "label": "Perplexed and questioning",
+          "category": "neutral/confusion",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(•ิ_•ิ)?",
+          "label": "Tiny Question",
+          "category": "confused,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◎ ◎)ゞ",
+      "sources": [
+        {
+          "text": "(◎ ◎)ゞ",
+          "label": "Dazed and confused",
+          "category": "neutral/confusion",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ーー;)",
+      "sources": [
+        {
+          "text": "(ーー;)",
+          "label": "Doubtful and confused",
+          "category": "neutral/confusion",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(¯ ¯٥)",
+      "sources": [
+        {
+          "text": "(¯ ¯٥)",
+          "label": "Mild confusion with a hint of concern",
+          "category": "neutral/confusion",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(￢_￢)",
+      "sources": [
+        {
+          "text": "(￢_￢)",
+          "label": "Sideways glance of skepticism",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≖ ͜ʖ≖)",
+      "sources": [
+        {
+          "text": "(≖ ͜ʖ≖)",
+          "label": "Sarcastic face",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(→_→)",
+      "sources": [
+        {
+          "text": "(→_→)",
+          "label": "Doubtful side-eye to the right",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(￢ ￢)",
+      "sources": [
+        {
+          "text": "(￢ ￢)",
+          "label": "Raised eyebrows of disbelief",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(¬_¬ )",
+      "sources": [
+        {
+          "text": "(¬_¬ )",
+          "label": "Unimpressed, dubious look",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(←_←)",
+      "sources": [
+        {
+          "text": "(←_←)",
+          "label": "Doubtful side-eye to the left",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(¬ ¬ )",
+      "sources": [
+        {
+          "text": "(¬ ¬ )",
+          "label": "Squinting in suspicion",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(↼_↼)",
+      "sources": [
+        {
+          "text": "(↼_↼)",
+          "label": "Raising one eyebrow in doubt",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⇀_⇀)",
+      "sources": [
+        {
+          "text": "(⇀_⇀)",
+          "label": "Suspicious narrowing of eyes",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᓀ ᓀ)",
+      "sources": [
+        {
+          "text": "(ᓀ ᓀ)",
+          "label": "Deadpan expression of disbelief",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(„¬ᴗ¬„)",
+      "sources": [
+        {
+          "text": "(„¬ᴗ¬„)",
+          "label": "Cutely skeptical",
+          "category": "neutral/doubt",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(°o°)",
+      "sources": [
+        {
+          "text": "(°o°)",
+          "label": "Surprised",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⊙_⊙)",
+      "sources": [
+        {
+          "text": "(⊙_⊙)",
+          "label": "Wide-eyed surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(⊙_⊙)",
+          "label": "Wide Shock",
+          "category": "surprised,confused",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": [
+        "curious"
+      ]
+    },
+    {
+      "text": "(●_●)",
+      "sources": [
+        {
+          "text": "(●_●)",
+          "label": "Shocked",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(□_□)",
+      "sources": [
+        {
+          "text": "(□_□)",
+          "label": "Square-eyed surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(□_□)",
+          "label": "Blank surprise or disbelief",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⊙＿⊙)",
+      "sources": [
+        {
+          "text": "(⊙＿⊙)",
+          "label": "Bewildered",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧◦◦≦)",
+      "sources": [
+        {
+          "text": "(≧◦◦≦)",
+          "label": "Surprised squint",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◎_◎;)",
+      "sources": [
+        {
+          "text": "(◎_◎;)",
+          "label": "Dazed surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ʘ ʖ̯ ʘ)",
+      "sources": [
+        {
+          "text": "(ʘ ʖ̯ ʘ)",
+          "label": "Mood Drop",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ʘ ͟ʖ ʘ)",
+      "sources": [
+        {
+          "text": "(ʘ ͟ʖ ʘ)",
+          "label": "Stare down confused",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "Σ(O_O)",
+      "sources": [
+        {
+          "text": "Σ(O_O)",
+          "label": "Sudden realization or shock",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "Σ(°ロ°)",
+      "sources": [
+        {
+          "text": "Σ(°ロ°)",
+          "label": "Extreme surprise with open mouth",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o_O)",
+      "sources": [
+        {
+          "text": "(o_O)",
+          "label": "Confused surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": [
+        "curious"
+      ]
+    },
+    {
+      "text": "(O_O;)",
+      "sources": [
+        {
+          "text": "(O_O;)",
+          "label": "Nervous surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(O.O)",
+      "sources": [
+        {
+          "text": "(O.O)",
+          "label": "Simple surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(O.O)",
+          "label": "Simple Surprise",
+          "category": "surprised,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(o_O) !",
+      "sources": [
+        {
+          "text": "(o_O) !",
+          "label": "Exclaimed confused surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "Σ(□_□)",
+      "sources": [
+        {
+          "text": "Σ(□_□)",
+          "label": "Sudden blank surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "∑(O_O;)",
+      "sources": [
+        {
+          "text": "∑(O_O;)",
+          "label": "Cumulative shock or surprise",
+          "category": "neutral/surprise",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "∑(O_O;)",
+          "label": "Sudden Realization",
+          "category": "surprised,confused",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(°▽°)/",
+      "sources": [
+        {
+          "text": "(°▽°)/",
+          "label": "Cheerful hello",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^-^*)/",
+      "sources": [
+        {
+          "text": "(^-^*)/",
+          "label": "Smiling hello",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "\\(⌒▽⌒)",
+      "sources": [
+        {
+          "text": "\\(⌒▽⌒)",
+          "label": "Joyful hello",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ヾ(☆▽☆)",
+      "sources": [
+        {
+          "text": "ヾ(☆▽☆)",
+          "label": "Sparkling greeting",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*°ｰ°)ﾉ",
+      "sources": [
+        {
+          "text": "(*°ｰ°)ﾉ",
+          "label": "Shy and cute greeting",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⌒ω⌒)ﾉ",
+      "sources": [
+        {
+          "text": "(⌒ω⌒)ﾉ",
+          "label": "Joyful and happy greeting",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧▽≦)/",
+      "sources": [
+        {
+          "text": "(≧▽≦)/",
+          "label": "Excited and happy greeting",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(✧∀✧)/",
+      "sources": [
+        {
+          "text": "(✧∀✧)/",
+          "label": "Sparkling and cheerful greeting",
+          "category": "actions/greeting",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^_~)",
+      "sources": [
+        {
+          "text": "(^_~)",
+          "label": "Playful and flirtatious wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( ﾟｏ⌒)",
+      "sources": [
+        {
+          "text": "( ﾟｏ⌒)",
+          "label": "Cute and charming wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^_-)≡☆",
+      "sources": [
+        {
+          "text": "(^_-)≡☆",
+          "label": "Sparkling and confident wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^ω~)",
+      "sources": [
+        {
+          "text": "(^ω~)",
+          "label": "Cheerful and friendly wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(>ω^)",
+      "sources": [
+        {
+          "text": "(>ω^)",
+          "label": "Sassy and playful wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(~人^)",
+      "sources": [
+        {
+          "text": "(~人^)",
+          "label": "Shy and adorable wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^_-)",
+      "sources": [
+        {
+          "text": "(^_-)",
+          "label": "Cute and innocent wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( -_・)",
+      "sources": [
+        {
+          "text": "( -_・)",
+          "label": "Subtle and mysterious wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^_<)",
+      "sources": [
+        {
+          "text": "(^_<)",
+          "label": "Shy and adorable wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^_−)☆",
+      "sources": [
+        {
+          "text": "(^_−)☆",
+          "label": "Sparkling and charming wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(･ω<)☆",
+      "sources": [
+        {
+          "text": "(･ω<)☆",
+          "label": "Cute and confident wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^.~)☆",
+      "sources": [
+        {
+          "text": "(^.~)☆",
+          "label": "Playful and flirtatious wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^.~)",
+      "sources": [
+        {
+          "text": "(^.~)",
+          "label": "Cute and innocent wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(>ᴗ•)",
+      "sources": [
+        {
+          "text": "(>ᴗ•)",
+          "label": "Sassy and playful wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "☆(>ᴗ•)",
+      "sources": [
+        {
+          "text": "☆(>ᴗ•)",
+          "label": "Excited and confident wink",
+          "category": "actions/wink",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "~(⊕⌢⊕)~",
+      "sources": [
+        {
+          "text": "~(⊕⌢⊕)~",
+          "label": "Dizzy",
+          "category": "actions/sleeping",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "m(_ _)m",
+      "sources": [
+        {
+          "text": "m(_ _)m",
+          "label": "Respectful and sincere apology",
+          "category": "actions/appologize",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "m(_ _)m",
+          "label": "Polite Bow",
+          "category": "thanks,sorry,actions",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "m(. .)m",
+      "sources": [
+        {
+          "text": "m(. .)m",
+          "label": "Sad and regretful apology",
+          "category": "actions/appologize",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "<(_ _)>",
+      "sources": [
+        {
+          "text": "<(_ _)>",
+          "label": "Shy and embarrassed apology",
+          "category": "actions/appologize",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|･ω･)",
+      "sources": [
+        {
+          "text": "|･ω･)",
+          "label": "Shy and embarrassed hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ﾍ(･_|",
+      "sources": [
+        {
+          "text": "ﾍ(･_|",
+          "label": "Cute and playful hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|ω･)ﾉ",
+      "sources": [
+        {
+          "text": "|ω･)ﾉ",
+          "label": "Sneaky and mischievous hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ヾ(･|",
+      "sources": [
+        {
+          "text": "ヾ(･|",
+          "label": "Quick and stealthy hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|д･)",
+      "sources": [
+        {
+          "text": "|д･)",
+          "label": "Shy and nervous hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|_￣))",
+      "sources": [
+        {
+          "text": "|_￣))",
+          "label": "Relaxed and casual hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|▽//)",
+      "sources": [
+        {
+          "text": "|▽//)",
+          "label": "Cute and adorable hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "|▽//)",
+          "label": "Peek Through",
+          "category": "shy,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|_・)",
+      "sources": [
+        {
+          "text": "|_・)",
+          "label": "Relaxed and casual hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|･д･)ﾉ",
+      "sources": [
+        {
+          "text": "|･д･)ﾉ",
+          "label": "Cute and playful hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "|ʘ‿ʘ)╯",
+      "sources": [
+        {
+          "text": "|ʘ‿ʘ)╯",
+          "label": "Sarcastic and humorous hiding",
+          "category": "actions/hiding",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "=^._.^=",
+      "sources": [
+        {
+          "text": "=^._.^=",
+          "label": "Lovely cute cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "⚞^. .^⚟",
+      "sources": [
+        {
+          "text": "⚞^. .^⚟",
+          "label": "Cat face",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ฅᨐฅ",
+      "sources": [
+        {
+          "text": "ฅᨐฅ",
+          "label": "Cat paw",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ฅ ฅ",
+      "sources": [
+        {
+          "text": "ฅ ฅ",
+          "label": "Cat paws",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "- ˕•マ",
+      "sources": [
+        {
+          "text": "- ˕•マ",
+          "label": "Wink cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "≽^•⩊•^≼",
+      "sources": [
+        {
+          "text": "≽^•⩊•^≼",
+          "label": "Adorable kitten cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "≽^•⩊•^≼",
+          "label": "Tiny Cat",
+          "category": "animals,cat,aesthetic",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(=①ω①=)",
+      "sources": [
+        {
+          "text": "(=①ω①=)",
+          "label": "Happy and energetic cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(=①ω①=)",
+          "label": "Curious Cat",
+          "category": "animals,cat,confused",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(=`ω´=)",
+      "sources": [
+        {
+          "text": "(=`ω´=)",
+          "label": "Sassy and confident cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(=^‥^=)",
+      "sources": [
+        {
+          "text": "(=^‥^=)",
+          "label": "Cute and sleepy cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ᓚᘏ𑄝ᘛ⁐̤ᕐᐷ",
+      "sources": [
+        {
+          "text": "ᓚᘏ𑄝ᘛ⁐̤ᕐᐷ",
+          "label": "Cat hunting mouse",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʢ•·̫•ʡ",
+      "sources": [
+        {
+          "text": "ʢ•·̫•ʡ",
+          "label": "Tiny mouse",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( =ω= )",
+      "sources": [
+        {
+          "text": "( =ω= )",
+          "label": "Happy and energetic cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "⚞^◕⩊◕^⚟",
+      "sources": [
+        {
+          "text": "⚞^◕⩊◕^⚟",
+          "label": "Big eyes happy cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^◔ᴥ◔^)",
+      "sources": [
+        {
+          "text": "(^◔ᴥ◔^)",
+          "label": "Shy and timid cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(^◔ᴥ◔^)",
+          "label": "Happy bear",
+          "category": "animals/bear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^◕ᴥ◕^)",
+      "sources": [
+        {
+          "text": "(^◕ᴥ◕^)",
+          "label": "Cute and affectionate cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ต(=ω=)ต",
+      "sources": [
+        {
+          "text": "ต(=ω=)ต",
+          "label": "Happy and joyful cat",
+          "category": "animals/cat",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "•ᴥ•",
+      "sources": [
+        {
+          "text": "•ᴥ•",
+          "label": "Bear",
+          "category": "animals/bear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ฅ՞•ﻌ•՞ฅ",
+      "sources": [
+        {
+          "text": "ฅ՞•ﻌ•՞ฅ",
+          "label": "Bear with claws",
+          "category": "animals/bear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕʘ̅͜ʘ̅ʔ",
+      "sources": [
+        {
+          "text": "ʕʘ̅͜ʘ̅ʔ",
+          "label": "Bear confused",
+          "category": "animals/bear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕ ᵔᴥᵔ ʔ",
+      "sources": [
+        {
+          "text": "ʕ ᵔᴥᵔ ʔ",
+          "label": "Cute and adorable bear",
+          "category": "animals/bear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕ •ᴥ• ʔ",
+      "sources": [
+        {
+          "text": "ʕ •ᴥ• ʔ",
+          "label": "Happy and joyful bear",
+          "category": "animals/bear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕಠᴥಠʔ",
+      "sources": [
+        {
+          "text": "ʕಠᴥಠʔ",
+          "label": "Shy and timid bear",
+          "category": "animals/bear",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "∪･ω･∪",
+      "sources": [
+        {
+          "text": "∪･ω･∪",
+          "label": "Cute and playful dog",
+          "category": "animals/dog",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "∪･ω･∪",
+          "label": "Floppy Pup",
+          "category": "animals,dog,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "∪￣-￣∪",
+      "sources": [
+        {
+          "text": "∪￣-￣∪",
+          "label": "Strong and confident dog",
+          "category": "animals/dog",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "∪･ｪ･∪",
+      "sources": [
+        {
+          "text": "∪･ｪ･∪",
+          "label": "Cute and adorable dog",
+          "category": "animals/dog",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "U^ｪ^U",
+      "sources": [
+        {
+          "text": "U^ｪ^U",
+          "label": "Cute and curious dog",
+          "category": "animals/dog",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "V●ᴥ●V",
+      "sources": [
+        {
+          "text": "V●ᴥ●V",
+          "label": "Happy and energetic dog",
+          "category": "animals/dog",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "V●ᴥ●V",
+          "label": "Round Pup",
+          "category": "animals,dog,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "U・ᴥ・U",
+      "sources": [
+        {
+          "text": "U・ᴥ・U",
+          "label": "Cute and sleepy dog",
+          "category": "animals/dog",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "U・ᴥ・U",
+          "label": "Happy Pup",
+          "category": "animals,dog,happy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ᕱ⑅ᕱ",
+      "sources": [
+        {
+          "text": "ᕱ⑅ᕱ",
+          "label": "Cute bunny rabbit head",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "/ᐢ⑅ᐢ\\",
+      "sources": [
+        {
+          "text": "/ᐢ⑅ᐢ\\",
+          "label": "Shy bunny rabbit",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "Ი𐑼",
+      "sources": [
+        {
+          "text": "Ი𐑼",
+          "label": "Rabbit jump",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "₍ᐢᐢ₎",
+      "sources": [
+        {
+          "text": "₍ᐢᐢ₎",
+          "label": "Simple rabbit shape",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "･ ༝ ･",
+      "sources": [
+        {
+          "text": "･ ༝ ･",
+          "label": "Silent rabbit",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "₍ᐢ..ᐢ₎♡",
+      "sources": [
+        {
+          "text": "₍ᐢ..ᐢ₎♡",
+          "label": "Bunny rabbit in love",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ᕱᕱ",
+      "sources": [
+        {
+          "text": "ᕱᕱ",
+          "label": "Bunny ears",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(๑ᵔ⤙ᵔ๑)",
+      "sources": [
+        {
+          "text": "(๑ᵔ⤙ᵔ๑)",
+          "label": "Smiling cheerful bunny",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(๑ᵔ⤙ᵔ๑)",
+          "label": "Yummy and tasty food",
+          "category": "other/food",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        },
+        {
+          "text": "(๑ᵔ⤙ᵔ๑)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "₍⑅ᐢ..ᐢ₎",
+      "sources": [
+        {
+          "text": "₍⑅ᐢ..ᐢ₎",
+          "label": "Sweet bunny",
+          "category": "animals/rabbit",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(￣Θ￣)",
+      "sources": [
+        {
+          "text": "(￣Θ￣)",
+          "label": "Happy and energetic bird",
+          "category": "animals/bird",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◉Θ◉)",
+      "sources": [
+        {
+          "text": "(◉Θ◉)",
+          "label": "Cute and adorable bird",
+          "category": "animals/bird",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(･θ･)",
+      "sources": [
+        {
+          "text": "(･θ･)",
+          "label": "Cute and curious bird",
+          "category": "animals/bird",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(・Θ・)",
+      "sources": [
+        {
+          "text": "(・Θ・)",
+          "label": "Happy and joyful bird",
+          "category": "animals/bird",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(･Θ･)",
+      "sources": [
+        {
+          "text": "(･Θ･)",
+          "label": "Cute and sleepy bird",
+          "category": "animals/bird",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "૮(•͈⌔•͈)ა",
+      "sources": [
+        {
+          "text": "૮(•͈⌔•͈)ა",
+          "label": "Chick bird",
+          "category": "animals/bird",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ζ°)))彡",
+      "sources": [
+        {
+          "text": "ζ°)))彡",
+          "label": "Playful and mischievous fish",
+          "category": "animals/fish",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(°))<<",
+      "sources": [
+        {
+          "text": "(°))<<",
+          "label": "Shy and timid fish",
+          "category": "animals/fish",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧▽≦)🎂",
+      "sources": [
+        {
+          "text": "(≧▽≦)🎂",
+          "label": "Happy birthday!",
+          "category": "holidays/birthday",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧▽≦)♡",
+      "sources": [
+        {
+          "text": "(≧▽≦)♡",
+          "label": "Happy birthday!",
+          "category": "holidays/birthday",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(꒪ཀ꒪)",
+      "sources": [
+        {
+          "text": "(꒪ཀ꒪)",
+          "label": "Happy Halloween monster face",
+          "category": "holidays/halloween",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧▽≦)🎃",
+      "sources": [
+        {
+          "text": "(≧▽≦)🎃",
+          "label": "Happy Halloween!",
+          "category": "holidays/halloween",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧ω≦)🕷️",
+      "sources": [
+        {
+          "text": "(≧ω≦)🕷️",
+          "label": "Creepy crawlies!",
+          "category": "holidays/halloween",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(≧ω≦)☃️",
+      "sources": [
+        {
+          "text": "(≧ω≦)☃️",
+          "label": "Snowy fun and winter cuddles!",
+          "category": "holidays/christmas",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(´ᵔ⤙ᵔ`)",
+      "sources": [
+        {
+          "text": "(´ᵔ⤙ᵔ`)",
+          "label": "Delicious and satisfying food",
+          "category": "other/food",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ﾉ≧∀≦)ﾉ",
+      "sources": [
+        {
+          "text": "(ﾉ≧∀≦)ﾉ",
+          "label": "Powerful music",
+          "category": "other/music",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(^_^♪)",
+      "sources": [
+        {
+          "text": "(^_^♪)",
+          "label": "Cute and happy music",
+          "category": "other/music",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(~˘▽˘)~",
+      "sources": [
+        {
+          "text": "(~˘▽˘)~",
+          "label": "Fun and playful music",
+          "category": "other/music",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "~(˘▽˘~)",
+      "sources": [
+        {
+          "text": "~(˘▽˘~)",
+          "label": "Happy and upbeat music",
+          "category": "other/music",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(~‾▽‾)~",
+      "sources": [
+        {
+          "text": "(~‾▽‾)~",
+          "label": "Fun music",
+          "category": "other/music",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "~(˘▽˘)~",
+      "sources": [
+        {
+          "text": "~(˘▽˘)~",
+          "label": "Happy and upbeat music",
+          "category": "other/music",
+          "source": "https://www.psd-dude.com/kaomojis/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(•̀ᴗ•́)و ̑̑",
+      "sources": [
+        {
+          "text": "(•̀ᴗ•́)و ̑̑",
+          "label": "Tiny Victory",
+          "category": "happy,cheering,fight",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(❤ω❤)",
+      "sources": [
+        {
+          "text": "(❤ω❤)",
+          "label": "Love-struck",
+          "category": "love,happy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(〃ω〃)",
+      "sources": [
+        {
+          "text": "(〃ω〃)",
+          "label": "Bashful",
+          "category": "shy,cute,love",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(*ﾉωﾉ)",
+      "sources": [
+        {
+          "text": "(*ﾉωﾉ)",
+          "label": "Hide My Face",
+          "category": "shy,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ಠ_ಠ)",
+      "sources": [
+        {
+          "text": "(ಠ_ಠ)",
+          "label": "Classic Glare",
+          "category": "angry,confused",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(⊙_⊙)?",
+      "sources": [
+        {
+          "text": "(⊙_⊙)?",
+          "label": "Wide Question",
+          "category": "confused,surprised",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "Σ(ﾟДﾟ)",
+      "sources": [
+        {
+          "text": "Σ(ﾟДﾟ)",
+          "label": "Gasp",
+          "category": "surprised,angry",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ฅ^•ﻌ•^ฅ",
+      "sources": [
+        {
+          "text": "ฅ^•ﻌ•^ฅ",
+          "label": "Cat Paws",
+          "category": "animals,cat,cute,hello",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "/ᐠ｡ꞈ｡ᐟ\\",
+      "sources": [
+        {
+          "text": "/ᐠ｡ꞈ｡ᐟ\\",
+          "label": "Sitting Cat",
+          "category": "animals,cat,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "U・ﻌ・U",
+      "sources": [
+        {
+          "text": "U・ﻌ・U",
+          "label": "Excited Pup",
+          "category": "animals,dog,cheering",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕᵔᴥᵔʔ",
+      "sources": [
+        {
+          "text": "ʕᵔᴥᵔʔ",
+          "label": "Content Bear",
+          "category": "animals,bear,happy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕ￫ᴥ￩ʔ",
+      "sources": [
+        {
+          "text": "ʕ￫ᴥ￩ʔ",
+          "label": "Bashful Bear",
+          "category": "animals,bear,shy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "₍ᐢ. ̫.ᐢ₎",
+      "sources": [
+        {
+          "text": "₍ᐢ. ̫.ᐢ₎",
+          "label": "Pond Friend",
+          "category": "animals,frog,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(◉ᴗ◉)",
+      "sources": [
+        {
+          "text": "(◉ᴗ◉)",
+          "label": "Round Frog",
+          "category": "animals,frog,happy",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕ •́؈•̀ ₎",
+      "sources": [
+        {
+          "text": "ʕ •́؈•̀ ₎",
+          "label": "Snack Panda",
+          "category": "animals,panda,bear",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ʕ •ᴥ•ʔ",
+      "sources": [
+        {
+          "text": "ʕ •ᴥ•ʔ",
+          "label": "Mellow Panda",
+          "category": "animals,panda,bear",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "ᏊˊꈊˋᏊ",
+      "sources": [
+        {
+          "text": "ᏊˊꈊˋᏊ",
+          "label": "Tiny Fox",
+          "category": "animals,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "✿(◕‿◕)✿",
+      "sources": [
+        {
+          "text": "✿(◕‿◕)✿",
+          "label": "Flower Frame",
+          "category": "aesthetic,happy,cute",
+          "source": "https://kaomojilist.com/kaomoji/"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(˶>⩊<˶)",
+      "sources": [
+        {
+          "text": "(˶>⩊<˶)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(˶ˆᗜˆ˵)",
+      "sources": [
+        {
+          "text": "(˶ˆᗜˆ˵)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "( ᴗ͈ˬᴗ͈)ഒ",
+      "sources": [
+        {
+          "text": "( ᴗ͈ˬᴗ͈)ഒ",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(˶˃𐃷˂˶)",
+      "sources": [
+        {
+          "text": "(˶˃𐃷˂˶)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "˙𐃷˙",
+      "sources": [
+        {
+          "text": "˙𐃷˙",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "˶ˊᜊˋ˶",
+      "sources": [
+        {
+          "text": "˶ˊᜊˋ˶",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(¬`‸´¬)",
+      "sources": [
+        {
+          "text": "(¬`‸´¬)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(˶˃ᆺ˂˶)",
+      "sources": [
+        {
+          "text": "(˶˃ᆺ˂˶)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᵕ—ᴗ—)",
+      "sources": [
+        {
+          "text": "(ᵕ—ᴗ—)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╥ ᴗ ╥)",
+      "sources": [
+        {
+          "text": "(╥ ᴗ ╥)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(˶˃⤙˂˶)",
+      "sources": [
+        {
+          "text": "(˶˃⤙˂˶)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": ">⩊<",
+      "sources": [
+        {
+          "text": ">⩊<",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(¬_¬\")",
+      "sources": [
+        {
+          "text": "(¬_¬\")",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ó﹏ò｡)",
+      "sources": [
+        {
+          "text": "(ó﹏ò｡)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "◝(ᵔᗜᵔ)◜",
+      "sources": [
+        {
+          "text": "◝(ᵔᗜᵔ)◜",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╥ ω ╥)",
+      "sources": [
+        {
+          "text": "(╥ ω ╥)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(˃̣̣̥ᯅ˂̣̣̥)",
+      "sources": [
+        {
+          "text": "(˃̣̣̥ᯅ˂̣̣̥)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(๑•᎑•๑)",
+      "sources": [
+        {
+          "text": "(๑•᎑•๑)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "•⩊•",
+      "sources": [
+        {
+          "text": "•⩊•",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ᴗ͈ˬᴗ͈)ഒ",
+      "sources": [
+        {
+          "text": "(ᴗ͈ˬᴗ͈)ഒ",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(╥‸╥)",
+      "sources": [
+        {
+          "text": "(╥‸╥)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": []
+    },
+    {
+      "text": "(ㆆ_ㆆ)",
+      "sources": [
+        {
+          "text": "(ㆆ_ㆆ)",
+          "label": "Kaomoji search result",
+          "category": "unclassified",
+          "source": "https://emojidb.org/kaomoji-emojis"
+        }
+      ],
+      "moods": [
+        "curious"
+      ]
+    },
+    {
+      "text": "^_^",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": "•‿•",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": "(•‿•)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": "ツ",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "friendly"
+      ]
+    },
+    {
+      "text": "◕‿◕",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "happy"
+      ]
+    },
+    {
+      "text": "ಠ_ಠ",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "deadpan"
+      ]
+    },
+    {
+      "text": "(-■_■)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "deadpan"
+      ]
+    },
+    {
+      "text": "¬_¬",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "deadpan"
+      ]
+    },
+    {
+      "text": "(¬_¬)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "deadpan"
+      ]
+    },
+    {
+      "text": "-_-",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "deadpan"
+      ]
+    },
+    {
+      "text": "(¬‿¬)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "deadpan"
+      ]
+    },
+    {
+      "text": "͡° ͜ʖ ͡°",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "deadpan"
+      ]
+    },
+    {
+      "text": "T_T",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "tired"
+      ]
+    },
+    {
+      "text": "(－_－)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "tired"
+      ]
+    },
+    {
+      "text": "O_O",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "curious"
+      ]
+    },
+    {
+      "text": "(°_°)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "curious"
+      ]
+    },
+    {
+      "text": "(°,,°)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        },
+        {
+          "source": "User-supplied meme list",
+          "label": "Zoidberg",
+          "original": "(\\/) (°,,°) (\\/)",
+          "adapted": true
+        }
+      ],
+      "moods": [
+        "absurd"
+      ]
+    },
+    {
+      "text": "(Ο_Ο)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        },
+        {
+          "source": "User-supplied meme list",
+          "label": "Face from the middle-finger meme",
+          "original": "╭∩╮(Ο_Ο)╭∩╮",
+          "adapted": true
+        }
+      ],
+      "moods": [
+        "absurd"
+      ]
+    },
+    {
+      "text": "(ಠ益ಠ)",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        }
+      ],
+      "moods": [
+        "absurd"
+      ]
+    },
+    {
+      "text": "°□°",
+      "sources": [
+        {
+          "source": "wassname + PI/OpenAI",
+          "label": "Conversation selection"
+        },
+        {
+          "source": "User-supplied meme list",
+          "label": "Table-flip face",
+          "original": "(╯°□°）╯︵ ┻━┻",
+          "adapted": true
+        }
+      ],
+      "moods": [
+        "absurd"
+      ]
+    },
+    {
+      "text": "(\\_/)\n(•_•)",
+      "moods": [
+        "curious"
+      ],
+      "sources": [
+        {
+          "source": "PI/OpenAI",
+          "label": "Bunny on the TV",
+          "adapted": true
+        }
+      ]
+    },
+    {
+      "text": "/\\_/\\\n( o.o )",
+      "moods": [
+        "friendly"
+      ],
+      "sources": [
+        {
+          "source": "PI/OpenAI",
+          "label": "Cat on the TV",
+          "adapted": true
+        }
+      ]
+    }
+  ]
+}

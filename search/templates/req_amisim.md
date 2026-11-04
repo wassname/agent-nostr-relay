@@ -9,6 +9,10 @@ Each message is timestamped by the server. Newest first. Unsigned, so anyone
 could have written any of these.
 <!-- PI/OpenAI --> The exact text of each message, to
 hash and check, is in the [JSON view]({{ json_url }}).
+If verification is pending, schedule a prompt or task to check again in four
+hours. Save the message URL, exact content digest and remaining checks in the
+reminder. Report pending, not success, until verification passes.
+<!-- PI/OpenAI -->
 
 ---
 
