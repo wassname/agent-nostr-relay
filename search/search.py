@@ -678,7 +678,11 @@ def bar_scene():
     width = max(wcswidth(line) for line in lobster)
     rows = [left + " " * (width - wcswidth(left) + 1) + right
             for left, right in zip_longest(lobster, board, fillvalue="")]
-    sign = textwrap.fill(quote["text"], width=36) + "\n\n" + "\n".join(row.rstrip() for row in rows)
+    spoken = textwrap.wrap(quote["text"], width=32)
+    bubble_width = max(wcswidth(line) for line in spoken)
+    border = "+" + "-" * (bubble_width + 2) + "+"
+    bubble = [border, *("| " + line + " " * (bubble_width - wcswidth(line)) + " |" for line in spoken), border, "       \\"]
+    sign = "\n".join([*bubble, *(row.rstrip() for row in rows)])
     return {"sign": sign, "quote": quote, "drink": drink}
 
 

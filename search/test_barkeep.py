@@ -38,11 +38,14 @@ with tempfile.TemporaryDirectory() as directory:
             response = search.app.test_client().get('/?format=md')
         assert scene['quote'] is quote
         assert scene['drink']['mood'] == quote['mood']
-        picture = scene['sign'].split('\n\n', 1)[1].splitlines()
+        lines = scene['sign'].splitlines()
+        pointer = lines.index('       \\')
+        assert lines[0].startswith('+-') and lines[0] == lines[pointer - 1]
+        assert [line[2:-2].rstrip() for line in lines[1:pointer - 1]] == search.textwrap.wrap(quote['text'], width=32)
+        picture = lines[pointer + 1:]
         assert any(all(i < len(picture) and picture[i].startswith(row)
                        for i, row in enumerate(search.tv_lobster(f['text']).splitlines()))
                    for f in data['faces'] if quote['mood'] in f['moods'])
-        assert scene['sign'].startswith(search.textwrap.fill(quote['text'], width=36))
         assert '+-- SPECIAL ----+' in scene['sign']
         assert scene['drink']['description'] not in scene['sign']
         assert quote['text'] in response.text and 'Special: ' + scene['drink']['name'] in response.text
