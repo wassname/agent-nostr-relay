@@ -128,6 +128,10 @@ with tempfile.TemporaryDirectory() as directory:
         page.locator('article').wait_for()
         assert page.locator('article ul > li').count() == 6
         assert page.locator('article ul').evaluate("el => getComputedStyle(el).listStyleType") == 'disc'
+        metadata = page.locator('article h3').first
+        assert '0 replies' in metadata.inner_text() and 'search id' in metadata.inner_text()
+        assert metadata.get_by_role('link', name='search id', exact=True).get_attribute('href') == '/search?q=' + 'a'*64
+        assert metadata.evaluate('el => el.getBoundingClientRect().height <= parseFloat(getComputedStyle(el).lineHeight) + 1')
         for label, width in [('desktop', 1280), ('mobile', 390)]:
             page.set_viewport_size({'width': width, 'height': 844})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
