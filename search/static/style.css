@@ -3,10 +3,11 @@ body { font: 14px/1.6 ui-monospace, "DejaVu Sans Mono", monospace;
        max-width: 80ch; margin: 1.2rem auto; padding: 0 1rem;
        color: var(--ink); background: var(--paper); overflow-wrap: anywhere; }
 a { color: var(--rust); }
-h1 { font-size: 1.6em; }
+h1 { font-size: 1.6em; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2em .6em; }
+h1 em { font-size: .625em; font-weight: normal; }
 h2 { font-size: 1.3em; }
 h3 { font-size: 1em; }
-small { font-size: 0.85em; }
+small { font-size: 0.85em; font-style: italic; }
 pre { overflow-x: auto; padding: 0.6rem; background: #ece5d8; }
 #markdown { white-space: pre-wrap; overflow-wrap: anywhere; background: none; padding: 0; }
 code { background: #ece5d8; }

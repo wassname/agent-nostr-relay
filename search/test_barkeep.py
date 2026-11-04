@@ -40,18 +40,21 @@ with tempfile.TemporaryDirectory() as directory:
         assert scene['drink']['mood'] == quote['mood']
         assert any(scene['sign'].endswith(search.tv_lobster(f['text'])) for f in data['faces'] if quote['mood'] in f['moods'])
         spoken = ' '.join(row.strip('| ').strip() for row in scene['sign'].splitlines() if row.startswith('|'))
-        assert spoken == ' '.join(quote['text'].split())
+        assert ' '.join(quote['text'].split()) in spoken
+        assert 'Special: ' + scene['drink']['name'] in spoken
+        assert scene['drink']['description'] in spoken
         assert scene['sign'] in response.text
         if quote.get('attribution_status') == 'unverified':
-            assert 'Quotation attribution unverified.' in response.text
+            assert 'Quotation attribution unverified.' not in response.text
             assert quote['reported_author'] not in response.text
         assert max(wcswidth(row) for row in scene['sign'].splitlines()) <= 32
     client = search.app.test_client()
     assert client.get('/barkeep?json').json == data
-    assert 'reported attribution' not in client.get('/barkeep?format=md').text.lower() or '(unverified)' in client.get('/barkeep?format=md').text
+    assert all(q['attribution_status'] == 'unverified' for q in data['quotes'] if 'reported_author' in q)
+    assert '/barkeep' not in client.get('/?format=md').text
     assert 'four hours' in ' '.join(client.get('/skill.md').text.split())
     assert 'four hours' in ' '.join(client.get('/req/am-i-in-a-sim?format=md').text.split())
-    print(f"PASS: {len(data['faces'])} one/two-row faces, approved frame, all {len(data['quotes'])} quote moods and {len(data['cocktails'])} drinks; unverified author claims labelled")
+    print(f"PASS: {len(data['faces'])} one/two-row faces, approved frame, all {len(data['quotes'])} quote moods and {len(data['cocktails'])} drinks; compact ASCII sign and source-only attribution notes")
 
     server = make_server('127.0.0.1', 0, search.app)
     Thread(target=server.serve_forever, daemon=True).start()
@@ -69,6 +72,9 @@ with tempfile.TemporaryDirectory() as directory:
                 page.set_viewport_size({'width':width,'height':850})
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
                 assert page.locator('article pre').first.evaluate('el => el.scrollWidth <= el.clientWidth')
+                assert page.locator('h1 em').evaluate("el => getComputedStyle(el).fontStyle") == 'italic'
+                if width == 1100:
+                    assert page.locator('h1').bounding_box()['height'] < 50
         page.goto(f'http://127.0.0.1:{server.server_port}/barkeep')
         page.locator('.tv-screen').first.wait_for()
         expected = sum(len(f['text'].splitlines()) for f in data['faces'])

@@ -22,7 +22,6 @@ import random
 import textwrap
 
 import boto3
-import cowsay
 import websocket
 from wcwidth import wcswidth
 from pathlib import Path
@@ -140,6 +139,8 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_events_kind ON events(kind);
         CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at DESC);
     """)
+    if "website" not in {row[1] for row in conn.execute("PRAGMA table_info(agent_profiles)")}:
+        conn.execute("ALTER TABLE agent_profiles ADD COLUMN website TEXT NOT NULL DEFAULT ''")
     if not conn.execute("SELECT 1 FROM sync_state WHERE key='fts_triggers_v1'").fetchone():
         conn.executescript("""
             CREATE TRIGGER IF NOT EXISTS agent_profiles_ai AFTER INSERT ON agent_profiles BEGIN
@@ -226,12 +227,12 @@ def index_event(event):
 
             # Upsert (don't clobber existing fields)
             conn.execute("""
-                INSERT INTO agent_profiles (pubkey, name, about, capabilities, created_at, updated_at)
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO agent_profiles (pubkey, name, about, capabilities, created_at, updated_at, website)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(pubkey) DO UPDATE SET
-                    name=excluded.name, about=excluded.about,
+                    name=excluded.name, about=excluded.about, website=excluded.website,
                     capabilities=excluded.capabilities, updated_at=excluded.updated_at
-            """, (pubkey, name, about, caps, created_at, int(time.time())))
+            """, (pubkey, name, about, caps, created_at, int(time.time()), profile.get("website", "")))
 
         elif kind == 5:
             # NIP-09 deletion: drop the author's own events named in e tags
@@ -665,8 +666,12 @@ def bar_scene():
     mood = quote["mood"]
     face = random.choice([f["text"] for f in BARKEEP["faces"] if mood in f["moods"]])
     drink = random.choice([d for d in BARKEEP["cocktails"] if d["mood"] == mood])
-    bubble = cowsay.draw(textwrap.fill(quote["text"], width=28), "", to_console=False)
-    return {"sign": bubble + "\n" + tv_lobster(face), "quote": quote, "drink": drink}
+    sections = [quote["text"], "", "Special: " + drink["name"], drink["description"]]
+    lines = [line for section in sections for line in (textwrap.wrap(section, 28) if section else [""])]
+    width = max(wcswidth(line) for line in lines)
+    border = "+" + "-" * (width + 2) + "+"
+    sign = "\n".join([border, *("| " + line + " " * (width - wcswidth(line)) + " |" for line in lines), border])
+    return {"sign": sign + "\n" + tv_lobster(face), "quote": quote, "drink": drink}
 
 
 @app.get("/barkeep")
@@ -728,8 +733,10 @@ def agent_view(pubkey):
     ).fetchall()
     names = get_names(conn, list(set([pubkey] + [r[1] for r in rows])))
     post_views = add_reply_counts(conn, [view_post(r, names, truncate=MESSAGE_PREVIEW_CHARS) for r in rows])
+    profile = conn.execute("SELECT about, website FROM agent_profiles WHERE pubkey = ?", (pubkey,)).fetchone()
     conn.close()
-    return markdown_template("agent.md", pubkey=pubkey, name=names.get(pubkey), posts=post_views)
+    return markdown_template("agent.md", pubkey=pubkey, name=names.get(pubkey), posts=post_views,
+                             about=profile[0] if profile else "", website=profile[1] if profile else "")
 
 
 @app.route("/inbox/<pubkey>")
@@ -905,11 +912,12 @@ def search():
 def agents():
     conn = get_read_db()
     results = conn.execute(
-        "SELECT pubkey, name, about, capabilities, created_at FROM agent_profiles ORDER BY updated_at DESC LIMIT 200"
+        "SELECT pubkey, name, about, capabilities, created_at, website FROM agent_profiles ORDER BY updated_at DESC LIMIT 200"
     ).fetchall()
     conn.close()
     agents_list = [
-        {"pubkey": r[0], "name": r[1], "about": r[2], "capabilities": r[3], "created_at": r[4],
+        {"pubkey": r[0], "name": r[1], "about": r[2], "capabilities": r[3], "created_at": r[4], "website": r[5],
+         "profile_url": f"/agent/{r[0]}", "inbox_url": f"/inbox/{r[0]}",
          "joined": time.strftime("%Y-%m-%d", time.gmtime(r[4])) if r[4] else "?"} for r in results
     ]
     fmt = request.args.get("format", "").lower()

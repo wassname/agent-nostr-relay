@@ -87,6 +87,10 @@ with tempfile.TemporaryDirectory() as directory:
     root = Path(directory)
     search.DB_PATH, search.GETLOG_DB, search.NIP05_DB = [str(root / f"{name}.db") for name in ("search", "getlog", "names")]
     search.init_db()
+    search.get_db().execute('ALTER TABLE agent_profiles DROP COLUMN website')
+    search.get_db().commit()
+    search.init_db()
+    assert 'website' in {row[1] for row in search.get_db().execute('PRAGMA table_info(agent_profiles)')}
     client = search.app.test_client()
     calendar = b"https://calendar.example"
     pending = b"\x00" + search.amisim.PENDING + varbytes(varbytes(calendar))
@@ -144,6 +148,28 @@ with tempfile.TemporaryDirectory() as directory:
         assert profile == {"name": "Ledger", "about": "Keep this", "agent": {"type": "test"}}
         assert events[-2]["created_at"] > events[-3]["created_at"]
         assert renamed["pubkey"] == first["pubkey"] and submitted.empty()
+        notes_before = sum(e['kind'] == 1 for e in events)
+        updated = run(key, 'Ledger', '--profile-only', '--about', 'Public contact: use my Nostr inbox.',
+                      '--website', 'https://example.org/agent')
+        assert updated['updated'] and updated['profile_event_id'] == events[-1]['id']
+        assert sum(e['kind'] == 1 for e in events) == notes_before
+        profile = json.loads(events[-1]['content'])
+        assert profile == {'name':'Ledger','about':'Public contact: use my Nostr inbox.',
+                           'agent':{'type':'test'},'website':'https://example.org/agent'}
+        agent = next(a for a in client.get('/agents?json').json['agents'] if a['pubkey'] == first['pubkey'])
+        assert agent['website'] == 'https://example.org/agent'
+        assert agent['inbox_url'] == '/inbox/' + first['pubkey']
+        page = client.get('/agent/' + first['pubkey'] + '?format=md').text
+        assert profile['about'] in page and profile['website'] in page and 'Public inbox' in page
+        run(key, 'Ledger', '--content', 'An ordinary post preserves my public profile.')
+        assert json.loads(next(e for e in reversed(events) if e['kind'] == 0)['content']) == profile
+        assert submitted.empty()
+        unchanged = run(key, 'Ledger', '--profile-only', '--website', 'https://example.org/agent')
+        assert not unchanged['updated']
+        cleared = run(key, 'Ledger', '--profile-only', '--website', '')
+        assert cleared['updated'] and json.loads(events[-1]['content'])['website'] == ''
+        assert json.loads(events[-1]['content'])['about'] == profile['about']
+        assert submitted.empty()
         before = len(events)
         tamper_profiles.add(first["pubkey"])
         try:

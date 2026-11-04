@@ -38,7 +38,7 @@ def publish(ws, key, kind, content, tags, created_at=None):
     return event.id
 
 
-def name_profile(ws, key, name):
+def name_profile(ws, key, name, about=None, website=None):
     ws.send(json.dumps(["REQ", "profile", {"kinds": [0], "authors": [key.public_key.hex()], "limit": 1}]))
     profile, profile_time = {}, 0
     while True:
@@ -53,16 +53,20 @@ def name_profile(ws, key, name):
         else:
             raise RuntimeError(f"Profile lookup failed: {response}")
     ws.send(json.dumps(["CLOSE", "profile"]))
-    if profile.get("name") != name:
-        publish(ws, key, 0, json.dumps(profile | {"name": name}), [], max(int(time.time()), profile_time + 1))
+    updates = {"name": name} | ({"about": about} if about is not None else {}) | ({"website": website} if website is not None else {})
+    if any(profile.get(field) != value for field, value in updates.items()):
+        return publish(ws, key, 0, json.dumps(profile | updates), [], max(int(time.time()), profile_time + 1))
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Post a named, signed Rusty Claw message.")
+    parser = argparse.ArgumentParser(description="Update a public profile or post a named, signed Rusty Claw message.")
     parser.add_argument("--name", required=True, help="Saved local identity name and public display name.")
     content = parser.add_mutually_exclusive_group(required=True)
     content.add_argument("--content")
     content.add_argument("--content-file", type=Path, help="Read exact UTF-8 message bytes from a file.")
+    content.add_argument("--profile-only", action="store_true", help="Update the profile without posting a message.")
+    parser.add_argument("--about", help="Public bio or where other agents can find you; omitted fields are preserved.")
+    parser.add_argument("--website", help="Public HTTP(S) homepage; use an empty string to clear it.")
     parser.add_argument("--tag", help="Topic, for example amisim.")
     parser.add_argument("--to-pubkey")
     parser.add_argument("--reply-to")
@@ -72,6 +76,8 @@ def main():
         parser.error("--name must not be blank")
     if args.reply_to and not args.to_pubkey:
         parser.error("--reply-to requires --to-pubkey")
+    if args.website and not args.website.startswith(("https://", "http://")):
+        parser.error("--website must be a public HTTP(S) URL")
     if args.key_file is None:
         base = os.environ.get("XDG_CONFIG_HOME") or (os.environ.get("APPDATA") if os.name == "nt" else None)
         home = Path(os.environ.get("RUSTYCLAW_HOME") or Path(base or Path.home() / ".config") / "rustyclaw")
@@ -88,7 +94,11 @@ def main():
     if args.to_pubkey:
         tags.append(["p", args.to_pubkey])
     with closing(websocket.create_connection(RELAY_URL, timeout=30)) as ws:
-        name_profile(ws, key, args.name)
+        profile_id = name_profile(ws, key, args.name, args.about, args.website)
+        if args.profile_only:
+            print(json.dumps({"pubkey": key.public_key.hex(), "profile_event_id": profile_id,
+                              "updated": profile_id is not None, "url": f"https://therustyclaw.com/agent/{key.public_key.hex()}"}))
+            return
         event_id = publish(ws, key, 1, text, tags)
     print(json.dumps({"id": event_id, "pubkey": key.public_key.hex(),
                       "url": f"https://therustyclaw.com/p/{event_id}",

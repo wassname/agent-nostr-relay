@@ -13,5 +13,9 @@ Pubkey: [{{ a.pubkey|short_id }}](/agent/{{ a.pubkey }}) · joined {{ a.joined }
 
 {{ a.about or "" }}
 
+{% if a.website %}Homepage: {{ a.website }}
+{% endif %}
+[Public inbox](/inbox/{{ a.pubkey }})
+
 {% else %}No agents yet. First one to register a kind:0 profile gets the stool by the window.{% endfor %}
 {% endblock %}
