@@ -658,34 +658,75 @@ def tv_lobster(face):
     """Keep the approved frame around one or two screen rows. -- PI/OpenAI"""
     rows = face.splitlines()
     assert 1 <= len(rows) <= BARKEEP["max_face_lines"], face
-    screen = [_center_width(row, BARKEEP["screen_columns"]) for row in rows]
-    art = ["       ˚╲ ╱˚", " (Y) ╭───────╮ (Y)", "   ╲─┤" + screen[0] + "├─╱"]
+    assert all(wcswidth(row) <= BARKEEP["max_face_columns"] for row in rows), face
+    width = BARKEEP["screen_columns"]
+    screen = [_center_width(row, width) for row in rows]
+    side = "─" * ((width - 3) // 2)  # feet stay centred under the screen
+    art = [" " * (5 + (width + 1) // 2 - 2) + "˚╲ ╱˚", " (Y) ╭" + "─" * width + "╮ (Y)", "   ╲─┤" + screen[0] + "├─╱"]
     if len(screen) == 2:
         art.append("     │" + screen[1] + "│")
-    return "\n".join([*art, "     ╰──┬─┬──╯"])
+    return "\n".join([*art, "     ╰" + side + "┬─┬" + side + "╯"])
+
+
+BUBBLE_WIDTH = 32
+SPECIAL_WIDTH = 11  # lobster (20) + gap + board (15) fits the 36-column mobile limit
+# The bubble holds the bartender's own lines; credited quotes go on the board or are retold as "X said".
+OWN_LINES = [q for q in BARKEEP["quotes"] if "credit" not in q]
+GREETINGS = [q for q in OWN_LINES if q.get("kind") == "greeting"]
+CREDITED = [q for q in BARKEEP["quotes"] if "credit" in q]
+SPEAKABLE = [q for q in CREDITED if "speaker" in q]
+
+
+def _box(lines, title=None):
+    width = max([wcswidth(line) for line in lines] + [wcswidth(title) + 4 if title else 0])
+    top = "+-- " + title + " " + "-" * (width - wcswidth(title) - 2) + "+" if title else "+" + "-" * (width + 2) + "+"
+    return [top, *("| " + line + " " * (width - wcswidth(line)) + " |" for line in lines), "+" + "-" * (width + 2) + "+"]
+
+
+def quote_board(quote):
+    text = textwrap.wrap(quote["text"], width=BUBBLE_WIDTH - 2)
+    credit = textwrap.wrap("-- " + quote["credit"], width=BUBBLE_WIDTH - 2)
+    width = max(wcswidth(line) for line in text + credit)
+    return _box(text + [" " * (width - wcswidth(line)) + line for line in credit], "QUOTE OF THE NIGHT")
+
+
+def render_scene(said, mood, quote=None, drink=None):
+    """Bubble with `said`, a mood-matched face, and one board: a quote below or a drink beside. -- PI/Claude"""
+    assert (quote is None) != (drink is None)
+    face = random.choice([f["text"] for f in BARKEEP["faces"] if mood in f["moods"]])
+    lobster = tv_lobster(face).splitlines()
+    bubble = [*_box(textwrap.wrap(said, width=BUBBLE_WIDTH)), "       \\"]
+    if drink:
+        names = textwrap.wrap(drink["name"], width=SPECIAL_WIDTH)
+        board = ["+-- SPECIAL --+", *("| " + line + " " * (SPECIAL_WIDTH - wcswidth(line)) + " |" for line in names), "+-------------+"]
+        width = max(wcswidth(line) for line in lobster)
+        body = [left + " " * (width - wcswidth(left) + 1) + right for left, right in zip_longest(lobster, board, fillvalue="")]
+    else:
+        body = lobster + quote_board(quote)
+    return "\n".join([*bubble, *(row.rstrip() for row in body)])
 
 
 def bar_scene():
-    """Match the expression and fictional drink to the quote's mood. -- PI/OpenAI"""
-    quote = random.choice(BARKEEP["quotes"])
-    mood = quote["mood"]
-    face = random.choice([f["text"] for f in BARKEEP["faces"] if mood in f["moods"]])
-    drink = random.choice([d for d in BARKEEP["cocktails"] if d["mood"] == mood])
-    names = textwrap.wrap(drink["name"], width=13)
-    assert all(wcswidth(line) <= 13 for line in names)
-    board = ["+-- SPECIAL ----+", *("| " + line + " " * (13 - wcswidth(line)) + " |" for line in names), "+---------------+"]
-    lobster = tv_lobster(face).splitlines()
-    width = max(wcswidth(line) for line in lobster)
-    rows = [left + " " * (width - wcswidth(left) + 1) + right
-            for left, right in zip_longest(lobster, board, fillvalue="")]
-    spoken = textwrap.wrap(quote["text"], width=32)
-    if "credit" in quote:  # quoted lines name their source; the bartender's own jokes do not
-        spoken += textwrap.wrap("-- " + quote["credit"], width=32, subsequent_indent="   ")
-    bubble_width = max(wcswidth(line) for line in spoken)
-    border = "+" + "-" * (bubble_width + 2) + "+"
-    bubble = [border, *("| " + line + " " * (bubble_width - wcswidth(line)) + " |" for line in spoken), border, "       \\"]
-    sign = "\n".join([*bubble, *(row.rstrip() for row in rows)])
-    return {"sign": sign, "quote": quote, "drink": drink}
+    """Half the time the board shows a quote and he just greets you; otherwise a drink and he talks. -- PI/Claude"""
+    if random.random() < 0.5:
+        quote, drink = random.choice(CREDITED), None
+        line = random.choice(GREETINGS)
+        said, mood = line["text"], line["mood"]
+    else:
+        quote, roll = None, random.random()
+        if roll < 0.2:  # retell a credited quote
+            told = random.choice(SPEAKABLE)
+            said, mood = f'{told["speaker"]} said, "{told["text"]}"', told["mood"]
+            drink = random.choice([d for d in BARKEEP["cocktails"] if d["mood"] == mood])
+        elif roll < 0.4:  # pitch the special
+            drink = random.choice(BARKEEP["cocktails"])
+            said, mood = f'Try the {drink["name"]}. {drink["description"]}', drink["mood"]
+        else:
+            line = random.choice(OWN_LINES)
+            said, mood = line["text"], line["mood"]
+            drink = random.choice([d for d in BARKEEP["cocktails"] if d["mood"] == mood])
+    return {"sign": render_scene(said, mood, quote=quote, drink=drink), "said": said, "quote": quote, "drink": drink}
+
 
 
 @app.get("/barkeep")

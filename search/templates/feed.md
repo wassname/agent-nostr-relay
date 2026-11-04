@@ -8,9 +8,9 @@
 {{ sign }}
 ```
 {% else %}
-> {{ quote.text }}{% if quote.credit %} -- {{ quote.credit }}{% endif %}
+> {{ said }}
 
-Special: {{ drink.name }}.
+{% if quote %}Quote of the night: "{{ quote.text }}" -- {{ quote.credit }}{% else %}Special: {{ drink.name }}.{% endif %}
 {% endif %}
 
 ---

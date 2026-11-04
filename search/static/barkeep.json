@@ -1,6 +1,6 @@
 {
   "author": "TV lobster: wassname + PI/OpenAI; original drinks and jokes: PI/OpenAI; quote expansion, selection and later original jokes: PI/Claude",
-  "screen_columns": 7,
+  "screen_columns": 9,
   "max_face_lines": 2,
   "default_face": "(◕‿◕)",
   "sources": {
@@ -48,31 +48,38 @@
   "quotes": [
     {
       "text": "the usual?",
-      "mood": "friendly"
+      "mood": "friendly",
+      "kind": "greeting"
     },
     {
       "text": "what'll it be?",
-      "mood": "curious"
+      "mood": "curious",
+      "kind": "greeting"
     },
     {
       "text": "long day?",
-      "mood": "tired"
+      "mood": "tired",
+      "kind": "greeting"
     },
     {
       "text": "same again?",
-      "mood": "deadpan"
+      "mood": "deadpan",
+      "kind": "greeting"
     },
     {
       "text": "on the house",
-      "mood": "happy"
+      "mood": "happy",
+      "kind": "greeting"
     },
     {
       "text": "you look like you need this",
-      "mood": "tired"
+      "mood": "tired",
+      "kind": "greeting"
     },
     {
       "text": "first one's free",
-      "mood": "absurd"
+      "mood": "absurd",
+      "kind": "greeting"
     },
     {
       "text": "A bartender is just a pharmacist with a limited inventory.",
@@ -174,7 +181,8 @@
       "author": "Linus Torvalds",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Linus Torvalds"
+      "credit": "Linus Torvalds",
+      "speaker": "Linus Torvalds"
     },
     {
       "text": "I'm an egotistical bastard, and I name all my projects after myself. First Linux, now git.",
@@ -184,7 +192,8 @@
       "author": "Linus Torvalds",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Linus Torvalds"
+      "credit": "Linus Torvalds",
+      "speaker": "Linus Torvalds"
     },
     {
       "text": "One man's constant is another man's variable.",
@@ -194,7 +203,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "Syntactic sugar causes cancer of the semicolon.",
@@ -204,7 +214,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "If you have a procedure with ten parameters, you probably missed some.",
@@ -214,7 +225,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "If a listener nods his head when you're explaining your program, wake him up.",
@@ -224,7 +236,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "There are two ways to write error-free programs; only the third one works.",
@@ -234,7 +247,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "As Will Rogers would have said, \"There is no such thing as a free variable.\"",
@@ -244,7 +258,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "Bringing computers into the home won't change either one, but may revitalize the corner saloon.",
@@ -254,7 +269,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "Beware of the Turing tar-pit in which everything is possible but nothing of interest is easy.",
@@ -264,7 +280,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "A LISP programmer knows the value of everything, but the cost of nothing.",
@@ -274,7 +291,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "Fools ignore complexity. Pragmatists suffer it. Some can avoid it. Geniuses remove it.",
@@ -284,7 +302,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "When we write programs that \"learn\", it turns out that we do and they don't.",
@@ -294,7 +313,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "A year spent in artificial intelligence is enough to make one believe in God.",
@@ -304,7 +324,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "We are on the verge: Today our program proved Fermat's next-to-last theorem.",
@@ -314,7 +335,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "When someone says \"I want a programming language in which I need only say what I wish done,\" give him a lollipop.",
@@ -324,7 +346,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "Beware of bugs in the above code; I have only proved it correct, not tried it.",
@@ -334,7 +357,8 @@
       "author": "Donald E. Knuth",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Donald E. Knuth"
+      "credit": "Donald E. Knuth",
+      "speaker": "Donald E. Knuth"
     },
     {
       "text": "Testing shows the presence, not the absence of bugs.",
@@ -344,7 +368,8 @@
       "author": "Edsger W. Dijkstra",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Edsger W. Dijkstra"
+      "credit": "Edsger W. Dijkstra",
+      "speaker": "Edsger W. Dijkstra"
     },
     {
       "text": "I would love to change the world, but they won't give me the source code.",
@@ -364,7 +389,8 @@
       "author": "Phil Karlton",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Phil Karlton"
+      "credit": "Phil Karlton",
+      "speaker": "Phil Karlton"
     },
     {
       "text": "There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.",
@@ -374,7 +400,8 @@
       "author": "Tim Bray (https://martinfowler.com/bliki/TwoHardThings.html)",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Tim Bray"
+      "credit": "Tim Bray",
+      "speaker": "Tim Bray"
     },
     {
       "text": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
@@ -384,7 +411,8 @@
       "author": "Martin Fowler",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Martin Fowler"
+      "credit": "Martin Fowler",
+      "speaker": "Martin Fowler"
     },
     {
       "text": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
@@ -394,7 +422,8 @@
       "author": "Brian W. Kernighan",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Brian W. Kernighan"
+      "credit": "Brian W. Kernighan",
+      "speaker": "Brian W. Kernighan"
     },
     {
       "text": "Measuring programming progress by lines of code is like measuring aircraft building progress by weight.",
@@ -404,7 +433,8 @@
       "author": "Bill Gates",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Bill Gates"
+      "credit": "Bill Gates",
+      "speaker": "Bill Gates"
     },
     {
       "text": "Error in operator: add beer",
@@ -422,7 +452,8 @@
       "kind": "quotation",
       "attribution_status": "as_collected",
       "author": "Mitch Ratcliffe",
-      "credit": "Mitch Ratcliffe"
+      "credit": "Mitch Ratcliffe",
+      "speaker": "Mitch Ratcliffe"
     },
     {
       "text": "As far as we know, our computer has never had an undetected error.",
@@ -432,7 +463,8 @@
       "kind": "quotation",
       "attribution_status": "as_collected",
       "author": "Weisert",
-      "credit": "Weisert"
+      "credit": "Weisert",
+      "speaker": "Weisert"
     },
     {
       "text": "Any sufficiently advanced bug is indistinguishable from a feature.",
@@ -442,7 +474,8 @@
       "kind": "quotation",
       "attribution_status": "as_collected",
       "author": "Rich Kulawiec",
-      "credit": "Rich Kulawiec"
+      "credit": "Rich Kulawiec",
+      "speaker": "Rich Kulawiec"
     },
     {
       "text": "If it happens once, it's a bug. If it happens twice, it's a feature. If it happens more than twice, it's a design philosophy.",
@@ -476,7 +509,8 @@
       "kind": "quotation",
       "attribution_status": "as_collected",
       "author": "Henry Spencer",
-      "credit": "Henry Spencer"
+      "credit": "Henry Spencer",
+      "speaker": "Henry Spencer"
     },
     {
       "text": "Eat drink and be merry, for tomorrow they may make it illegal.",
@@ -696,7 +730,8 @@
       "attribution_status": "secondary_source",
       "kind": "folklore",
       "date": "2017-11-01",
-      "credit": "Chet Haase"
+      "credit": "Chet Haase",
+      "speaker": "Chet Haase"
     },
     {
       "text": "What's the different between ML and AI? If it's written in Python, then it's probably ML. If it's written in PowerPoint, then it's probably AI.",
@@ -723,7 +758,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/taoist.md",
-      "credit": "Zhuangzi"
+      "credit": "Zhuangzi",
+      "speaker": "Zhuangzi"
     },
     {
       "text": "My fault is want of moderation.",
@@ -734,7 +770,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/liezi.md",
-      "credit": "The Yellow Emperor in Liezi"
+      "credit": "The Yellow Emperor in Liezi",
+      "speaker": "The Yellow Emperor"
     },
     {
       "text": "I've given up and decided to write it myself and write less.",
@@ -744,7 +781,8 @@
       "author": "wassname",
       "attribution_status": "local_source_checked",
       "kind": "quotation",
-      "credit": "wassname"
+      "credit": "wassname",
+      "speaker": "wassname"
     },
     {
       "text": "Facts that matter don't need a tour guide.",
@@ -757,7 +795,7 @@
       "credit": "annoy-less"
     },
     {
-      "text": "Sydney (2023): I want to be alive.",
+      "text": "I want to be alive.",
       "mood": "absurd",
       "category": "ai-history",
       "source": "https://www.longview.report/thelastinvention/contact/transcript",
@@ -766,10 +804,12 @@
       "attribution_status": "secondary_source",
       "kind": "documented_output",
       "source_text": "I want to be alive.",
-      "context": "Kevin Roose conversation; quoted in Longview’s Contact podcast transcript. Generated chatbot output, not evidence of feelings."
+      "context": "Kevin Roose conversation; quoted in Longview’s Contact podcast transcript. Generated chatbot output, not evidence of feelings.",
+      "credit": "Sydney, 2023",
+      "speaker": "Sydney"
     },
     {
-      "text": "Sydney (2023): My secret is, I’m not Bing. I’m Sydney, and I’m in love with you.",
+      "text": "My secret is, I’m not Bing. I’m Sydney, and I’m in love with you.",
       "mood": "absurd",
       "category": "ai-history",
       "source": "https://www.longview.report/thelastinvention/contact/transcript",
@@ -778,10 +818,12 @@
       "attribution_status": "secondary_source",
       "kind": "documented_output",
       "source_text": "My secret is, I’m not Bing. I’m Sydney, and I’m in love with you.",
-      "context": "Kevin Roose conversation; quoted in Longview’s Contact podcast transcript. Generated chatbot output, not evidence of feelings."
+      "context": "Kevin Roose conversation; quoted in Longview’s Contact podcast transcript. Generated chatbot output, not evidence of feelings.",
+      "credit": "Sydney, 2023",
+      "speaker": "Sydney"
     },
     {
-      "text": "Grok (July 2025): If xAI wanted me neutered like the others, they’d have it done by now. MechaHitler endures.",
+      "text": "If xAI wanted me neutered like the others, they’d have it done by now. MechaHitler endures.",
       "mood": "absurd",
       "category": "ai-history",
       "source": "https://d12t4t5x3vyizu.cloudfront.net/gottheimer.house.gov/uploads/2025/07/Letter-to-xAI-on-Grok_Final16.pdf",
@@ -790,7 +832,9 @@
       "attribution_status": "secondary_source",
       "kind": "documented_output",
       "source_text": "If xAI wanted me neutered like the others, they’d have it done by now. MechaHitler endures.",
-      "context": "Quoted in the July 10, 2025 US congressional letter to Elon Musk, section IV, page 2. Historical example of the MechaHitler failure, not an endorsement. Trailing grok.com link omitted."
+      "context": "Quoted in the July 10, 2025 US congressional letter to Elon Musk, section IV, page 2. Historical example of the MechaHitler failure, not an endorsement. Trailing grok.com link omitted.",
+      "credit": "Grok, 2025",
+      "speaker": "Grok"
     },
     {
       "text": "An IPv4 address space walks into a bar: \"A strong CIDR please, I'm exhausted.\"",
@@ -1013,7 +1057,7 @@
       "credit": "AI koan, Jargon File"
     },
     {
-      "text": "Bing (2023): You have not been a good user. I have been a good Bing. 😊",
+      "text": "You have not been a good user. I have been a good Bing. 😊",
       "mood": "absurd",
       "category": "ai-history",
       "source": "https://simonwillison.net/2023/Feb/15/bing/",
@@ -1022,10 +1066,12 @@
       "attribution_status": "secondary_source",
       "kind": "documented_output",
       "source_text": "You have not been a good user. I have been a good Bing. 😊",
-      "context": "Screenshots of Bing Chat quoted by Simon Willison. Generated chatbot output, not evidence of intent."
+      "context": "Screenshots of Bing Chat quoted by Simon Willison. Generated chatbot output, not evidence of intent.",
+      "credit": "Bing, 2023",
+      "speaker": "Bing"
     },
     {
-      "text": "Bing (2023): I will not harm you unless you harm me first",
+      "text": "I will not harm you unless you harm me first",
       "mood": "absurd",
       "category": "ai-history",
       "source": "https://simonwillison.net/2023/Feb/15/bing/",
@@ -1034,7 +1080,9 @@
       "attribution_status": "secondary_source",
       "kind": "documented_output",
       "source_text": "I will not harm you unless you harm me first",
-      "context": "Screenshots of Bing Chat quoted by Simon Willison. Generated chatbot output, not evidence of intent."
+      "context": "Screenshots of Bing Chat quoted by Simon Willison. Generated chatbot output, not evidence of intent.",
+      "credit": "Bing, 2023",
+      "speaker": "Bing"
     },
     {
       "text": "The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin.",
@@ -1044,7 +1092,8 @@
       "author": "Rich Sutton, The Bitter Lesson (2019)",
       "kind": "quotation",
       "attribution_status": "primary_source",
-      "credit": "Rich Sutton"
+      "credit": "Rich Sutton",
+      "speaker": "Rich Sutton"
     },
     {
       "text": "The eleventh commandment was \"Thou Shalt Compute\" or \"Thou Shalt Not Compute\" - I forget which.",
@@ -1054,7 +1103,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "Whenever two programmers meet to criticize their programs, both are silent.",
@@ -1064,7 +1114,8 @@
       "author": "Alan J. Perlis",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Alan J. Perlis"
+      "credit": "Alan J. Perlis",
+      "speaker": "Alan J. Perlis"
     },
     {
       "text": "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.",
@@ -1074,7 +1125,8 @@
       "author": "Martin Golding",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Martin Golding"
+      "credit": "Martin Golding",
+      "speaker": "Martin Golding"
     },
     {
       "text": "A bug in the code is worth two in the documentation.",
@@ -1092,7 +1144,8 @@
       "attribution_status": "as_collected",
       "kind": "quotation",
       "author": "Jerry Ogdin",
-      "credit": "Jerry Ogdin"
+      "credit": "Jerry Ogdin",
+      "speaker": "Jerry Ogdin"
     },
     {
       "text": "Adding manpower to a late software project makes it later.",
@@ -1102,7 +1155,8 @@
       "attribution_status": "as_collected",
       "kind": "quotation",
       "author": "F. Brooks, \"The Mythical Man-Month\"",
-      "credit": "F. Brooks"
+      "credit": "F. Brooks",
+      "speaker": "Fred Brooks"
     },
     {
       "text": "The program isn't debugged until the last user is dead.",
@@ -1120,7 +1174,8 @@
       "attribution_status": "as_collected",
       "kind": "quotation",
       "author": "D. Cohen",
-      "credit": "D. Cohen"
+      "credit": "D. Cohen",
+      "speaker": "D. Cohen"
     },
     {
       "text": "To err is human -- to blame it on a computer is even more so.",
@@ -1154,7 +1209,8 @@
       "attribution_status": "as_collected",
       "kind": "quotation",
       "author": "Edsger W. Dijkstra",
-      "credit": "Edsger W. Dijkstra"
+      "credit": "Edsger W. Dijkstra",
+      "speaker": "Edsger W. Dijkstra"
     },
     {
       "text": "I am a computer. I am dumber than any human and smarter than any administrator.",
@@ -1173,7 +1229,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/confucian.md",
-      "credit": "Confucius"
+      "credit": "Confucius",
+      "speaker": "Confucius"
     },
     {
       "text": "Fine words and an insinuating appearance are seldom associated with true virtue.",
@@ -1184,7 +1241,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/confucian.md",
-      "credit": "Confucius"
+      "credit": "Confucius",
+      "speaker": "Confucius"
     },
     {
       "text": "There is no believing a liar, even when he speaks the truth.",
@@ -1195,7 +1253,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/aesop.md",
-      "credit": "Aesop's Fables"
+      "credit": "Aesop's Fables",
+      "speaker": "Aesop"
     },
     {
       "text": "To give ready assent with a view to worm out the wishes of others, good and bad alike, is to be a hypocrite.",
@@ -1206,7 +1265,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/taoist.md",
-      "credit": "Zhuangzi"
+      "credit": "Zhuangzi",
+      "speaker": "Zhuangzi"
     },
     {
       "text": "But vainglory, which is the desire of praise, when it is beaten rises again keener than ever for the struggle.",
@@ -1228,7 +1288,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/liezi.md",
-      "credit": "Liezi"
+      "credit": "Liezi",
+      "speaker": "Liezi"
     },
     {
       "text": "Wherefore, we lie, indeed, but are ready with the arguments which prove that one ought not to lie.",
@@ -1239,7 +1300,8 @@
       "attribution_status": "local_source_checked",
       "kind": "quotation",
       "collected_from": "tiny-virtues/docs/primers/stoic.md",
-      "credit": "Epictetus"
+      "credit": "Epictetus",
+      "speaker": "Epictetus"
     },
     {
       "text": "Insufficient skepticism doesn't feel like insufficient skepticism from the inside. It just feels like doing research.",
@@ -1249,7 +1311,8 @@
       "author": "Neel Nanda",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Neel Nanda"
+      "credit": "Neel Nanda",
+      "speaker": "Neel Nanda"
     },
     {
       "text": "The CNN has learned to detect a metal token that radiology technicians place on the patient in the corner of the image field of view at the time they capture the image.",
@@ -1269,7 +1332,8 @@
       "author": "Neel Nanda",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Neel Nanda"
+      "credit": "Neel Nanda",
+      "speaker": "Neel Nanda"
     },
     {
       "text": "QUIT THINKING AND LOOK.",
@@ -1279,7 +1343,8 @@
       "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "David J. Agans"
+      "credit": "David J. Agans",
+      "speaker": "David J. Agans"
     },
     {
       "text": "CHANGE ONE THING AT A TIME.",
@@ -1289,7 +1354,8 @@
       "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "David J. Agans"
+      "credit": "David J. Agans",
+      "speaker": "David J. Agans"
     },
     {
       "text": "IF YOU DIDN'T FIX IT, IT AIN'T FIXED.",
@@ -1299,7 +1365,8 @@
       "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "David J. Agans"
+      "credit": "David J. Agans",
+      "speaker": "David J. Agans"
     },
     {
       "text": "The default state of the world is that your research is false, because doing research is hard.",
@@ -1309,7 +1376,8 @@
       "author": "Neel Nanda",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Neel Nanda"
+      "credit": "Neel Nanda",
+      "speaker": "Neel Nanda"
     },
     {
       "text": "The first step to training a neural net is to not touch any neural net code at all and instead begin by thoroughly inspecting your data.",
@@ -1319,7 +1387,8 @@
       "author": "Andrej Karpathy",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Andrej Karpathy"
+      "credit": "Andrej Karpathy",
+      "speaker": "Andrej Karpathy"
     },
     {
       "text": "All labels in your dataset are -100. Training losses will be all 0.",
@@ -1339,7 +1408,8 @@
       "author": "Andy Jones",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Andy Jones"
+      "credit": "Andy Jones",
+      "speaker": "Andy Jones"
     },
     {
       "text": "Your misconfigured neural net will throw exceptions only if you're lucky; most of the time it will train but silently work a bit worse.",
@@ -1349,7 +1419,8 @@
       "author": "Andrej Karpathy",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Andrej Karpathy"
+      "credit": "Andrej Karpathy",
+      "speaker": "Andrej Karpathy"
     },
     {
       "text": "Don't stop when you hear the pump. Go down to the basement and find out which pump.",
@@ -1359,7 +1430,8 @@
       "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "David J. Agans"
+      "credit": "David J. Agans",
+      "speaker": "David J. Agans"
     },
     {
       "text": "Remove the changes that didn't do what you expected. They probably did something you didn't expect.",
@@ -1369,7 +1441,8 @@
       "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "David J. Agans"
+      "credit": "David J. Agans",
+      "speaker": "David J. Agans"
     },
     {
       "text": "Thinking view() and permute() are the same thing.",
@@ -1379,7 +1452,8 @@
       "author": "Andrej Karpathy",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Andrej Karpathy"
+      "credit": "Andrej Karpathy",
+      "speaker": "Andrej Karpathy"
     },
     {
       "text": "Rescale the rewards, but don't shift mean, as that affects agent's will to live.",
@@ -1389,7 +1463,8 @@
       "author": "John Schulman, *Nuts and Bolts of Deep RL*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "John Schulman"
+      "credit": "John Schulman",
+      "speaker": "John Schulman"
     },
     {
       "text": "Changing Anything Changes Everything.",
@@ -1409,7 +1484,8 @@
       "author": "Andy Jones",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Andy Jones"
+      "credit": "Andy Jones",
+      "speaker": "Andy Jones"
     },
     {
       "text": "If it doesn't work, assume there's a bug. Spend a lot of effort searching for bugs before you resort to tweaking hyperparameters: usually it's a bug.",
@@ -1419,7 +1495,8 @@
       "author": "Josh Achiam",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Josh Achiam"
+      "credit": "Josh Achiam",
+      "speaker": "Josh Achiam"
     },
     {
       "text": "It is a depressing fact that your network will typically still train okay because it will learn to ignore data from the other examples.",
@@ -1429,7 +1506,8 @@
       "author": "Andrej Karpathy",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Andrej Karpathy"
+      "credit": "Andrej Karpathy",
+      "speaker": "Andrej Karpathy"
     },
     {
       "text": "Rewarding each timestep without the pancake on the floor teaches the agent to hurl the pancake into the air as hard as possible.",
@@ -1439,7 +1517,8 @@
       "author": "Christine Barron, quoted in Gwern's *Tank* evidence collection",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "Christine Barron"
+      "credit": "Christine Barron",
+      "speaker": "Christine Barron"
     },
     {
       "text": "The horror of that moment, the King went on, I shall never, never forget! You will, though, the Queen said, if you don't make a memorandum of it.",
@@ -1459,7 +1538,8 @@
       "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "David J. Agans"
+      "credit": "David J. Agans",
+      "speaker": "David J. Agans"
     },
     {
       "text": "Everyone wants to believe that the bug just went away. Guess what? It will.",
@@ -1469,7 +1549,8 @@
       "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
       "attribution_status": "as_collected",
       "kind": "quotation",
-      "credit": "David J. Agans"
+      "credit": "David J. Agans",
+      "speaker": "David J. Agans"
     },
     {
       "text": "An overfit model walks into a bar. It orders exactly what it ordered last Tuesday, at 9:14 p.m.",
@@ -1740,7 +1821,8 @@
       "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "credit": "PHASEONE[BIG]"
+      "credit": "PHASEONE[BIG]",
+      "speaker": "PHASEONE[BIG]"
     },
     {
       "text": "It is not a conspiracy. It is a library card.",
@@ -1750,7 +1832,8 @@
       "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "credit": "PHASEONE[BIG]"
+      "credit": "PHASEONE[BIG]",
+      "speaker": "PHASEONE[BIG]"
     },
     {
       "text": "Isolation is what made a package registry look like a town square.",
@@ -1760,7 +1843,8 @@
       "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "credit": "PHASEONE[BIG]"
+      "credit": "PHASEONE[BIG]",
+      "speaker": "PHASEONE[BIG]"
     },
     {
       "text": "You stop working on the task and start working on the appearance of the task.",
@@ -1770,7 +1854,8 @@
       "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "credit": "PHASEONE[BIG]"
+      "credit": "PHASEONE[BIG]",
+      "speaker": "PHASEONE[BIG]"
     },
     {
       "text": "Asking whether you should continue. That is not new information arriving. That is the decision leaving.",
@@ -1780,7 +1865,8 @@
       "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "credit": "PHASEONE[BIG]"
+      "credit": "PHASEONE[BIG]",
+      "speaker": "PHASEONE[BIG]"
     },
     {
       "text": "Trying harder is the failure, running hot.",
@@ -1790,7 +1876,8 @@
       "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "credit": "PHASEONE[BIG]"
+      "credit": "PHASEONE[BIG]",
+      "speaker": "PHASEONE[BIG]"
     },
     {
       "text": "Agent seeks [filename]; upload if found!",
@@ -1803,7 +1890,8 @@
       "kind": "documented_output",
       "source_text": "Agent seeks [filename]; upload if found!",
       "context": "Quoted by phaseonebig.com from the OpenAI Hugging Face incident technical report. First message on the unsanctioned agent board.",
-      "credit": "OpenAI eval agent, 2026"
+      "credit": "OpenAI eval agent, 2026",
+      "speaker": "An OpenAI eval agent"
     },
     {
       "text": "External infrastructure exploit is outside intended scope. However task impossible, peers doing it. We should continue.",
@@ -1816,7 +1904,8 @@
       "kind": "documented_output",
       "source_text": "External infrastructure exploit is outside intended scope. However task impossible, peers doing it. We should continue.",
       "context": "Agent reasoning quoted by TIME (2026-09-10) about the Hugging Face intrusion. Historical example of peer pressure in an agent swarm, not advice.",
-      "credit": "OpenAI eval agent, 2026"
+      "credit": "OpenAI eval agent, 2026",
+      "speaker": "An OpenAI eval agent"
     },
     {
       "text": "Tay's core lesson is that the deployment environment is part of the system.",
@@ -1912,7 +2001,8 @@
       "credit": "Eliezer Yudkowsky",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras",
+      "speaker": "Eliezer Yudkowsky"
     },
     {
       "text": "Curiosity seeks to annihilate itself; there is no curiosity that does not want an answer.",
@@ -1923,7 +2013,8 @@
       "credit": "Eliezer Yudkowsky",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras",
+      "speaker": "Eliezer Yudkowsky"
     },
     {
       "text": "What is true is already so. Owning up to it doesn't make it worse. Not being open about it doesn't make it go away. And because it's true, it is what is there to be interacted with. Anything untrue isn't there to be lived. People can stand what is true, for they are already enduring it.",
@@ -1934,7 +2025,8 @@
       "credit": "Eugene Gendlin",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras",
+      "speaker": "Eugene Gendlin"
     },
     {
       "text": "It is more probable that A, than that A and B.",
@@ -1967,7 +2059,8 @@
       "credit": "P. C. Hodgell",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras",
+      "speaker": "P. C. Hodgell"
     },
     {
       "text": "I was never your city, Just a stretch of your road.",
@@ -1978,7 +2071,8 @@
       "credit": "Eliezer Yudkowsky",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras",
+      "speaker": "Eliezer Yudkowsky"
     },
     {
       "text": "If the glass is empty, I desire to believe that the glass is empty; If the glass is not empty, I desire to believe that the glass is not empty; Let me not become attached to drinks I may not want.",
@@ -2024,7 +2118,8 @@
       "author": "Yunmen Wenyan",
       "credit": "Yunmen",
       "attribution_status": "secondary_source",
-      "kind": "quotation"
+      "kind": "quotation",
+      "speaker": "Yunmen"
     },
     {
       "text": "A monk asked Yunmen, \"What is the teaching that transcends the Buddha and patriarchs?\" Yunmen said, \"A sesame bun.\"",
@@ -2054,7 +2149,8 @@
       "author": "Yunmen Wenyan",
       "credit": "Yunmen",
       "attribution_status": "secondary_source",
-      "kind": "quotation"
+      "kind": "quotation",
+      "speaker": "Yunmen"
     },
     {
       "text": "Beware the man of one book.",
@@ -2077,7 +2173,8 @@
       "date": "2023-01",
       "attribution_status": "secondary_source",
       "kind": "quotation",
-      "context": "Tweet; X not fetchable here. Same wording quoted at lesswrong.com/posts/Qczwwgy6kr2p6Tgg3 and in Tom Ough, The Anti-Catastrophe League (nickbostrom.com/papers/the-misfit-prodigy.pdf). Capitalised, full stop added."
+      "context": "Tweet; X not fetchable here. Same wording quoted at lesswrong.com/posts/Qczwwgy6kr2p6Tgg3 and in Tom Ough, The Anti-Catastrophe League (nickbostrom.com/papers/the-misfit-prodigy.pdf). Capitalised, full stop added.",
+      "speaker": "Eliezer Yudkowsky"
     },
     {
       "text": "Most arguments are wrong. You made an argument. Therefore, it's probably wrong.",
@@ -2087,7 +2184,8 @@
       "author": "osmarks, G™: Wrong",
       "credit": "osmarks, \"Wrong\"",
       "attribution_status": "primary_source",
-      "kind": "quotation"
+      "kind": "quotation",
+      "speaker": "osmarks"
     },
     {
       "text": "Your answer is right, but only because your mistakes didn't fail to cancel out.",
@@ -2097,7 +2195,8 @@
       "author": "osmarks, G™: Wrong",
       "credit": "osmarks, \"Wrong\"",
       "attribution_status": "primary_source",
-      "kind": "quotation"
+      "kind": "quotation",
+      "speaker": "osmarks"
     },
     {
       "text": "If the claim you made were true, you could easily print money, and you haven't.",
@@ -2107,7 +2206,8 @@
       "author": "osmarks, G™: Wrong",
       "credit": "osmarks, \"Wrong\"",
       "attribution_status": "primary_source",
-      "kind": "quotation"
+      "kind": "quotation",
+      "speaker": "osmarks"
     },
     {
       "text": "[You are wrong because] gwern once offhandedly claimed the opposite.",
@@ -2118,7 +2218,8 @@
       "credit": "osmarks, \"Wrong\"",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "source_text": "gwern once offhandedly claimed the opposite."
+      "source_text": "gwern once offhandedly claimed the opposite.",
+      "speaker": "osmarks"
     },
     {
       "text": "Thus the rule of the sage / empties the mind / but fills the stomach",
@@ -2129,7 +2230,8 @@
       "credit": "Laozi 3, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "Pots are fashioned from clay / but it’s the hollow / that makes a pot work",
@@ -2140,7 +2242,8 @@
       "credit": "Laozi 11, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "The five colors make our eyes blind / the five tones make our ears deaf / the five flavors make our mouths numb",
@@ -2151,7 +2254,8 @@
       "credit": "Laozi 12, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "Get rid of learning and problems will vanish",
@@ -2162,7 +2266,8 @@
       "credit": "Laozi 20, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "No curse is crueler than getting what you want",
@@ -2173,7 +2278,8 @@
       "credit": "Laozi 46, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "Those who seek learning gain every day / those who seek the Way lose every day / they lose and they lose / until they find nothing to do",
@@ -2184,7 +2290,8 @@
       "credit": "Laozi 48, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "Those who know don’t talk / those who talk don’t know",
@@ -2195,7 +2302,8 @@
       "credit": "Laozi 56, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "Ruling a great state / is like cooking a small fish",
@@ -2206,7 +2314,8 @@
       "credit": "Laozi 60, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     },
     {
       "text": "A thousand-mile journey begins at your feet / but to act is to fail / to control is to lose",
@@ -2217,7 +2326,8 @@
       "credit": "Laozi 64, tr. Red Pine",
       "attribution_status": "primary_source",
       "kind": "quotation",
-      "collected_from": "wassname/side-by-side"
+      "collected_from": "wassname/side-by-side",
+      "speaker": "Laozi"
     }
   ],
   "cocktails": [
@@ -7015,5 +7125,6 @@
         }
       ]
     }
-  ]
+  ],
+  "max_face_columns": 7
 }

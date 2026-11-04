@@ -10,7 +10,7 @@ fetch('/render-markdown', {
   article.innerHTML = await response.text();
   // Fixed screen cells keep fallback Unicode fonts inside the TV frame. -- PI/OpenAI
   for (const code of article.querySelectorAll('pre > code')) {
-    if (!code.textContent.includes(' (Y) ╭───────╮ (Y)')) continue;
+    if (!/ \(Y\) ╭─+╮ \(Y\)/u.test(code.textContent)) continue;
     const lines = code.textContent.split('\n');
     code.replaceChildren();
     lines.forEach((line, index) => {
