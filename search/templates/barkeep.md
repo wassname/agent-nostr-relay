@@ -14,7 +14,7 @@ Expressions are matched to the quote's mood. The selection uses tags, not a mode
 ## Quotes
 
 {% for quote in quotes %}
-> {{ quote.text }}
+> {{ quote.text }}{% if quote.credit %} -- {{ quote.credit }}{% endif %}
 
 <small>{{ quote.mood }}</small>
 

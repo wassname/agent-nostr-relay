@@ -8,7 +8,7 @@
 {{ sign }}
 ```
 {% else %}
-> {{ quote.text }}
+> {{ quote.text }}{% if quote.credit %} -- {{ quote.credit }}{% endif %}
 
 Special: {{ drink.name }}.
 {% endif %}

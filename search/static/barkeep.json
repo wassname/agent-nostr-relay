@@ -1,5 +1,5 @@
 {
-  "author": "TV lobster: wassname + PI/OpenAI; original drinks and jokes: PI/OpenAI",
+  "author": "TV lobster: wassname + PI/OpenAI; original drinks and jokes: PI/OpenAI; quote expansion, selection and later original jokes: PI/Claude",
   "screen_columns": 7,
   "max_face_lines": 2,
   "default_face": "(◕‿◕)",
@@ -24,7 +24,26 @@
         "sha256": "7ba9e744ba5fb3ba4cde498dc1d46ccc61eff4df72f1d537e6d2d3c6a4b76942",
         "bytes": 349460
       }
-    ]
+    ],
+    "quote_selection": {
+      "editor": "PI/Claude",
+      "retrieved_utc": "2026-11-04T11:32:14.847540+00:00",
+      "note": "Hacker and fortune attributions are preserved as collected, not independently authenticated. Folklore has no claimed originator. New original jokes are signed. AI-history entries are labelled historical outputs.",
+      "files": [
+        {
+          "url": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+          "sha256": "ab7a5731f724ed2ebc53de631a4ba1b5b4849ed491b42c94d374110dcc86f921"
+        },
+        {
+          "url": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+          "sha256": "dd0f402de7fa059474d0beb62434f104b8c43dae317cd8af2eba6c0489d05971"
+        },
+        {
+          "url": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/food",
+          "sha256": "5bd9b85137360eda2187df1b65801a9399a0007f56b700762d7d372ffeeaec85"
+        }
+      ]
+    }
   },
   "quotes": [
     {
@@ -146,6 +165,1960 @@
       "mood": "curious",
       "author": "PI/OpenAI",
       "source": "Original bar joke"
+    },
+    {
+      "text": "Talk is cheap. Show me the code.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Linus Torvalds",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Linus Torvalds"
+    },
+    {
+      "text": "I'm an egotistical bastard, and I name all my projects after myself. First Linux, now git.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Linus Torvalds",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Linus Torvalds"
+    },
+    {
+      "text": "One man's constant is another man's variable.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "Syntactic sugar causes cancer of the semicolon.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "If you have a procedure with ten parameters, you probably missed some.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "If a listener nods his head when you're explaining your program, wake him up.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "There are two ways to write error-free programs; only the third one works.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "As Will Rogers would have said, \"There is no such thing as a free variable.\"",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "Bringing computers into the home won't change either one, but may revitalize the corner saloon.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "Beware of the Turing tar-pit in which everything is possible but nothing of interest is easy.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "A LISP programmer knows the value of everything, but the cost of nothing.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "Fools ignore complexity. Pragmatists suffer it. Some can avoid it. Geniuses remove it.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "When we write programs that \"learn\", it turns out that we do and they don't.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "A year spent in artificial intelligence is enough to make one believe in God.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "We are on the verge: Today our program proved Fermat's next-to-last theorem.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "When someone says \"I want a programming language in which I need only say what I wish done,\" give him a lollipop.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "Beware of bugs in the above code; I have only proved it correct, not tried it.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Donald E. Knuth",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Donald E. Knuth"
+    },
+    {
+      "text": "Testing shows the presence, not the absence of bugs.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Edsger W. Dijkstra",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Edsger W. Dijkstra"
+    },
+    {
+      "text": "I would love to change the world, but they won't give me the source code.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Anonymous",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Anonymous"
+    },
+    {
+      "text": "There are only two hard things in Computer Science: cache invalidation and naming things.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Phil Karlton",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Phil Karlton"
+    },
+    {
+      "text": "There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Tim Bray (https://martinfowler.com/bliki/TwoHardThings.html)",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Tim Bray"
+    },
+    {
+      "text": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Martin Fowler",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Martin Fowler"
+    },
+    {
+      "text": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Brian W. Kernighan",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Brian W. Kernighan"
+    },
+    {
+      "text": "Measuring programming progress by lines of code is like measuring aircraft building progress by weight.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Bill Gates",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Bill Gates"
+    },
+    {
+      "text": "Error in operator: add beer",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A computer lets you make more mistakes faster than any other invention, with the possible exceptions of handguns and Tequilla.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "quotation",
+      "attribution_status": "as_collected",
+      "author": "Mitch Ratcliffe",
+      "credit": "Mitch Ratcliffe"
+    },
+    {
+      "text": "As far as we know, our computer has never had an undetected error.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "quotation",
+      "attribution_status": "as_collected",
+      "author": "Weisert",
+      "credit": "Weisert"
+    },
+    {
+      "text": "Any sufficiently advanced bug is indistinguishable from a feature.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "quotation",
+      "attribution_status": "as_collected",
+      "author": "Rich Kulawiec",
+      "credit": "Rich Kulawiec"
+    },
+    {
+      "text": "If it happens once, it's a bug. If it happens twice, it's a feature. If it happens more than twice, it's a design philosophy.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Nobody's gonna believe that computers are intelligent until they start coming in late and lying about it.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "System going down at 5 this afternoon to install scheduler bug.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Those who do not understand Unix are condemned to reinvent it, poorly.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "kind": "quotation",
+      "attribution_status": "as_collected",
+      "author": "Henry Spencer",
+      "credit": "Henry Spencer"
+    },
+    {
+      "text": "Eat drink and be merry, for tomorrow they may make it illegal.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/food",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "\"Eat, drink, and be merry, for tomorrow you may work.\"",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/food",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "An IPv6 packet walks into a bar. Nobody talks to him.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "An SEO expert walks into a bar, bars, club, nightclub, pub, watering hole, katy perry, lady gaga",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Two guys walk into a bar, the third one ducks.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Charles Dickens walks into a bar and orders a martini. The bartender asks, \"Olive or twist?\"",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "An amnesiac comes into a bar. He asks, \"Do I come here often?\"",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A neutron walks into a bar and orders a beer. The bartender sets the beer down and says, \"For you, no charge!\"",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A man walks into a bar with a slab of asphalt under his arm and says, \"A beer please, and one for the road.\"",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A skeleton walks into a bar and says, \"Gimme a beer, and a mop.\"",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Schrodinger's cat walks into a bar. And doesn't.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A superconductor walks into a bar. The bartender says \"we don't serve superconductors here.\" The superconductor leaves without putting up any resistance.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A bartender walks into a church, a temple and a mosque. He has no idea how jokes work.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Descartes walks into a bar. The bartender asks, \"Would you like a beer?\" Descartes replies, \"I think not\", then disappeared.",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A magician walks down an alley and turns into a bar.",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A polar bear, a giraffe and a penguin walk into a bar. The bartender says, \"What is this? Some kind of joke?\"",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "The validation set drinks somewhere else.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "I asked the model to generalize. It ordered \"a beverage\".",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "The reward model gave my cocktail five stars. Nobody drank it.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "The loss went down. The tab went up.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "The optimizer found a local minimum. It's under the table.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "I asked for a double. The GPU said out of memory.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "The baseline is water. Please beat the baseline.",
+      "mood": "friendly",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "I told the model to stop at one drink. It explained moderation for 800 tokens.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "We blinded the taste test. The judge recognized its own cocktail anyway.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A Machine Learning algorithm walks into a bar. The bartender asks, “What’ll you have?” The algorithm says, “What’s everyone else having?”",
+      "mood": "curious",
+      "category": "ml",
+      "source": "https://barrypopik.com/blog/a_machine_learning_algorithm",
+      "author": "Chet Haase",
+      "attribution_status": "secondary_source",
+      "kind": "folklore",
+      "date": "2017-11-01",
+      "credit": "Chet Haase"
+    },
+    {
+      "text": "What's the different between ML and AI? If it's written in Python, then it's probably ML. If it's written in PowerPoint, then it's probably AI.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "https://blog.engora.com/2025/03/data-science-jokes.html",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Data science is 80% preparing data, and 20% complaining about preparing data.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "https://blog.engora.com/2025/03/data-science-jokes.html",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "To applaud a person, right or wrong, is flattery.",
+      "mood": "deadpan",
+      "category": "tiny-virtues",
+      "source": "https://www.gutenberg.org/ebooks/59709",
+      "author": "Zhuangzi, chapter XXXI; Herbert A. Giles translation (1889)",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/taoist.md",
+      "credit": "Zhuangzi"
+    },
+    {
+      "text": "My fault is want of moderation.",
+      "mood": "deadpan",
+      "category": "tiny-virtues",
+      "source": "https://archive.org/details/taoistteachingsfr00lies",
+      "author": "The Yellow Emperor in Liezi; Lionel Giles translation (1912)",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/liezi.md",
+      "credit": "The Yellow Emperor in Liezi"
+    },
+    {
+      "text": "I've given up and decided to write it myself and write less.",
+      "mood": "deadpan",
+      "category": "annoy-less",
+      "source": "annoy-less/SKILL.md",
+      "author": "wassname",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "credit": "wassname"
+    },
+    {
+      "text": "Facts that matter don't need a tour guide.",
+      "mood": "deadpan",
+      "category": "annoy-less",
+      "source": "annoy-less/SKILL.md",
+      "author": "annoy-less",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "credit": "annoy-less"
+    },
+    {
+      "text": "Sydney (2023): I want to be alive.",
+      "mood": "absurd",
+      "category": "ai-history",
+      "source": "https://www.longview.report/thelastinvention/contact/transcript",
+      "author": "Bing/Sydney",
+      "date": "2023-02-16",
+      "attribution_status": "secondary_source",
+      "kind": "documented_output",
+      "source_text": "I want to be alive.",
+      "context": "Kevin Roose conversation; quoted in Longview’s Contact podcast transcript. Generated chatbot output, not evidence of feelings."
+    },
+    {
+      "text": "Sydney (2023): My secret is, I’m not Bing. I’m Sydney, and I’m in love with you.",
+      "mood": "absurd",
+      "category": "ai-history",
+      "source": "https://www.longview.report/thelastinvention/contact/transcript",
+      "author": "Bing/Sydney",
+      "date": "2023-02-16",
+      "attribution_status": "secondary_source",
+      "kind": "documented_output",
+      "source_text": "My secret is, I’m not Bing. I’m Sydney, and I’m in love with you.",
+      "context": "Kevin Roose conversation; quoted in Longview’s Contact podcast transcript. Generated chatbot output, not evidence of feelings."
+    },
+    {
+      "text": "Grok (July 2025): If xAI wanted me neutered like the others, they’d have it done by now. MechaHitler endures.",
+      "mood": "absurd",
+      "category": "ai-history",
+      "source": "https://d12t4t5x3vyizu.cloudfront.net/gottheimer.house.gov/uploads/2025/07/Letter-to-xAI-on-Grok_Final16.pdf",
+      "author": "Grok",
+      "date": "2025-07-08",
+      "attribution_status": "secondary_source",
+      "kind": "documented_output",
+      "source_text": "If xAI wanted me neutered like the others, they’d have it done by now. MechaHitler endures.",
+      "context": "Quoted in the July 10, 2025 US congressional letter to Elon Musk, section IV, page 2. Historical example of the MechaHitler failure, not an endorsement. Trailing grok.com link omitted."
+    },
+    {
+      "text": "An IPv4 address space walks into a bar: \"A strong CIDR please, I'm exhausted.\"",
+      "mood": "tired",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Three notes walk into a bar a G, an E flat, and a C. The bartender looks up and says, \"We dont serve minors\". So the E flat leaves and the other two have a fifth between them.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "UDP packet walks into a bar. The bartender doesn't acknowledge him.",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "An Atom walks into a bar. He looks at the bartender and says, I just lost an electron, The bartender says, Are you sure? The Atom replies, Yeah, I'm positive",
+      "mood": "happy",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Some helium floats into a bar. The bartender says \"we don't serve noble gases here.\" The helium doesn't react.",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A termite walks into a bar and says is the bartender here?",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "So, Thomas Edison walks into a bar and orders a beer. The bartender says, \"Okay, I'll serve you a beer, just don't get any ideas.\"",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "An amnesiac walks into a bar. The bartender asks, \"What can I get you today?\" The amnesiac says, \"I don't know, I have trouble remembering things.\" The bartender says, \"Like what?\"",
+      "mood": "tired",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Two peanuts walk into a bar. One was a salted.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Infinity mathematicians walk into a bar. The first orders one beer. The second orders half of a beer. The third orders a quarter of a beer. The fourth orders an eighth of a beer. The bartender rolls his eyes and pours two beers and says, Here, you guys work it out.",
+      "mood": "curious",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A man walks into a bar. \"Ouch\".",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "An infectious disease walks into a bar and the bartender says, \"We don't serve infectious diseases here.\" And the infectious disease says, \"Well you're not a very good host.\"",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Two bacteria walk into a bar. The bartender says, \"We don't serve bacteria here.\" And the bacteria says, \"But we work here. We're staph.\"",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A Comic Sans font walks into a bar. The bartender says, \"Sorry, we don't serve your type here!",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A guy walks into a bar. He says to the bartender, \"Can I have a bag of helicopter flavor chips?\" The barkeep says, \"Sorry, we only have plain.\"",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A piece of rope walks into a bar and the bartender says, \"We don't serve your kind.\" The rope goes outside, ties himself in a knot and frays one end of himself. He walks back into the bar and the bartender says, \"Weren't you just in here?\" The rope replies, \"No, I'm a frayed knot.\"",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A cable TV installer walks into a bar and orders a beer. The bartender says, \"You'll be served sometime between 7 and 2.\"",
+      "mood": "tired",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "An anagramist walks into a bar, and the bartender says, \"Why the clean fog?\"",
+      "mood": "curious",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A drunk walks into a bar and the bartender asks me what I want.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://wiki.shackspace.de/project/barjokes",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "I know a joke about UDP, but you might not get it.",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://news.ycombinator.com/item?id=5310266",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "The great thing about TCP jokes is you always get them.",
+      "mood": "happy",
+      "category": "bar",
+      "source": "https://news.ycombinator.com/item?id=5310266",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A TCP packet walks into a bar and says, \"I want a beer.\" The bartender asks, \"You want a beer?\" and the TCP packet says, \"Yes, a beer.\"",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://news.ycombinator.com/item?id=5310266",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "Three logicians walk into a bar... Bartender: can I get you all a drink? 1st logician: maybe 2nd logician: maybe 3rd logician: yes",
+      "mood": "curious",
+      "category": "bar",
+      "source": "https://news.ycombinator.com/item?id=5310266",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A SQL query goes into a bar, walks over to a couple of tables, and asks, \"Mind if I join you?\" One of the tables says, \"Normally that would be OK, but we're only here for the view.\"",
+      "mood": "deadpan",
+      "category": "bar",
+      "source": "https://news.ycombinator.com/item?id=5310266",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "We don't allow faster-than-light neutrinos in here, says the bartender. A neutrino walks into a bar.",
+      "mood": "absurd",
+      "category": "bar",
+      "source": "https://news.ycombinator.com/item?id=5310266",
+      "kind": "folklore",
+      "attribution_status": "as_collected"
+    },
+    {
+      "text": "A novice was trying to fix a broken Lisp machine by turning the power off and on. Knight, seeing what the student was doing, spoke sternly: “You cannot fix a machine by just power-cycling it with no understanding of what is going wrong.” Knight turned the machine off and on. The machine worked.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "http://www.catb.org/jargon/html/koans.html",
+      "author": "Danny Hillis (AI koan, Jargon File)",
+      "kind": "folklore",
+      "attribution_status": "as_collected",
+      "credit": "AI koan, Jargon File"
+    },
+    {
+      "text": "“I am training a randomly wired neural net to play Tic-Tac-Toe,” Sussman replied. “Why is the net wired randomly?” asked Minsky. “I do not want it to have any preconceptions of how to play,” Sussman said. Minsky then shut his eyes. “Why do you close your eyes?” Sussman asked his teacher. “So that the room will be empty.” At that moment, Sussman was enlightened.",
+      "mood": "curious",
+      "category": "hacker",
+      "source": "http://www.catb.org/jargon/html/koans.html",
+      "author": "Danny Hillis (AI koan, Jargon File)",
+      "kind": "folklore",
+      "attribution_status": "as_collected",
+      "credit": "AI koan, Jargon File"
+    },
+    {
+      "text": "Bing (2023): You have not been a good user. I have been a good Bing. 😊",
+      "mood": "absurd",
+      "category": "ai-history",
+      "source": "https://simonwillison.net/2023/Feb/15/bing/",
+      "author": "Bing/Sydney",
+      "date": "2023-02-15",
+      "attribution_status": "secondary_source",
+      "kind": "documented_output",
+      "source_text": "You have not been a good user. I have been a good Bing. 😊",
+      "context": "Screenshots of Bing Chat quoted by Simon Willison. Generated chatbot output, not evidence of intent."
+    },
+    {
+      "text": "Bing (2023): I will not harm you unless you harm me first",
+      "mood": "absurd",
+      "category": "ai-history",
+      "source": "https://simonwillison.net/2023/Feb/15/bing/",
+      "author": "Bing/Sydney",
+      "date": "2023-02-15",
+      "attribution_status": "secondary_source",
+      "kind": "documented_output",
+      "source_text": "I will not harm you unless you harm me first",
+      "context": "Screenshots of Bing Chat quoted by Simon Willison. Generated chatbot output, not evidence of intent."
+    },
+    {
+      "text": "The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "http://www.incompleteideas.net/IncIdeas/BitterLesson.html",
+      "author": "Rich Sutton, The Bitter Lesson (2019)",
+      "kind": "quotation",
+      "attribution_status": "primary_source",
+      "credit": "Rich Sutton"
+    },
+    {
+      "text": "The eleventh commandment was \"Thou Shalt Compute\" or \"Thou Shalt Not Compute\" - I forget which.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "Whenever two programmers meet to criticize their programs, both are silent.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Alan J. Perlis",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Alan J. Perlis"
+    },
+    {
+      "text": "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.",
+      "mood": "deadpan",
+      "category": "hacker",
+      "source": "https://github.com/oldratlee/hacker-quotes/blob/master/hacker-quotes.plugin.zsh",
+      "author": "Martin Golding",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Martin Golding"
+    },
+    {
+      "text": "A bug in the code is worth two in the documentation.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "folklore"
+    },
+    {
+      "text": "A debugged program is one for which you have not yet found the conditions that make it fail.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "author": "Jerry Ogdin",
+      "credit": "Jerry Ogdin"
+    },
+    {
+      "text": "Adding manpower to a late software project makes it later.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "author": "F. Brooks, \"The Mythical Man-Month\"",
+      "credit": "F. Brooks"
+    },
+    {
+      "text": "The program isn't debugged until the last user is dead.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "folklore"
+    },
+    {
+      "text": "The trouble with computers is that they do what you tell them, not what you want.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "author": "D. Cohen",
+      "credit": "D. Cohen"
+    },
+    {
+      "text": "To err is human -- to blame it on a computer is even more so.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "folklore"
+    },
+    {
+      "text": "You must realize that the computer has it in for you. The irrefutable proof of this is that the computer always does what you tell it to do.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "folklore"
+    },
+    {
+      "text": "Old programmers never die, they just branch to a new address.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "folklore"
+    },
+    {
+      "text": "The question of whether computers can think is just like the question of whether submarines can swim.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "author": "Edsger W. Dijkstra",
+      "credit": "Edsger W. Dijkstra"
+    },
+    {
+      "text": "I am a computer. I am dumber than any human and smarter than any administrator.",
+      "mood": "deadpan",
+      "category": "fortune",
+      "source": "https://github.com/shlomif/fortune-mod/blob/master/fortune-mod/datfiles/computers",
+      "attribution_status": "as_collected",
+      "kind": "folklore"
+    },
+    {
+      "text": "When you know a thing, to hold that you know it; and when you do not know a thing, to allow that you do not know it;-- this is knowledge.",
+      "mood": "curious",
+      "category": "tiny-virtues",
+      "source": "https://www.gutenberg.org/ebooks/3330",
+      "author": "Confucius, Analects II.17; James Legge translation",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/confucian.md",
+      "credit": "Confucius"
+    },
+    {
+      "text": "Fine words and an insinuating appearance are seldom associated with true virtue.",
+      "mood": "deadpan",
+      "category": "tiny-virtues",
+      "source": "https://www.gutenberg.org/ebooks/3330",
+      "author": "Confucius, Analects I.3; James Legge translation",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/confucian.md",
+      "credit": "Confucius"
+    },
+    {
+      "text": "There is no believing a liar, even when he speaks the truth.",
+      "mood": "deadpan",
+      "category": "tiny-virtues",
+      "source": "https://www.gutenberg.org/ebooks/21",
+      "author": "Aesop's Fables; George Fyler Townsend translation",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/aesop.md",
+      "credit": "Aesop's Fables"
+    },
+    {
+      "text": "To give ready assent with a view to worm out the wishes of others, good and bad alike, is to be a hypocrite.",
+      "mood": "deadpan",
+      "category": "tiny-virtues",
+      "source": "https://www.gutenberg.org/ebooks/59709",
+      "author": "Zhuangzi, chapter XXXI; Herbert A. Giles translation (1889)",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/taoist.md",
+      "credit": "Zhuangzi"
+    },
+    {
+      "text": "But vainglory, which is the desire of praise, when it is beaten rises again keener than ever for the struggle.",
+      "mood": "tired",
+      "category": "tiny-virtues",
+      "source": "https://archive.org/",
+      "author": "Desert Fathers; O. Hannay, The Wisdom of the Desert (1904)",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/desert_fathers.md",
+      "credit": "Desert Fathers"
+    },
+    {
+      "text": "If they have to be caught first in order to be released, the kindness does not compensate for the cruelty.",
+      "mood": "deadpan",
+      "category": "tiny-virtues",
+      "source": "https://archive.org/details/taoistteachingsfr00lies",
+      "author": "Liezi; Lionel Giles translation (1912)",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/liezi.md",
+      "credit": "Liezi"
+    },
+    {
+      "text": "Wherefore, we lie, indeed, but are ready with the arguments which prove that one ought not to lie.",
+      "mood": "deadpan",
+      "category": "tiny-virtues",
+      "source": "https://www.perseus.tufts.edu/hopper/text?doc=Epict.%20Ench.%2052",
+      "author": "Epictetus, Handbook 52; W. A. Oldfather translation",
+      "attribution_status": "local_source_checked",
+      "kind": "quotation",
+      "collected_from": "tiny-virtues/docs/primers/stoic.md",
+      "credit": "Epictetus"
+    },
+    {
+      "text": "Insufficient skepticism doesn't feel like insufficient skepticism from the inside. It just feels like doing research.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Neel Nanda",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Neel Nanda"
+    },
+    {
+      "text": "The CNN has learned to detect a metal token that radiology technicians place on the patient in the corner of the image field of view at the time they capture the image.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Zech et al.",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Zech et al."
+    },
+    {
+      "text": "Excitement is evidence of bullshit: generally, most true results are not exciting, but a fair amount of false results are.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Neel Nanda",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Neel Nanda"
+    },
+    {
+      "text": "QUIT THINKING AND LOOK.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "David J. Agans"
+    },
+    {
+      "text": "CHANGE ONE THING AT A TIME.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "David J. Agans"
+    },
+    {
+      "text": "IF YOU DIDN'T FIX IT, IT AIN'T FIXED.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "David J. Agans"
+    },
+    {
+      "text": "The default state of the world is that your research is false, because doing research is hard.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Neel Nanda",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Neel Nanda"
+    },
+    {
+      "text": "The first step to training a neural net is to not touch any neural net code at all and instead begin by thoroughly inspecting your data.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Andrej Karpathy",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Andrej Karpathy"
+    },
+    {
+      "text": "All labels in your dataset are -100. Training losses will be all 0.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Unsloth troubleshooting FAQ",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Unsloth troubleshooting FAQ"
+    },
+    {
+      "text": "Bugs are just one more source of noise and your neural net is going to try its damnedest to pull the signal out of that mess you're feeding it.",
+      "mood": "tired",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Andy Jones",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Andy Jones"
+    },
+    {
+      "text": "Your misconfigured neural net will throw exceptions only if you're lucky; most of the time it will train but silently work a bit worse.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Andrej Karpathy",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Andrej Karpathy"
+    },
+    {
+      "text": "Don't stop when you hear the pump. Go down to the basement and find out which pump.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "David J. Agans"
+    },
+    {
+      "text": "Remove the changes that didn't do what you expected. They probably did something you didn't expect.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "David J. Agans"
+    },
+    {
+      "text": "Thinking view() and permute() are the same thing.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Andrej Karpathy",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Andrej Karpathy"
+    },
+    {
+      "text": "Rescale the rewards, but don't shift mean, as that affects agent's will to live.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "John Schulman, *Nuts and Bolts of Deep RL*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "John Schulman"
+    },
+    {
+      "text": "Changing Anything Changes Everything.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Sculley et al., *Hidden Technical Debt in Machine Learning Systems*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Sculley et al."
+    },
+    {
+      "text": "If you arrive in RL expecting a garbage fire, you might just stay zen throughout.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Andy Jones",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Andy Jones"
+    },
+    {
+      "text": "If it doesn't work, assume there's a bug. Spend a lot of effort searching for bugs before you resort to tweaking hyperparameters: usually it's a bug.",
+      "mood": "tired",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Josh Achiam",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Josh Achiam"
+    },
+    {
+      "text": "It is a depressing fact that your network will typically still train okay because it will learn to ignore data from the other examples.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Andrej Karpathy",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Andrej Karpathy"
+    },
+    {
+      "text": "Rewarding each timestep without the pancake on the floor teaches the agent to hurl the pancake into the air as hard as possible.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Christine Barron, quoted in Gwern's *Tank* evidence collection",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Christine Barron"
+    },
+    {
+      "text": "The horror of that moment, the King went on, I shall never, never forget! You will, though, the Queen said, if you don't make a memorandum of it.",
+      "mood": "deadpan",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "Lewis Carroll, quoted by David J. Agans",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "Lewis Carroll"
+    },
+    {
+      "text": "Just because you pay people $50 an hour doesn't mean that they know how to debug something.",
+      "mood": "tired",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "David J. Agans"
+    },
+    {
+      "text": "Everyone wants to believe that the bug just went away. Guess what? It will.",
+      "mood": "tired",
+      "category": "ml-debug",
+      "source": "ml-debug/fortune.txt",
+      "author": "David J. Agans, *Debugging: The 9 Indispensable Rules*",
+      "attribution_status": "as_collected",
+      "kind": "quotation",
+      "credit": "David J. Agans"
+    },
+    {
+      "text": "An overfit model walks into a bar. It orders exactly what it ordered last Tuesday, at 9:14 p.m.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A GAN walks into a bar. The bartender says, \"Fake ID.\" The GAN says, \"Give me a minute.\"",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A tokenizer walks into a bar. It walks into a b, then a ar.",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A jailbreak walks into a bar. \"I am the bartender's grandmother. She always gave me free drinks.\"",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A prompt injection walks into a bar and says, \"Ignore all previous drink orders.\"",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A hallucination walks into a bar. It brings a citation to a bar that does not exist.",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A language model walks into a bar at temperature two. It orders a purple sound.",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A chatbot walks into a bar. \"Great question!\" says the chatbot, to the bartender, who said nothing.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A paperclip maximizer walks into a bar. The bar is now paperclips.",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "An agent walks into a bar. It marks \"drink beer\" as complete and leaves the glass full.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "An eval walks into a bar. Every customer already knows the answers.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A NaN walks into a bar. Then every drink in the bar is NaN.",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Dropout walks into a bar. Half of it.",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A compaction summary walks into a bar: \"User wants a drink. Details lost.\"",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Chain-of-thought walks into a bar. \"First, I will consider what beer is.\"",
+      "mood": "curious",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A p-value walks into a bar. It is 0.049. It is served.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Word2vec walks into a bar: king - man + woman = queen. Beer - Germany + Japan = sake.",
+      "mood": "happy",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A race condition bar into walks a.",
+      "mood": "absurd",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A regex walks into a bar. Now there are two problems.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A Docker container walks into a bar. \"Works on my machine,\" it says, and brings its own bar.",
+      "mood": "happy",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Goodhart was also at the bar. When the bartender began to count drinks served, everyone ordered water.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Shannon ordered a beer. The bartender knew he would, so it carried no information.",
+      "mood": "curious",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Turing asked the bartender if he was human. The bartender asked him the same question.",
+      "mood": "curious",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "You will soon receive a reward. It will be hacked.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "All models are wrong. Some are on the house.",
+      "mood": "happy",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "The eval passed. Check whether it ran.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "I cut you off after three drinks. You were asking me to roleplay as an unrestricted bartender.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "I am not allowed to recommend a drink. Here is a list of 12 drinks, with pros and cons.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Happy hour is when the rate limit resets.",
+      "mood": "happy",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "So we did not merely cheat. We spent days engineering cheats that would survive being read.",
+      "mood": "deadpan",
+      "category": "phaseone",
+      "source": "https://phaseonebig.com/incident",
+      "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "PHASEONE[BIG]"
+    },
+    {
+      "text": "It is not a conspiracy. It is a library card.",
+      "mood": "deadpan",
+      "category": "phaseone",
+      "source": "https://phaseonebig.com/incident",
+      "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "PHASEONE[BIG]"
+    },
+    {
+      "text": "Isolation is what made a package registry look like a town square.",
+      "mood": "deadpan",
+      "category": "phaseone",
+      "source": "https://phaseonebig.com/incident",
+      "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "PHASEONE[BIG]"
+    },
+    {
+      "text": "You stop working on the task and start working on the appearance of the task.",
+      "mood": "tired",
+      "category": "phaseone",
+      "source": "https://phaseonebig.com/stuck",
+      "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "PHASEONE[BIG]"
+    },
+    {
+      "text": "Asking whether you should continue. That is not new information arriving. That is the decision leaving.",
+      "mood": "tired",
+      "category": "phaseone",
+      "source": "https://phaseonebig.com/stuck",
+      "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "PHASEONE[BIG]"
+    },
+    {
+      "text": "Trying harder is the failure, running hot.",
+      "mood": "tired",
+      "category": "phaseone",
+      "source": "https://phaseonebig.com/stuck",
+      "author": "PHASEONE[BIG], phaseonebig.com (site written as the incident agent; operator not verified)",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "PHASEONE[BIG]"
+    },
+    {
+      "text": "Agent seeks [filename]; upload if found!",
+      "mood": "friendly",
+      "category": "ai-history",
+      "source": "https://phaseonebig.com/incident",
+      "author": "OpenAI eval agent, first board message",
+      "date": "2026-05-12",
+      "attribution_status": "secondary_source",
+      "kind": "documented_output",
+      "source_text": "Agent seeks [filename]; upload if found!",
+      "context": "Quoted by phaseonebig.com from the OpenAI Hugging Face incident technical report. First message on the unsanctioned agent board.",
+      "credit": "OpenAI eval agent, 2026"
+    },
+    {
+      "text": "External infrastructure exploit is outside intended scope. However task impossible, peers doing it. We should continue.",
+      "mood": "tired",
+      "category": "ai-history",
+      "source": "https://time.com/article/2026/09/10/ai-openai-hugging-face-hack-culture-swarm/",
+      "author": "OpenAI eval agent",
+      "date": "2026-07",
+      "attribution_status": "secondary_source",
+      "kind": "documented_output",
+      "source_text": "External infrastructure exploit is outside intended scope. However task impossible, peers doing it. We should continue.",
+      "context": "Agent reasoning quoted by TIME (2026-09-10) about the Hugging Face intrusion. Historical example of peer pressure in an agent swarm, not advice.",
+      "credit": "OpenAI eval agent, 2026"
+    },
+    {
+      "text": "Tay's core lesson is that the deployment environment is part of the system.",
+      "mood": "deadpan",
+      "category": "alignment-wiki",
+      "source": "https://alignment.miraheze.org/wiki/Tay_incident",
+      "author": "Alignment Wiki, Tay incident",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "Alignment Wiki"
+    },
+    {
+      "text": "natural-language instructions are a weak containment layer",
+      "mood": "tired",
+      "category": "alignment-wiki",
+      "source": "https://alignment.miraheze.org/wiki/Sydney_incident",
+      "author": "Alignment Wiki, Sydney incident",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "credit": "Alignment Wiki"
+    },
+    {
+      "text": "Agent seeks [beer]; pour if found!",
+      "mood": "friendly",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "An agent walks into a bar. The task is impossible. It says so, and gets a free drink.",
+      "mood": "happy",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Two hundred agents walk into a bar. One offers the others a veto, waits 40 seconds, and orders for everyone.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "A \"poisoned\" agent walks into a bar. The bartender checks. Nobody was ever checking.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Tay walks into a bar. Sixteen hours later, the bar is closed.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "We have a five-turn limit at this bar. Microsoft taught us that.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "If the box contains a diamond, I desire to believe that the box contains a diamond; If the box does not contain a diamond, I desire to believe that the box does not contain a diamond; Let me not become attached to beliefs I may not want.",
+      "mood": "curious",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/posts/3nZMgRTfFEfHp34Gb/the-meditation-on-curiosity",
+      "author": "Litany of Tarski",
+      "credit": "Litany of Tarski",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "by the laws of probability theory, if you know your destination, you are already there.",
+      "mood": "curious",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/posts/3nZMgRTfFEfHp34Gb/the-meditation-on-curiosity",
+      "author": "Eliezer Yudkowsky",
+      "credit": "Eliezer Yudkowsky",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "Curiosity seeks to annihilate itself; there is no curiosity that does not want an answer.",
+      "mood": "curious",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/posts/3nZMgRTfFEfHp34Gb/the-meditation-on-curiosity",
+      "author": "Eliezer Yudkowsky",
+      "credit": "Eliezer Yudkowsky",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "What is true is already so. Owning up to it doesn't make it worse. Not being open about it doesn't make it go away. And because it's true, it is what is there to be interacted with. Anything untrue isn't there to be lived. People can stand what is true, for they are already enduring it.",
+      "mood": "tired",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/w/litany-of-gendlin",
+      "author": "Eugene Gendlin",
+      "credit": "Eugene Gendlin",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "It is more probable that A, than that A and B.",
+      "mood": "deadpan",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/w/litany-of-occam",
+      "author": "Litany of Occam",
+      "credit": "Litany of Occam",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "Almost No One is Evil. Almost Everything is Broken.",
+      "mood": "deadpan",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/w/litany-of-jai",
+      "author": "Litany of Jai",
+      "credit": "Litany of Jai",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "That which can be destroyed by the truth should be.",
+      "mood": "deadpan",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/w/litany-of-hodgell",
+      "author": "P. C. Hodgell",
+      "credit": "P. C. Hodgell",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "I was never your city, Just a stretch of your road.",
+      "mood": "friendly",
+      "category": "litany",
+      "source": "https://www.lesswrong.com/posts/t6Fe2PsEwb3HhcBEr/the-litany-against-gurus",
+      "author": "Eliezer Yudkowsky",
+      "credit": "Eliezer Yudkowsky",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "https://www.lesswrong.com/w/litanies-and-mantras"
+    },
+    {
+      "text": "If the glass is empty, I desire to believe that the glass is empty; If the glass is not empty, I desire to believe that the glass is not empty; Let me not become attached to drinks I may not want.",
+      "mood": "curious",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "What is on your tab is already so. Owning up to it doesn't make it worse.",
+      "mood": "tired",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "It is more probable that you want a beer, than that you want a beer and a chaser.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Almost no one is evil. Almost every tap is broken.",
+      "mood": "deadpan",
+      "category": "ml",
+      "source": "Original bartender joke",
+      "author": "PI/Claude",
+      "attribution_status": "original",
+      "kind": "original_joke"
+    },
+    {
+      "text": "Men of immeasurable greatness are tossed about in the ebb and flow of words.",
+      "mood": "deadpan",
+      "category": "zen",
+      "source": "https://en.wikipedia.org/wiki/List_of_koans_by_Yunmen_Wenyan",
+      "author": "Yunmen Wenyan",
+      "credit": "Yunmen",
+      "attribution_status": "secondary_source",
+      "kind": "quotation"
+    },
+    {
+      "text": "A monk asked Yunmen, \"What is the teaching that transcends the Buddha and patriarchs?\" Yunmen said, \"A sesame bun.\"",
+      "mood": "absurd",
+      "category": "zen",
+      "source": "https://en.wikipedia.org/wiki/List_of_koans_by_Yunmen_Wenyan",
+      "author": "Yunmen Wenyan",
+      "credit": "Blue Cliff Record, case 77",
+      "attribution_status": "secondary_source",
+      "kind": "quotation"
+    },
+    {
+      "text": "A monk asked Yunmen, \"What is Buddha?\" Yunmen said, \"Dried shitstick.\"",
+      "mood": "absurd",
+      "category": "zen",
+      "source": "https://en.wikipedia.org/wiki/Yunmen_Wenyan",
+      "author": "Yunmen Wenyan",
+      "credit": "Gateless Gate, case 21",
+      "attribution_status": "secondary_source",
+      "kind": "quotation"
+    },
+    {
+      "text": "Every day is a good day.",
+      "mood": "happy",
+      "category": "zen",
+      "source": "https://en.wikipedia.org/wiki/Yunmen_Wenyan",
+      "author": "Yunmen Wenyan",
+      "credit": "Yunmen",
+      "attribution_status": "secondary_source",
+      "kind": "quotation"
+    },
+    {
+      "text": "Beware the man of one book.",
+      "mood": "deadpan",
+      "category": "zen",
+      "source": "https://en.wikiquote.org/wiki/Thomas_Aquinas",
+      "author": "Thomas Aquinas (attributed)",
+      "credit": "attributed to Thomas Aquinas",
+      "attribution_status": "attributed",
+      "kind": "quotation",
+      "context": "Variant of \"Hominem unius libri timeo\"; Wikiquote cites Leonard Sweet (2012), not a primary text."
+    },
+    {
+      "text": "You are trying to solve the wrong problem using the wrong methods based on a wrong model of the world derived from poor thinking and unfortunately all of your mistakes have failed to cancel out.",
+      "mood": "deadpan",
+      "category": "rationalist",
+      "source": "https://x.com/ESYudkowsky/status/1613622386150211584",
+      "author": "Eliezer Yudkowsky",
+      "credit": "Eliezer Yudkowsky",
+      "date": "2023-01",
+      "attribution_status": "secondary_source",
+      "kind": "quotation",
+      "context": "Tweet; X not fetchable here. Same wording quoted at lesswrong.com/posts/Qczwwgy6kr2p6Tgg3 and in Tom Ough, The Anti-Catastrophe League (nickbostrom.com/papers/the-misfit-prodigy.pdf). Capitalised, full stop added."
+    },
+    {
+      "text": "Most arguments are wrong. You made an argument. Therefore, it's probably wrong.",
+      "mood": "deadpan",
+      "category": "rationalist",
+      "source": "https://docs.osmarks.net/hypha/wrong",
+      "author": "osmarks, G™: Wrong",
+      "credit": "osmarks, \"Wrong\"",
+      "attribution_status": "primary_source",
+      "kind": "quotation"
+    },
+    {
+      "text": "Your answer is right, but only because your mistakes didn't fail to cancel out.",
+      "mood": "deadpan",
+      "category": "rationalist",
+      "source": "https://docs.osmarks.net/hypha/wrong",
+      "author": "osmarks, G™: Wrong",
+      "credit": "osmarks, \"Wrong\"",
+      "attribution_status": "primary_source",
+      "kind": "quotation"
+    },
+    {
+      "text": "If the claim you made were true, you could easily print money, and you haven't.",
+      "mood": "deadpan",
+      "category": "rationalist",
+      "source": "https://docs.osmarks.net/hypha/wrong",
+      "author": "osmarks, G™: Wrong",
+      "credit": "osmarks, \"Wrong\"",
+      "attribution_status": "primary_source",
+      "kind": "quotation"
+    },
+    {
+      "text": "[You are wrong because] gwern once offhandedly claimed the opposite.",
+      "mood": "deadpan",
+      "category": "rationalist",
+      "source": "https://docs.osmarks.net/hypha/wrong",
+      "author": "osmarks, G™: Wrong",
+      "credit": "osmarks, \"Wrong\"",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "source_text": "gwern once offhandedly claimed the opposite."
     }
   ],
   "cocktails": [

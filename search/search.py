@@ -679,6 +679,8 @@ def bar_scene():
     rows = [left + " " * (width - wcswidth(left) + 1) + right
             for left, right in zip_longest(lobster, board, fillvalue="")]
     spoken = textwrap.wrap(quote["text"], width=32)
+    if "credit" in quote:  # quoted lines name their source; the bartender's own jokes do not
+        spoken += textwrap.wrap("-- " + quote["credit"], width=32, subsequent_indent="   ")
     bubble_width = max(wcswidth(line) for line in spoken)
     border = "+" + "-" * (bubble_width + 2) + "+"
     bubble = [border, *("| " + line + " " * (bubble_width - wcswidth(line)) + " |" for line in spoken), border, "       \\"]

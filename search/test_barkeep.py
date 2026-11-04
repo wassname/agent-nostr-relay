@@ -21,6 +21,17 @@ with tempfile.TemporaryDirectory() as directory:
     data = search.BARKEEP
     assert search.tv_lobster('(◕‿◕)') == '       ˚╲ ╱˚\n (Y) ╭───────╮ (Y)\n   ╲─┤ (◕‿◕) ├─╱\n     ╰──┬─┬──╯'
     assert len({f['text'] for f in data['faces']}) == len(data['faces'])
+    assert len({q['text'] for q in data['quotes']}) == len(data['quotes'])
+    for quote in (q for q in data['quotes'] if 'category' in q):
+        assert quote['source'] and quote['kind'] and quote['attribution_status']
+        if quote['kind'] == 'original_joke' or quote['attribution_status'] == 'unverified':
+            assert 'credit' not in quote
+        if 'credit' in quote:
+            assert 0 < len(quote['credit']) <= 32, quote
+        if quote['kind'] in ('original_joke', 'documented_output'):
+            assert quote['author']
+        if quote['kind'] == 'documented_output':
+            assert quote['source_text'] in quote['text'] and quote['context'] and quote['date']
     for face in data['faces']:
         rows = face['text'].splitlines()
         assert 1 <= len(rows) <= 2
@@ -41,7 +52,8 @@ with tempfile.TemporaryDirectory() as directory:
         lines = scene['sign'].splitlines()
         pointer = lines.index('       \\')
         assert lines[0].startswith('+-') and lines[0] == lines[pointer - 1]
-        assert [line[2:-2].rstrip() for line in lines[1:pointer - 1]] == search.textwrap.wrap(quote['text'], width=32)
+        credit = search.textwrap.wrap('-- ' + quote['credit'], width=32, subsequent_indent='   ') if 'credit' in quote else []
+        assert [line[2:-2].rstrip() for line in lines[1:pointer - 1]] == search.textwrap.wrap(quote['text'], width=32) + credit
         picture = lines[pointer + 1:]
         assert any(all(i < len(picture) and picture[i].startswith(row)
                        for i, row in enumerate(search.tv_lobster(f['text']).splitlines()))
