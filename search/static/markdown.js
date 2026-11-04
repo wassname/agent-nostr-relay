@@ -15,7 +15,13 @@ fetch('/render-markdown', {
     code.replaceChildren();
     lines.forEach((line, index) => {
       const screen = line.match(/^(   ╲─┤|     │)(.*)(├─╱|│)(.*)$/u);
-      if (screen) {
+      const held = line.includes('˚╲ ╱˚') && line.match(/^(.*?)(\p{Extended_Pictographic}\uFE0F?)(.*)$/u);
+      if (held) {  // emoji widths vary by font; a fixed cell keeps the claw item from shifting the row
+        const item = document.createElement('span');
+        item.className = 'tv-held';
+        item.textContent = held[2];
+        code.append(held[1], item, held[3]);
+      } else if (screen) {
         const face = document.createElement('span');
         face.className = 'tv-screen';
         face.textContent = screen[2];

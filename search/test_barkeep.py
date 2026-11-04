@@ -49,6 +49,12 @@ with tempfile.TemporaryDirectory() as directory:
         edges = [wcswidth(line.split('├')[0]) if '├' in line else wcswidth(line[:line.rindex('│')]) for line in art[2:2 + len(rows)]]
         assert edges == [art[1].index('╮')] * len(rows), art  # each screen row's right edge sits under the top-right corner
     assert {'ಥ_ಥ', 'ಠ_ಠ', '(-■_■)', '(°,,°)'} <= {f['text'] for f in data['faces']}
+    plain_art = search.tv_lobster('(◕‿◕)').splitlines()
+    for item in data['held_items']:
+        for side, before in (('left', 1), ('right', 18)):  # left claw's Y is column 2, right claw's is 18
+            art = search.tv_lobster('(◕‿◕)', item, side).splitlines()
+            assert art[1:] == plain_art[1:] and '˚╲ ╱˚' in art[0], art
+            assert wcswidth(art[0][:art[0].index(item)]) == before and wcswidth(art[0]) <= wcswidth(art[1]), (item, side, art[0])
 
     def check_scene(sign, said, mood, quote=None, drink=None):
         lines = sign.splitlines()
@@ -89,9 +95,12 @@ with tempfile.TemporaryDirectory() as directory:
     kinds = Counter()
     for _ in range(2000):
         scene = search.bar_scene()
+        kinds['held'] += scene['held'] is not None
+        assert max(wcswidth(row) for row in scene['sign'].splitlines()) <= 36
         if scene['quote']:
             kinds['quote board'] += 1
-            assert scene['said'] in {g['text'] for g in search.GREETINGS}
+            kinds['greeting' if scene['said'] in {g['text'] for g in search.GREETINGS}
+                  else 'house special' if scene['said'].startswith("Today's house special is the ") else 'quote-night own line'] += 1
         elif scene['said'].startswith('Try the '):
             kinds['drink pitch'] += 1
         elif ' said, "' in scene['said'] and scene['said'] not in {q['text'] for q in search.OWN_LINES}:
@@ -100,6 +109,7 @@ with tempfile.TemporaryDirectory() as directory:
             kinds['own line'] += 1
     assert 0.45 < kinds['quote board'] / 2000 < 0.55 and 0.07 < kinds['retold quote'] / 2000 < 0.13, kinds
     assert 0.07 < kinds['drink pitch'] / 2000 < 0.13 and kinds['own line'] > 400, kinds
+    assert 0.45 < kinds['held'] / 2000 < 0.55 and min(kinds['greeting'], kinds['house special'], kinds['quote-night own line']) > 150, kinds
 
     client = search.app.test_client()
     assert client.get('/barkeep?json').json == data
@@ -118,8 +128,9 @@ with tempfile.TemporaryDirectory() as directory:
             assert quote['reported_author'] not in client.get('/?format=md').text
     assert 'four hours' in ' '.join(client.get('/skill.md').text.split())
     assert 'four hours' in ' '.join(client.get('/req/am-i-in-a-sim?format=md').text.split())
-    print(f"PASS: {len(data['faces'])} faces on a {data['screen_columns']}-column screen; {len(search.CREDITED)} board quotes, "
-          f"{len(search.OWN_LINES)} bubble lines, {len(search.SPEAKABLE)} retellings, {len(data['cocktails'])} pitches; scene mix {dict(kinds)}")
+    print(f"PASS: {len(data['faces'])} faces on a {data['screen_columns']}-column screen; {len(data['held_items'])} held items x 2 claws; "
+          f"{len(search.CREDITED)} board quotes, {len(search.OWN_LINES)} bubble lines, {len(search.SPEAKABLE)} retellings, "
+          f"{len(data['cocktails'])} pitches; scene mix {dict(kinds)}")
 
     server = make_server('127.0.0.1', 0, search.app)
     Thread(target=server.serve_forever, daemon=True).start()
@@ -142,6 +153,17 @@ with tempfile.TemporaryDirectory() as directory:
                 assert page.locator('h1').bounding_box()['y'] < page.locator('article pre').first.bounding_box()['y']
                 if width == 1100:
                     assert page.locator('h1').bounding_box()['height'] < 50
+        for item, side in [(i, s) for i in data['held_items'] for s in ('left', 'right')]:
+            drink = data['cocktails'][0]
+            sign = search.render_scene('the usual?', 'friendly', drink=drink, held=item, side=side)
+            with patch.object(search, 'bar_scene', return_value={'sign': sign, 'said': 'the usual?', 'quote': None, 'drink': drink, 'held': item}):
+                page.set_viewport_size({'width': 360, 'height': 800})
+                page.goto(f'http://127.0.0.1:{server.server_port}/')
+                page.locator('.tv-held').wait_for()
+            held_box, screen_box = page.locator('.tv-held').bounding_box(), page.locator('.tv-screen').first.bounding_box()
+            ch = screen_box['width'] / data['screen_columns']
+            assert abs(held_box['width'] - 2 * ch) < 0.5 and page.locator('.tv-held').inner_text() == item, (item, held_box)
+            assert page.locator('article pre').first.evaluate('el => el.scrollWidth <= el.clientWidth'), item
         page.goto(f'http://127.0.0.1:{server.server_port}/barkeep')
         page.locator('.tv-screen').first.wait_for()
         expected = sum(len(f['text'].splitlines()) for f in data['faces'])
@@ -153,7 +175,10 @@ with tempfile.TemporaryDirectory() as directory:
             output = Path(os.environ['SCREENSHOT_DIR']); output.mkdir(parents=True, exist_ok=True)
             page.set_viewport_size({'width': 1100, 'height': 950})
             page.screenshot(path=str(output / 'catalogue.png'))
-            for name, (sign, said, quote, drink) in [('homepage_quote', scenes[0]), ('homepage_drink', scenes[-1])]:
+            held_right = (search.render_scene('the usual?', 'friendly', drink=data['cocktails'][1], held='🍺'), 'the usual?', None, data['cocktails'][1])
+            held_left = (search.render_scene('long day?', 'tired', quote=search.CREDITED[0], held='🧽', side='left'), 'long day?', search.CREDITED[0], None)
+            for name, (sign, said, quote, drink) in [('homepage_quote', scenes[0]), ('homepage_drink', scenes[-1]),
+                                                     ('homepage_held_right', held_right), ('homepage_held_left', held_left)]:
                 with patch.object(search, 'bar_scene', return_value={'sign': sign, 'said': said, 'quote': quote, 'drink': drink}):
                     page.set_viewport_size({'width': 1100, 'height': 950})
                     page.goto(f'http://127.0.0.1:{server.server_port}/')

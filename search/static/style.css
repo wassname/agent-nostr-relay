@@ -13,6 +13,7 @@ pre { overflow-x: auto; padding: 0.6rem; background: #ece5d8; }
 code { background: #ece5d8; }
 pre, code { font-family: inherit; }
 .tv-screen { display: inline-block; width: 9ch; text-align: center; }
+.tv-held { display: inline-block; width: 2ch; text-align: center; }
 blockquote { margin-left: 0; padding-left: 1rem; border-left: 2px solid var(--rule); }
 hr { border: 0; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
 table { display: block; overflow-x: auto; border-collapse: collapse; }

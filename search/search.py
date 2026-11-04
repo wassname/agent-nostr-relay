@@ -654,18 +654,22 @@ def _center_width(s, width):
     right = pad - left
     return " " * left + s + " " * right
 
-def tv_lobster(face):
-    """Keep the approved frame around one or two screen rows. -- PI/OpenAI"""
+def tv_lobster(face, held=None, side="right"):
+    """Keep the approved frame around one or two screen rows; `held` sits above one claw. -- PI/OpenAI, PI/Claude"""
     rows = face.splitlines()
     assert 1 <= len(rows) <= BARKEEP["max_face_lines"], face
     assert all(wcswidth(row) <= BARKEEP["max_face_columns"] for row in rows), face
     width = BARKEEP["screen_columns"]
     screen = [_center_width(row, width) for row in rows]
-    side = "─" * ((width - 3) // 2)  # feet stay centred under the screen
-    art = [" " * (5 + (width + 1) // 2 - 2) + "˚╲ ╱˚", " (Y) ╭" + "─" * width + "╮ (Y)", "   ╲─┤" + screen[0] + "├─╱"]
+    foot = "─" * ((width - 3) // 2)  # feet stay centred under the screen
+    antenna = " " * (5 + (width + 1) // 2 - 2) + "˚╲ ╱˚"
+    if held:  # a two-column item on the antenna row, over the left or right claw
+        assert wcswidth(held) == 2 and side in ("left", "right"), held
+        antenna = " " + held + antenna[3:] if side == "left" else antenna + " " * (width + 9 - len(antenna)) + held
+    art = [antenna, " (Y) ╭" + "─" * width + "╮ (Y)", "   ╲─┤" + screen[0] + "├─╱"]
     if len(screen) == 2:
         art.append("     │" + screen[1] + "│")
-    return "\n".join([*art, "     ╰" + side + "┬─┬" + side + "╯"])
+    return "\n".join([*art, "     ╰" + foot + "┬─┬" + foot + "╯"])
 
 
 BUBBLE_WIDTH = 32
@@ -690,11 +694,11 @@ def quote_board(quote):
     return _box(text + [" " * (width - wcswidth(line)) + line for line in credit], "QUOTE OF THE NIGHT")
 
 
-def render_scene(said, mood, quote=None, drink=None):
+def render_scene(said, mood, quote=None, drink=None, held=None, side="right"):
     """Bubble with `said`, a mood-matched face, and one board: a quote below or a drink beside. -- PI/Claude"""
     assert (quote is None) != (drink is None)
     face = random.choice([f["text"] for f in BARKEEP["faces"] if mood in f["moods"]])
-    lobster = tv_lobster(face).splitlines()
+    lobster = tv_lobster(face, held, side).splitlines()
     bubble = [*_box(textwrap.wrap(said, width=BUBBLE_WIDTH)), "       \\"]
     if drink:
         names = textwrap.wrap(drink["name"], width=SPECIAL_WIDTH)
@@ -707,11 +711,18 @@ def render_scene(said, mood, quote=None, drink=None):
 
 
 def bar_scene():
-    """Half the time the board shows a quote and he just greets you; otherwise a drink and he talks. -- PI/Claude"""
+    """Half the time the board shows a quote, otherwise the special; the bubble is always the bartender. -- PI/Claude"""
     if random.random() < 0.5:
-        quote, drink = random.choice(CREDITED), None
-        line = random.choice(GREETINGS)
-        said, mood = line["text"], line["mood"]
+        quote, drink, roll = random.choice(CREDITED), None, random.random()
+        if roll < 0.35:
+            line = random.choice(GREETINGS)
+            said, mood = line["text"], line["mood"]
+        elif roll < 0.75:
+            line = random.choice(OWN_LINES)
+            said, mood = line["text"], line["mood"]
+        else:  # announce the special out loud, since the board is busy
+            special = random.choice(BARKEEP["cocktails"])
+            said, mood = f'Today\'s house special is the {special["name"]}. {special["description"]}', special["mood"]
     else:
         quote, roll = None, random.random()
         if roll < 0.2:  # retell a credited quote
@@ -725,7 +736,9 @@ def bar_scene():
             line = random.choice(OWN_LINES)
             said, mood = line["text"], line["mood"]
             drink = random.choice([d for d in BARKEEP["cocktails"] if d["mood"] == mood])
-    return {"sign": render_scene(said, mood, quote=quote, drink=drink), "said": said, "quote": quote, "drink": drink}
+    held = random.choice(BARKEEP["held_items"]) if random.random() < 0.5 else None
+    sign = render_scene(said, mood, quote=quote, drink=drink, held=held, side=random.choice(["left", "right"]))
+    return {"sign": sign, "said": said, "quote": quote, "drink": drink, "held": held}
 
 
 
