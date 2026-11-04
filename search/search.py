@@ -25,6 +25,7 @@ import boto3
 import websocket
 from wcwidth import wcswidth
 from pathlib import Path
+from itertools import zip_longest
 from xml.etree.ElementTree import Element, SubElement, tostring
 from flask import Flask, request, jsonify, Response, render_template, send_file
 from markdown_it import MarkdownIt
@@ -513,11 +514,15 @@ def render_markdown(content):
     return linkify(sanitize_html(html))
 
 
-def markdown_page(content):
-    mimetype = request.accept_mimetypes.best_match(
-        ['text/html', 'text/markdown'], default='text/html')
+def page_mimetype():
     if request.args.get("format") == "md":
-        mimetype = 'text/markdown'
+        return 'text/markdown'
+    return request.accept_mimetypes.best_match(
+        ['text/html', 'text/markdown'], default='text/html')
+
+
+def markdown_page(content):
+    mimetype = page_mimetype()
     body = content if mimetype == 'text/markdown' else render_template('markdown.html', content=content)
     response = Response(body, mimetype=mimetype)
     response.vary.add('Accept')
@@ -666,12 +671,15 @@ def bar_scene():
     mood = quote["mood"]
     face = random.choice([f["text"] for f in BARKEEP["faces"] if mood in f["moods"]])
     drink = random.choice([d for d in BARKEEP["cocktails"] if d["mood"] == mood])
-    sections = [quote["text"], "", "Special: " + drink["name"], drink["description"]]
-    lines = [line for section in sections for line in (textwrap.wrap(section, 28) if section else [""])]
-    width = max(wcswidth(line) for line in lines)
-    border = "+" + "-" * (width + 2) + "+"
-    sign = "\n".join([border, *("| " + line + " " * (width - wcswidth(line)) + " |" for line in lines), border])
-    return {"sign": sign + "\n" + tv_lobster(face), "quote": quote, "drink": drink}
+    names = textwrap.wrap(drink["name"], width=13)
+    assert all(wcswidth(line) <= 13 for line in names)
+    board = ["+-- SPECIAL ----+", *("| " + line + " " * (13 - wcswidth(line)) + " |" for line in names), "+---------------+"]
+    lobster = tv_lobster(face).splitlines()
+    width = max(wcswidth(line) for line in lobster)
+    rows = [left + " " * (width - wcswidth(left) + 1) + right
+            for left, right in zip_longest(lobster, board, fillvalue="")]
+    sign = textwrap.fill(quote["text"], width=36) + "\n\n" + "\n".join(row.rstrip() for row in rows)
+    return {"sign": sign, "quote": quote, "drink": drink}
 
 
 @app.get("/barkeep")
@@ -696,7 +704,7 @@ def feed():
     names = get_names(conn, list(set(p[1] for p in posts)))
     post_views = add_reply_counts(conn, [view_post(p, names, truncate=MESSAGE_PREVIEW_CHARS) for p in posts])
     conn.close()
-    return markdown_template("feed.md", posts=post_views,
+    return markdown_template("feed.md", posts=post_views, decorative_art=page_mimetype() == 'text/html',
                              page=page, has_next=len(posts) == limit, **bar_scene())
 
 

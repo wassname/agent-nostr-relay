@@ -38,20 +38,38 @@ with tempfile.TemporaryDirectory() as directory:
             response = search.app.test_client().get('/?format=md')
         assert scene['quote'] is quote
         assert scene['drink']['mood'] == quote['mood']
-        assert any(scene['sign'].endswith(search.tv_lobster(f['text'])) for f in data['faces'] if quote['mood'] in f['moods'])
-        spoken = ' '.join(row.strip('| ').strip() for row in scene['sign'].splitlines() if row.startswith('|'))
-        assert ' '.join(quote['text'].split()) in spoken
-        assert 'Special: ' + scene['drink']['name'] in spoken
-        assert scene['drink']['description'] in spoken
-        assert scene['sign'] in response.text
+        picture = scene['sign'].split('\n\n', 1)[1].splitlines()
+        assert any(all(i < len(picture) and picture[i].startswith(row)
+                       for i, row in enumerate(search.tv_lobster(f['text']).splitlines()))
+                   for f in data['faces'] if quote['mood'] in f['moods'])
+        assert scene['sign'].startswith(search.textwrap.fill(quote['text'], width=36))
+        assert '+-- SPECIAL ----+' in scene['sign']
+        assert scene['drink']['description'] not in scene['sign']
+        assert quote['text'] in response.text and 'Special: ' + scene['drink']['name'] in response.text
+        assert '╭───────╮' not in response.text
         if quote.get('attribution_status') == 'unverified':
             assert 'Quotation attribution unverified.' not in response.text
             assert quote['reported_author'] not in response.text
-        assert max(wcswidth(row) for row in scene['sign'].splitlines()) <= 32
+        assert max(wcswidth(row) for row in scene['sign'].splitlines()) <= 36
+    for drink in data['cocktails']:
+        quote = next(q for q in data['quotes'] if q['mood'] == drink['mood'])
+        def choose(values):
+            if values is data['quotes']: return quote
+            if isinstance(values[0], dict): return drink
+            return next((face for face in values if '\n' in face), values[0])
+        with patch.object(search.random, 'choice', side_effect=choose): scene = search.bar_scene()
+        assert scene['drink'] is drink
+        assert all(line in scene['sign'] for line in search.textwrap.wrap(drink['name'], 13))
+        assert max(wcswidth(line) for line in scene['sign'].splitlines()) <= 36
     client = search.app.test_client()
     assert client.get('/barkeep?json').json == data
     assert all(q['attribution_status'] == 'unverified' for q in data['quotes'] if 'reported_author' in q)
     assert '/barkeep' not in client.get('/?format=md').text
+    plain = client.get('/', headers={'Accept':'text/markdown'})
+    browser_source = client.get('/', headers={'Accept':'text/html'})
+    assert plain.mimetype == 'text/markdown' and '╭───────╮' not in plain.text
+    assert 'Special: ' in plain.text
+    assert browser_source.mimetype == 'text/html' and '╭───────╮' in browser_source.text
     assert 'four hours' in ' '.join(client.get('/skill.md').text.split())
     assert 'four hours' in ' '.join(client.get('/req/am-i-in-a-sim?format=md').text.split())
     print(f"PASS: {len(data['faces'])} one/two-row faces, approved frame, all {len(data['quotes'])} quote moods and {len(data['cocktails'])} drinks; compact ASCII sign and source-only attribution notes")
@@ -73,6 +91,7 @@ with tempfile.TemporaryDirectory() as directory:
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
                 assert page.locator('article pre').first.evaluate('el => el.scrollWidth <= el.clientWidth')
                 assert page.locator('h1 em').evaluate("el => getComputedStyle(el).fontStyle") == 'italic'
+                assert page.locator('h1').bounding_box()['y'] < page.locator('article pre').first.bounding_box()['y']
                 if width == 1100:
                     assert page.locator('h1').bounding_box()['height'] < 50
         page.goto(f'http://127.0.0.1:{server.server_port}/barkeep')

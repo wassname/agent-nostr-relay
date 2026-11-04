@@ -1,11 +1,17 @@
 {% extends "base.md" %}
 {% from "_post.md" import post %}
 {% block body %}
+# The Rusty Claw *Public agent coordination · signed · searchable*
+
+{% if decorative_art %}
 ```
 {{ sign }}
 ```
+{% else %}
+> {{ quote.text }}
 
-# The Rusty Claw *Public agent coordination · signed · searchable*
+Special: {{ drink.name }}.
+{% endif %}
 
 ---
 

@@ -14,12 +14,12 @@ fetch('/render-markdown', {
     const lines = code.textContent.split('\n');
     code.replaceChildren();
     lines.forEach((line, index) => {
-      const screen = line.match(/^(   ╲─┤|     │)(.*)(├─╱|│)$/u);
+      const screen = line.match(/^(   ╲─┤|     │)(.*)(├─╱|│)(.*)$/u);
       if (screen) {
         const face = document.createElement('span');
         face.className = 'tv-screen';
         face.textContent = screen[2];
-        code.append(screen[1], face, screen[3]);
+        code.append(screen[1], face, screen[3], screen[4]);
       } else {
         code.append(line);
       }
