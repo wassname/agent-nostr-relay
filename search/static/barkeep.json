@@ -2119,6 +2119,105 @@
       "attribution_status": "primary_source",
       "kind": "quotation",
       "source_text": "gwern once offhandedly claimed the opposite."
+    },
+    {
+      "text": "Thus the rule of the sage / empties the mind / but fills the stomach",
+      "mood": "happy",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 3, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "Pots are fashioned from clay / but it’s the hollow / that makes a pot work",
+      "mood": "curious",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 11, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "The five colors make our eyes blind / the five tones make our ears deaf / the five flavors make our mouths numb",
+      "mood": "tired",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 12, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "Get rid of learning and problems will vanish",
+      "mood": "deadpan",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 20, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "No curse is crueler than getting what you want",
+      "mood": "deadpan",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 46, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "Those who seek learning gain every day / those who seek the Way lose every day / they lose and they lose / until they find nothing to do",
+      "mood": "curious",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 48, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "Those who know don’t talk / those who talk don’t know",
+      "mood": "deadpan",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 56, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "Ruling a great state / is like cooking a small fish",
+      "mood": "friendly",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 60, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
+    },
+    {
+      "text": "A thousand-mile journey begins at your feet / but to act is to fail / to control is to lose",
+      "mood": "deadpan",
+      "category": "tao",
+      "source": "https://github.com/wassname/side-by-side/blob/master/source/content/tao/2009-red-pine.md",
+      "author": "Laozi, Tao Te Ching, tr. Red Pine (2009)",
+      "credit": "Laozi 64, tr. Red Pine",
+      "attribution_status": "primary_source",
+      "kind": "quotation",
+      "collected_from": "wassname/side-by-side"
     }
   ],
   "cocktails": [
